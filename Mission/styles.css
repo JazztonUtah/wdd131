@@ -91,21 +91,7 @@ footer {
 }
 
 .logo {
-    display: inline-block;
-}
-
-.byu-text {
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: #006EB6;
-    letter-spacing: 2px;
-    line-height: 0.9;
-}
-
-.idaho-text {
-    font-size: 1.8rem;
-    color: #006EB6;
-    letter-spacing: 6px;
-    margin-top: -5px;
+    width: 150px;
+    height: auto;
 }
 
