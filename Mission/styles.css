@@ -46,6 +46,15 @@ header {
     text-transform: uppercase;
 }
 
+#theme-selector {
+    margin-top: 20px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
 /* Main content area */
 main {
     flex: 1;
@@ -93,5 +102,26 @@ footer {
 .logo {
     width: 150px;
     height: auto;
+}
+
+/* Dark theme styles */
+.dark {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.dark .container {
+    background-color: #333;
+    border-color: #555;
+}
+
+.dark .university-name {
+    color: #87ceeb;
+}
+
+.dark #theme-selector {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border: 1px solid #555;
 }
 
