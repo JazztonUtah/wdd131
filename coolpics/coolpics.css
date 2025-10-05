@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Mooli&display=swap");
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+}
+
+h1, h2 {
+  font-family: 'Mooli', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #34495e;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Header Styles */
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+header h1 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #34495e;
+  text-decoration: none;
+}
+
+/* Main Content */
+main {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+main h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Gallery Styles */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.gallery figure {
+  margin: 0;
+  text-align: center;
+}
+
+.gallery img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #34495e;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media Queries for Responsive Design */
+
+/* First breakpoint at 700px - switch to 2 column gallery */
+@media (min-width: 700px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Second breakpoint at 1000px - switch to 3 column gallery and horizontal nav */
+@media (min-width: 1000px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  /* Navigation stays horizontal at this size */
+  nav ul {
+    justify-content: center;
+  }
+  
+  /* Hide any menu button if it exists */
+  .menu-button {
+    display: none;
+  }
+  
+  /* Adjust main padding for larger screens */
+  main {
+    padding: 3rem 2rem;
+  }
+}

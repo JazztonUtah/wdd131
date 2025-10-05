@@ -1,0 +1,38 @@
+/* Default styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, main, footer {
+    max-width: 640px;
+    margin: 1rem auto;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    background-color: #D0E0F0;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+section {
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+/* Media query for viewport width 500px and greater */
+@media screen and (min-width: 500px) {
+    header {
+        background-color: black;
+        color: white;
+    }
+    
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
