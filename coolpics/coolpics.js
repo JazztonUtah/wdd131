@@ -9,7 +9,7 @@ menuButton.addEventListener('click', function() {
 
 // Function to handle window resize
 function handleResize() {
-  if (window.innerWidth > 1000) {
+  if (window.innerWidth > 700) {
     // Remove the show class on larger screens (CSS will handle visibility)
     menu.classList.remove('show');
   } else {
@@ -24,20 +24,38 @@ window.addEventListener('resize', handleResize);
 // Call handleResize immediately when page loads
 handleResize();
 
-// Image Viewer Modal functionality
+// Viewer Template Function - returns HTML template for the modal
+function viewerTemplate(pic, alt) {
+  return `<div class="viewer">
+    <button class="close-viewer">X</button>
+    <img src="${pic}" alt="${alt}">
+  </div>`;
+}
+
+// Target the gallery
+const gallery = document.querySelector('.gallery');
+
+// Function to handle gallery image clicks
 function viewHandler(event) {
-  // Get the clicked image element
-  const clickedImage = event.target;
+  // Find which image was clicked
+  const clickedImage = event.target.closest('img');
   
-  // Get the src attribute - we'll use the full size image
-  const imgSrc = clickedImage.src.split('-')[0] + '-full.jpeg';
-  const imgAlt = clickedImage.alt;
+  // If no image was clicked, return early
+  if (!clickedImage) return;
+  
+  // Get the src and alt attributes
+  const src = clickedImage.src;
+  const alt = clickedImage.alt;
+  
+  // Create the full-size image source
+  // Split at '-' and replace 'sm' with 'full'
+  const fullSrc = src.split('-')[0] + '-full.jpeg';
   
   // Create the dialog element
   const dialog = document.createElement('dialog');
   
-  // Set the innerHTML with the image and close button
-  dialog.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}"><button class='close-viewer'>X</button>`;
+  // Use the viewerTemplate function to set the innerHTML
+  dialog.innerHTML = viewerTemplate(fullSrc, alt);
   
   // Append dialog to the body
   document.body.appendChild(dialog);
@@ -49,21 +67,18 @@ function viewHandler(event) {
   const closeButton = dialog.querySelector('.close-viewer');
   closeButton.addEventListener('click', function() {
     dialog.close();
-    dialog.remove(); // Remove the dialog from the DOM after closing
+    dialog.remove();
   });
   
-  // Also allow clicking outside the image to close
-  dialog.addEventListener('click', function(e) {
-    if (e.target === dialog) {
+  // Function to close modal when clicking outside the image
+  dialog.addEventListener('click', function(event) {
+    // Check if the click was on the dialog backdrop (not on the image or button)
+    if (event.target === dialog) {
       dialog.close();
       dialog.remove();
     }
   });
 }
 
-// Add click event listeners to all gallery images
-const galleryImages = document.querySelectorAll('.gallery img');
-galleryImages.forEach(function(image) {
-  image.addEventListener('click', viewHandler);
-});
-
+// Add event listener to the gallery (event delegation)
+gallery.addEventListener('click', viewHandler);
