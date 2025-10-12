@@ -171,12 +171,6 @@ dialog {
   z-index: 10;
 }
 
-.viewer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 dialog img {
   width: 90%;
   max-height: 100%;
@@ -198,7 +192,6 @@ dialog img {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-  z-index: 11;
 }
 
 .close-viewer:hover {

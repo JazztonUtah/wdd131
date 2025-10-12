@@ -26,10 +26,7 @@ handleResize();
 
 // Viewer Template Function - returns HTML template for the modal
 function viewerTemplate(pic, alt) {
-  return `<div class="viewer">
-    <button class="close-viewer">X</button>
-    <img src="${pic}" alt="${alt}">
-  </div>`;
+  return `<img src="${pic}" alt="${alt}"><button class='close-viewer'>X</button>`;
 }
 
 // Target the gallery
