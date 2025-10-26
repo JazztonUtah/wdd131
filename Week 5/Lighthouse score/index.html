@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighthouse Score Analysis - DIYDEVIN.com</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: #f7f8f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .lighthouse-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: white;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .header-section h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        
+        .header-section p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        
+        .score-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .score-card {
+            text-align: center;
+            position: relative;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+        
+        .score-circle svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+        
+        .score-circle-bg {
+            fill: none;
+            stroke: #e0e0e0;
+            stroke-width: 8;
+        }
+        
+        .score-circle-fill {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+        
+        .score-card.performance .score-circle-fill { stroke: #ffa400; }
+        .score-card.accessibility .score-circle-fill { stroke: #0cce6b; }
+        .score-card.best-practices .score-circle-fill { stroke: #ffa400; }
+        .score-card.seo .score-circle-fill { stroke: #0cce6b; }
+        
+        .score-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+        
+        .score-card.performance .score-number { color: #ffa400; }
+        .score-card.accessibility .score-number { color: #0cce6b; }
+        .score-card.best-practices .score-number { color: #ffa400; }
+        .score-card.seo .score-number { color: #0cce6b; }
+        
+        .score-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .score-description {
+            display: none;
+        }
+        
+        .score-legend {
+            text-align: center;
+            margin: 20px 0 40px;
+            padding: 15px;
+            background: #f7f8f9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .score-legend span {
+            margin: 0 15px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .score-legend .legend-icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .legend-icon.red { background: #ff4e42; }
+        .legend-icon.orange { background: #ffa400; }
+        .legend-icon.green { background: #0cce6b; }
+        
+        .analysis-section {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .issue-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .issue-item {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ff6b6b;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .issue-item.warning { border-left-color: #ffa726; }
+        .issue-item.info { border-left-color: #42a5f5; }
+        
+        .issue-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .issue-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #2e7d32;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .website-preview {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .website-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .website-url {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        
+        .analysis-date {
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .performance-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .performance-section h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #333;
+            margin-top: 20px;
+        }
+        
+        .large-score-circle {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .large-score-circle svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+        
+        .large-score-circle .score-number {
+            font-size: 4rem;
+            color: #ffa400;
+        }
+        
+        .large-score-circle .score-circle-fill {
+            stroke: #ffa400;
+        }
+        
+        @media (max-width: 768px) {
+            .score-grid {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+            
+            .score-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lighthouse-container">
+        <div class="header-section">
+            <h1>🔍 Lighthouse Score Analysis</h1>
+            <p>Comprehensive performance audit for DIYDEVIN.com</p>
+        </div>
+        
+        <div class="website-preview">
+            <div class="website-info">
+                <strong>Website:</strong>
+                <span class="website-url">https://www.diydevin.com</span>
+            </div>
+            <p><strong>Description:</strong> DIYDEVIN is a comprehensive DIY and automotive content website featuring truck videos, tips and tricks, product reviews, and classic car content. The site focuses on helping users save time and money through DIY projects and maintenance.</p>
+        </div>
+        <div class="score-grid" id="scoreGrid">
+            <div class="score-card performance">
+                <div class="score-circle">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="score-circle-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="score-circle-fill" cx="60" cy="60" r="54" 
+                                stroke-dasharray="339.292" 
+                                stroke-dashoffset="101.787"></circle>
+                    </svg>
+                    <div class="score-number">70</div>
+                </div>
+                <div class="score-label">Performance</div>
+            </div>
+            
+            <div class="score-card accessibility">
+                <div class="score-circle">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="score-circle-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="score-circle-fill" cx="60" cy="60" r="54" 
+                                stroke-dasharray="339.292" 
+                                stroke-dashoffset="37.322"></circle>
+                    </svg>
+                    <div class="score-number">89</div>
+                </div>
+                <div class="score-label">Accessibility</div>
+            </div>
+            
+            <div class="score-card best-practices">
+                <div class="score-circle">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="score-circle-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="score-circle-fill" cx="60" cy="60" r="54" 
+                                stroke-dasharray="339.292" 
+                                stroke-dashoffset="88.215"></circle>
+                    </svg>
+                    <div class="score-number">74</div>
+                </div>
+                <div class="score-label">Best Practices</div>
+            </div>
+            
+            <div class="score-card seo">
+                <div class="score-circle">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="score-circle-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="score-circle-fill" cx="60" cy="60" r="54" 
+                                stroke-dasharray="339.292" 
+                                stroke-dashoffset="33.929"></circle>
+                    </svg>
+                    <div class="score-number">90</div>
+                </div>
+                <div class="score-label">SEO</div>
+            </div>
+        </div>
+        
+        <div class="score-legend">
+            <span><span class="legend-icon red"></span>0–49</span>
+            <span><span class="legend-icon orange"></span>50–89</span>
+            <span><span class="legend-icon green"></span>90–100</span>
+        </div>
+        
+        <div class="performance-section" id="performanceSection">
+            <div class="large-score-circle">
+                <svg viewBox="0 0 180 180">
+                    <circle class="score-circle-bg" cx="90" cy="90" r="80" stroke-width="12"></circle>
+                    <circle class="score-circle-fill" cx="90" cy="90" r="80" 
+                            stroke-dasharray="502.655" 
+                            stroke-dashoffset="150.796"
+                            stroke-width="12"
+                            id="largeCircleFill"></circle>
+                </svg>
+                <div class="score-number" id="largeScoreNumber">70</div>
+            </div>
+            <h2>Performance</h2>
+        </div>
+        
+        <div class="analysis-section">
+            <h2 class="section-title">📊 Performance Analysis</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">3.2s</div>
+                    <div class="metric-label">First Contentful Paint</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5.8s</div>
+                    <div class="metric-label">Largest Contentful Paint</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">220ms</div>
+                    <div class="metric-label">Total Blocking Time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.18</div>
+                    <div class="metric-label">Cumulative Layout Shift</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">6.5s</div>
+                    <div class="metric-label">Speed Index</div>
+                </div>
+            </div>
+            
+            <ul class="issue-list">
+                <li class="issue-item">
+                    <div class="issue-title">🚨 Large Images Without Optimization</div>
+                    <div class="issue-description">The website contains unoptimized images that are slowing down page load times.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Compress images using tools like TinyPNG or WebP format. Implement lazy loading for images below the fold.
+                    </div>
+                </li>
+                
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Render-Blocking Resources</div>
+                    <div class="issue-description">CSS and JavaScript files are blocking the initial page render.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Minify CSS and JavaScript, use critical CSS inlining, and defer non-critical JavaScript.
+                    </div>
+                </li>
+                
+                <li class="issue-item info">
+                    <div class="issue-title">ℹ️ Missing Caching Headers</div>
+                    <div class="issue-description">Static resources lack proper caching headers for better performance.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Implement proper cache headers for static assets (CSS, JS, images) with appropriate expiration times.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="analysis-section">
+            <h2 class="section-title">♿ Accessibility Analysis</h2>
+            <ul class="issue-list">
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Missing Alt Text for Images</div>
+                    <div class="issue-description">Several images lack descriptive alt text, making the site less accessible to screen readers.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Add descriptive alt text to all images, especially product images and video thumbnails.
+                    </div>
+                </li>
+                
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Low Color Contrast</div>
+                    <div class="issue-description">Some text elements have insufficient color contrast ratios.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Ensure all text has a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text.
+                    </div>
+                </li>
+                
+                <li class="issue-item info">
+                    <div class="issue-title">ℹ️ Missing Focus Indicators</div>
+                    <div class="issue-description">Interactive elements lack clear focus indicators for keyboard navigation.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Add visible focus indicators to all interactive elements for better keyboard navigation.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="analysis-section">
+            <h2 class="section-title">🔧 Best Practices Analysis</h2>
+            <ul class="issue-list">
+                <li class="issue-item">
+                    <div class="issue-title">🚨 Mixed Content Issues</div>
+                    <div class="issue-description">The site loads some resources over HTTP instead of HTTPS, creating security vulnerabilities.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Ensure all resources are loaded over HTTPS to maintain security and avoid mixed content warnings.
+                    </div>
+                </li>
+                
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Outdated JavaScript Libraries</div>
+                    <div class="issue-description">Some JavaScript libraries may be outdated and contain security vulnerabilities.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Update all JavaScript libraries to their latest secure versions and remove unused dependencies.
+                    </div>
+                </li>
+                
+                <li class="issue-item info">
+                    <div class="issue-title">ℹ️ Missing Security Headers</div>
+                    <div class="issue-description">The site lacks important security headers like Content Security Policy and X-Frame-Options.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Implement security headers to protect against XSS attacks and clickjacking.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="analysis-section">
+            <h2 class="section-title">🔍 SEO Analysis</h2>
+            <ul class="issue-list">
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Missing Meta Descriptions</div>
+                    <div class="issue-description">Several pages lack meta descriptions, missing opportunities for better search engine visibility.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Add unique, descriptive meta descriptions (150-160 characters) for each page.
+                    </div>
+                </li>
+                
+                <li class="issue-item warning">
+                    <div class="issue-title">⚠️ Inconsistent Heading Structure</div>
+                    <div class="issue-description">The heading hierarchy (H1, H2, H3) could be improved for better content organization.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Use proper heading hierarchy with one H1 per page and logical H2, H3 structure for content sections.
+                    </div>
+                </li>
+                
+                <li class="issue-item info">
+                    <div class="issue-title">ℹ️ Missing Structured Data</div>
+                    <div class="issue-description">The site could benefit from structured data markup for better search engine understanding.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Implement JSON-LD structured data for videos, articles, and organization information.
+                    </div>
+                </li>
+                
+                <li class="issue-item info">
+                    <div class="issue-title">ℹ️ Mobile Usability</div>
+                    <div class="issue-description">The site is mobile-friendly but could be optimized further for mobile users.</div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> Optimize touch targets, improve mobile navigation, and ensure fast loading on mobile networks.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="analysis-section">
+            <h2 class="section-title">🎯 Priority Recommendations</h2>
+            <ol style="padding-left: 20px; line-height: 1.6;">
+                <li><strong>Optimize Images:</strong> Compress and convert images to WebP format for faster loading</li>
+                <li><strong>Implement Lazy Loading:</strong> Load images only when they're about to enter the viewport</li>
+                <li><strong>Add Alt Text:</strong> Ensure all images have descriptive alt text for accessibility</li>
+                <li><strong>Fix Mixed Content:</strong> Ensure all resources load over HTTPS</li>
+                <li><strong>Improve Meta Tags:</strong> Add unique meta descriptions and optimize title tags</li>
+                <li><strong>Implement Caching:</strong> Add proper cache headers for static resources</li>
+                <li><strong>Minify Resources:</strong> Compress CSS and JavaScript files</li>
+                <li><strong>Add Security Headers:</strong> Implement Content Security Policy and other security headers</li>
+            </ol>
+        </div>
+        
+        <div class="analysis-date">
+            Analysis performed on: <strong>October 2025</strong> | 
+            Lighthouse version: <strong>11.0.0</strong> | 
+            Tested on: <strong>Mobile</strong>
+        </div>
+    </div>
+</body>
+</html>

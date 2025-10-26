@@ -1,0 +1,260 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #f0f0f0 1px, transparent 1px),
+                linear-gradient(180deg, #f0f0f0 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: #fafafa;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Wireframe Container */
+.wireframe-1, .wireframe-2 {
+    margin-bottom: 40px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Wireframe 1: Simple Layout */
+.wireframe-1 {
+    background: white;
+    padding: 30px;
+    border: 2px solid #333;
+}
+
+/* Wireframe 2: Browser Frame Layout */
+.wireframe-2 .browser-window {
+    width: 100%;
+    background: white;
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Browser Controls */
+.browser-controls {
+    display: flex;
+    padding: 10px 15px;
+    background: #e0e0e0;
+    border-bottom: 1px solid #ccc;
+}
+
+.control-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.control-dot.red { background: #ff5f57; }
+.control-dot.yellow { background: #ffbd2e; }
+.control-dot.green { background: #28ca42; }
+
+/* Address Bar */
+.address-bar {
+    height: 30px;
+    background: #4285f4;
+    border-bottom: 1px solid #333;
+}
+
+/* Main Content */
+.main-content {
+    padding: 30px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.site-title {
+    font-size: 24px;
+    font-weight: normal;
+    color: #333;
+}
+
+.navigation {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Search Bar */
+.search-bar {
+    height: 25px;
+    border: 1px solid #333;
+    background: white;
+    width: 200px;
+}
+
+/* Separator Line */
+.separator {
+    height: 1px;
+    background: #333;
+    margin-bottom: 30px;
+}
+
+/* Three Column Layout */
+.three-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Left Column - Book Metadata */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metadata-line {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Center Column - Book Details */
+.center-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+    line-height: 1.3;
+}
+
+.image-placeholder {
+    width: 200px;
+    height: 280px;
+    border: 2px solid #333;
+    background: #f8f8f8;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-x {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.image-x::before,
+.image-x::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: #333;
+    top: 0;
+}
+
+.image-x::before {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.image-x::after {
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+.book-description {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    max-width: 300px;
+}
+
+/* Right Column - Filters */
+.right-column {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter-box {
+    border: 2px solid #333;
+    padding: 15px;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-item label {
+    font-size: 12px;
+    color: #333;
+}
+
+.dropdown {
+    height: 20px;
+    border: 1px solid #333;
+    background: white;
+    position: relative;
+}
+
+.dropdown::after {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .three-column-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .navigation {
+        justify-content: center;
+    }
+    
+    .image-placeholder {
+        width: 150px;
+        height: 210px;
+        align-self: center;
+    }
+}

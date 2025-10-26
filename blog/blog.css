@@ -138,7 +138,7 @@ main {
 /* Articles Section */
 .articles-section {
     display: grid;
-    gap: 2rem;
+    gap: 3rem;
     grid-column: 1;
     grid-row: 1;
     background: none;
@@ -168,14 +168,17 @@ main {
 .article-meta {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
+    gap: 0.25rem;
+    text-align: right;
     color: #4a4a4a;
+    border-right: 2px solid var(--gold-color);
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
 }
 
 .article-date {
     color: var(--dark-color);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
@@ -191,6 +194,7 @@ main {
 .article-header h3 {
     color: var(--red-color);
     font-size: 1.5rem;
+    margin-top: 0;
     margin-bottom: 1rem;
     font-family: var(--headline-font);
     font-weight: 700;
