@@ -1,0 +1,252 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+main {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Card Header - Contains total and chip */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+/* Total */
+.total {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Form */
+#credit-card-form {
+    width: 100%;
+}
+
+/* Cards Container - Using Grid for overlapping */
+.cards-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin-bottom: 30px;
+    min-height: 280px;
+    position: relative;
+}
+
+/* Cards positioned to overlap */
+.card {
+    grid-column: 1;
+    grid-row: 1;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card Front - On top, shifted left */
+.card-front {
+    z-index: 2;
+    position: relative;
+    transform: translateX(-70px);
+}
+
+/* Card Back - Behind and shifted right */
+.card-back {
+    z-index: 1;
+    transform: translateX(100px) translateY(30px);
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+    justify-content: space-between;
+}
+
+/* Card Image */
+.card-image {
+    flex-shrink: 0;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 10px 12px;
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+input:valid:not(:placeholder-shown) {
+    border-color: #51cf66;
+}
+
+/* Card Footer (Bottom row on front card) */
+.card-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Expiry Inputs */
+.expiry-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.expiry-inputs input {
+    width: 45px;
+    text-align: center;
+    padding: 10px 5px;
+}
+
+.expiry-separator {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+/* Card Back Specific Styles */
+.magnetic-strip {
+    background: #000;
+    width: calc(100% + 50px);
+    height: 40px;
+    margin: -25px -25px 0 -25px;
+    border-radius: 15px 15px 0 0;
+}
+
+.signature-panel {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+
+.cvv-group {
+    max-width: 100px;
+}
+
+.cvv-group label {
+    color: #333;
+}
+
+.cvv-group input {
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cvv-group input::placeholder {
+    color: #999;
+}
+
+.cvv-group input:focus {
+    background: white;
+    border-color: #667eea;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: white;
+    color: #667eea;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .total {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card-back {
+        transform: translateX(30px) translateY(20px);
+    }
+
+    .cards-container {
+        min-height: 260px;
+    }
+}
