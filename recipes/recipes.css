@@ -1,0 +1,325 @@
+/* Import Google Fonts - Using a more accessible alternative to Amatic SC */
+@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@400;600;700&display=swap");
+
+/* CSS Custom Properties */
+:root {
+    --primary-color: #1B98E0;
+    --secondary-color: #59c3c3;
+    --text-dark: #333;
+    --text-light: #ebebeb;
+    --primary-font: Arial, Helvetica, sans-serif;
+    --secondary-font: "Quicksand", "Caveat Brush", cursive;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--primary-font);
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 1rem;
+    box-shadow: var(--box-shadow);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+header h1 {
+    font-family: var(--secondary-font);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Search Section */
+.search-section {
+    margin: 2rem 0;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.search-form label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.search-form input {
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: var(--primary-font);
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.search-form button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #1486c4;
+}
+
+.search-form button:active {
+    transform: translateY(1px);
+}
+
+/* Recipe Section */
+.recipes {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.recipe {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.recipe-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.recipe-name {
+    font-family: var(--secondary-font);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.recipe-author {
+    font-style: italic;
+    color: #666;
+}
+
+.rating {
+    font-size: 1.2rem;
+    display: inline-flex;
+    gap: 0.1rem;
+}
+
+.icon-star {
+    color: #ffd700;
+}
+
+.icon-star-empty {
+    color: #ccc;
+}
+
+/* Hide description on mobile */
+.recipe-description {
+    display: none;
+    line-height: 1.7;
+    color: #555;
+}
+
+.recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.social a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social a:hover {
+    transform: translateY(-3px);
+}
+
+.social img {
+    width: 32px;
+    height: 32px;
+}
+
+.attribution {
+    text-align: center;
+    font-size: 0.6em;
+    margin-top: 1rem;
+}
+
+.attribution a {
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.attribution a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design - Tablet */
+@media (min-width: 600px) {
+    header h1 {
+        font-size: 3rem;
+    }
+
+    .header-content {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .search-form {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .search-form label {
+        flex-basis: 100%;
+    }
+
+    .search-form input {
+        flex: 1;
+    }
+
+    .search-form button {
+        flex-shrink: 0;
+    }
+
+    .recipe {
+        flex-direction: row;
+    }
+
+    .recipe-image {
+        width: 300px;
+        height: auto;
+        min-height: 250px;
+    }
+
+    .recipe-content {
+        flex: 1;
+    }
+
+    /* Show description on wider screens */
+    .recipe-description {
+        display: block;
+    }
+}
+
+/* Responsive Design - Desktop */
+@media (min-width: 960px) {
+    main {
+        max-width: 960px;
+    }
+
+    header h1 {
+        font-size: 3.5rem;
+    }
+
+    .recipe-name {
+        font-size: 2.5rem;
+    }
+
+    .recipe-image {
+        width: 350px;
+    }
+}
+
+
