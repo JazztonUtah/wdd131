@@ -1,0 +1,101 @@
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 20px;
+  max-width: 1280px;
+  margin: auto;
+  padding: 1em;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Activity 1: Navbar Styles */
+.main-nav {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1em;
+}
+
+.main-nav li {
+  /* Option 1: Using flex property */
+  /* flex: 0 1 5em; */
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5em;
+  display: block;
+}
+
+.main-nav a:hover {
+  color: #007bff;
+}
+
+/* Activity 2: Media Card Styles */
+.media-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.media-card__image img {
+  display: block;
+  border-radius: 4px;
+}
+
+.media-card__content h3 {
+  margin-top: 0;
+}
+
+/* Media query for larger screens */
+@media (min-width: 550px) {
+  .media-card {
+    flex-direction: row;
+  }
+  
+  .media-card__image {
+    flex: 0 1 250px;
+  }
+  
+  .media-card__content {
+    flex: 0 1 60ch;
+  }
+}
+
+/* Activity 3: Gallery Styles */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.gallery > * {
+  flex: 1 1 460px;
+}
+
+/* Additional spacing for sections */
+section {
+  margin-bottom: 2em;
+}
+
+h2 {
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5em;
+}
+
