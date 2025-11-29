@@ -1,0 +1,83 @@
+<svg width="800" height="1100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="1100" fill="#f5f5f5"/>
+  
+  <!-- Header -->
+  <rect x="20" y="20" width="760" height="80" fill="white" stroke="#333" stroke-width="2"/>
+  <rect x="40" y="40" width="150" height="40" fill="#ddd" stroke="#666" stroke-width="1"/>
+  <text x="115" y="65" text-anchor="middle" font-family="Arial" font-size="14" fill="#333">Logo</text>
+  <rect x="520" y="45" width="70" height="30" fill="#ddd" stroke="#666" stroke-width="1"/>
+  <text x="555" y="65" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">Home</text>
+  <rect x="600" y="45" width="70" height="30" fill="#ddd" stroke="#666" stroke-width="1"/>
+  <text x="635" y="65" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">Llamas</text>
+  <rect x="680" y="45" width="80" height="30" fill="#FFEBD1" stroke="#666" stroke-width="1"/>
+  <text x="720" y="65" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">Contact</text>
+  
+  <!-- Page Title Section -->
+  <rect x="20" y="120" width="760" height="100" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="400" y="155" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#333">Get in Touch</text>
+  <text x="400" y="185" text-anchor="middle" font-family="Arial" font-size="14" fill="#333">Have questions about llamas? Want to share your own llama stories?</text>
+  <text x="400" y="205" text-anchor="middle" font-family="Arial" font-size="14" fill="#333">We'd love to hear from you!</text>
+  
+  <!-- Contact Form Section -->
+  <rect x="20" y="240" width="760" height="580" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="400" y="275" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#333">Contact Form</text>
+  
+  <!-- Form Container -->
+  <rect x="150" y="300" width="500" height="480" fill="#f9f9f9" stroke="#666" stroke-width="1"/>
+  
+  <!-- Name Field -->
+  <text x="180" y="335" font-family="Arial" font-size="14" fill="#333">Name *</text>
+  <rect x="180" y="345" width="440" height="35" fill="white" stroke="#999" stroke-width="1"/>
+  <text x="190" y="367" font-family="Arial" font-size="12" fill="#999">Your name</text>
+  
+  <!-- Email Field -->
+  <text x="180" y="405" font-family="Arial" font-size="14" fill="#333">Email *</text>
+  <rect x="180" y="415" width="440" height="35" fill="white" stroke="#999" stroke-width="1"/>
+  <text x="190" y="437" font-family="Arial" font-size="12" fill="#999">your.email@example.com</text>
+  
+  <!-- Subject Dropdown -->
+  <text x="180" y="475" font-family="Arial" font-size="14" fill="#333">Subject</text>
+  <rect x="180" y="485" width="440" height="35" fill="white" stroke="#999" stroke-width="1"/>
+  <text x="190" y="507" font-family="Arial" font-size="12" fill="#999">Select a topic...</text>
+  <polygon points="600,500 595,495 605,495" fill="#666"/>
+  
+  <!-- Message Textarea -->
+  <text x="180" y="545" font-family="Arial" font-size="14" fill="#333">Message *</text>
+  <rect x="180" y="555" width="440" height="120" fill="white" stroke="#999" stroke-width="1"/>
+  <text x="190" y="577" font-family="Arial" font-size="12" fill="#999">Tell us what's on your mind...</text>
+  
+  <!-- Submit Button -->
+  <rect x="320" y="700" width="160" height="45" fill="#E76363" stroke="#333" stroke-width="2" rx="5"/>
+  <text x="400" y="728" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="white">Send Message</text>
+  
+  <!-- Validation Message Area -->
+  <rect x="180" y="760" width="440" height="10" fill="#ddd" stroke="#999" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="400" y="770" text-anchor="middle" font-family="Arial" font-size="10" fill="#999">Validation messages appear here</text>
+  
+  <!-- Social Media & Contact Info Section -->
+  <rect x="20" y="840" width="760" height="180" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="400" y="875" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#333">Connect With Us</text>
+  
+  <!-- Two Column Layout -->
+  <!-- Left Column - Social Media -->
+  <rect x="80" y="900" width="300" height="90" fill="#FFEBD1" stroke="#666" stroke-width="1"/>
+  <text x="230" y="925" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Follow Us</text>
+  <circle cx="180" cy="955" r="18" fill="#E76363"/>
+  <text x="180" y="962" text-anchor="middle" font-family="Arial" font-size="12" fill="white">YT</text>
+  <circle cx="230" cy="955" r="18" fill="#E76363"/>
+  <text x="230" y="962" text-anchor="middle" font-family="Arial" font-size="12" fill="white">IG</text>
+  <circle cx="280" cy="955" r="18" fill="#E76363"/>
+  <text x="280" y="962" text-anchor="middle" font-family="Arial" font-size="12" fill="white">FB</text>
+  
+  <!-- Right Column - Direct Contact -->
+  <rect x="420" y="900" width="300" height="90" fill="#FFEBD1" stroke="#666" stroke-width="1"/>
+  <text x="570" y="925" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Email Us</text>
+  <text x="570" y="955" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">llamaholic@example.com</text>
+  <rect x="80" y="900" width="640" height="90" fill="none" stroke="#666" stroke-width="1"/>
+  
+  <!-- Footer -->
+  <rect x="20" y="1040" width="760" height="30" fill="#41521F" stroke="#41521F" stroke-width="2"/>
+  <text x="400" y="1060" text-anchor="middle" font-family="Arial" font-size="12" fill="white">© 2025 Llamaholic - Devin Orton</text>
+</svg>
+
