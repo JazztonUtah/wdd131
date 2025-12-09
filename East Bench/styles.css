@@ -1,0 +1,355 @@
+/* CSS Variables */
+:root {
+    --building-color: #b8b464;
+    --building-hover: #a8a454;
+    --background: #f0efd8;
+    --text-dark: #2c3e2d;
+    --text-light: #4a5d4b;
+    --accent: #6b7c4c;
+    --white: #fefefe;
+    --shadow: rgba(44, 62, 45, 0.15);
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--background);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-dark);
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(180deg, var(--white) 0%, var(--background) 100%);
+}
+
+header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    color: var(--text-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.church-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Floor Plan Container */
+.floor-plan-container {
+    position: relative;
+    width: 100%;
+    max-width: 90vw;
+    max-height: 70vh;
+    padding: 0.5rem;
+}
+
+.floor-plan-container svg {
+    max-height: 65vh;
+}
+
+/* SVG Floor Plan */
+.floor-plan-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.building-shape {
+    fill: var(--building-color);
+    stroke: var(--building-color);
+    stroke-width: 1;
+    transition: fill 0.3s ease;
+}
+
+.building-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    fill: var(--text-dark);
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.direction-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--text-light);
+    text-anchor: middle;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+}
+
+.direction-sublabel {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    fill: var(--text-light);
+    text-anchor: middle;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.room-outline {
+    fill: transparent;
+    stroke: var(--text-dark);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+
+.room-outline:hover {
+    fill: rgba(0, 0, 0, 0.1);
+}
+
+.room-label-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--text-dark);
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.room-label-text-small {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    fill: var(--text-dark);
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+/* Clickable Room Overlays - disabled, using SVG click handlers instead */
+.room-overlays {
+    display: none;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    pointer-events: none;
+}
+
+.room {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.3s ease;
+    border-radius: 2px;
+}
+
+.room:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Instruction Text */
+.instruction {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 62, 45, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: 12px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--text-dark);
+}
+
+.modal-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.modal-body {
+    display: flex;
+    gap: 2rem;
+}
+
+.modal-image-section {
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-image-section img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.modal-image-section img[style*="display: none"] + .no-image-text {
+    display: block;
+}
+
+.no-image-text {
+    display: none;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 3rem 1rem;
+    text-align: center;
+    background: var(--background);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.modal-image-section img:not([style*="display: none"]) + .no-image-text {
+    display: none;
+}
+
+.modal-image-section img[style*="display: none"] ~ .no-image-text {
+    display: block;
+}
+
+.modal-info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-row {
+    padding: 0.75rem;
+    background: var(--background);
+    border-radius: 6px;
+}
+
+.info-row strong {
+    display: block;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.info-row span {
+    color: var(--text-light);
+}
+
+@media (max-width: 600px) {
+    .modal-body {
+        flex-direction: column;
+    }
+    
+    .modal-image-section {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .floor-plan-container {
+        padding: 0.5rem;
+    }
+    
+    .building-text {
+        font-size: 14px;
+    }
+}

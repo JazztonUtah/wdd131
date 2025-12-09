@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>East Bench Chapel | Church of Jesus Christ</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>East Bench Chapel</h1>
+      <p class="church-name">Church of Jesus Christ of Latter-day Saints</p>
+      <p class="subtitle">Interactive Floor Plan</p>
+    </header>
+
+    <main>
+      <div class="floor-plan-container">
+        <!-- SVG Floor Plan - Scale: 1ft = 2.5px -->
+        <!-- Main rectangle: 188ft wide = 470px, 90ft tall = 225px -->
+        <svg
+          class="floor-plan-svg"
+          viewBox="-60 -20 660 380"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Direction Labels -->
+          <!-- North (Top - Side) -->
+          <text x="275" y="-5" class="direction-label">NORTH</text>
+          <text x="275" y="10" class="direction-sublabel">(Side)</text>
+
+          <!-- South (Bottom - Side) -->
+          <text x="275" y="325" class="direction-label">SOUTH</text>
+          <text x="275" y="340" class="direction-sublabel">(Side)</text>
+
+          <!-- West (Left - Front) -->
+          <text x="-45" y="158" class="direction-label">WEST</text>
+          <text x="-45" y="172" class="direction-sublabel">(Front)</text>
+
+          <!-- East (Right - Back) -->
+          <text x="575" y="158" class="direction-label">EAST</text>
+          <text x="575" y="172" class="direction-sublabel">(Back)</text>
+
+          <!-- Main rectangle: 188ft wide (470px) x 90ft tall (225px) -->
+          <rect class="building-shape" x="40" y="50" width="470" height="225" />
+
+          <!-- Left jut: 10ft wide (25px) x 50ft tall (125px), 20ft from top/bottom -->
+          <rect class="building-shape" x="15" y="100" width="25" height="125" />
+
+          <!-- Top jut: 40ft from left (100px), 10ft deep (25px), 40ft wide (100px) -->
+          <rect class="building-shape" x="140" y="25" width="100" height="25" />
+
+          <!-- Bottom jut: 40ft from left (100px), 10ft deep (25px), 40ft wide (100px) -->
+          <rect
+            class="building-shape"
+            x="140"
+            y="275"
+            width="100"
+            height="25"
+          />
+
+          <!-- Back (right) jut: 30ft from top/bottom (75px each), 5ft deep (13px), 30ft tall (75px) -->
+          <rect class="building-shape" x="510" y="125" width="13" height="75" />
+
+          <!-- ROOMS -->
+          <!-- Chapel: 90ft wide (225px) x 50ft tall (125px) -->
+          <!-- From west jut (x=15) to end of top/bottom juts (x=240) -->
+          <rect
+            class="room-outline"
+            data-room="chapel"
+            x="15"
+            y="100"
+            width="225"
+            height="125"
+          />
+          <text x="127" y="168" class="room-label-text">Chapel</text>
+
+          <!-- Overflow 1: 35ft wide (88px) x 50ft tall (125px) -->
+          <!-- Right behind chapel, starting at x=240 -->
+          <rect
+            class="room-outline"
+            data-room="overflow-1"
+            x="240"
+            y="100"
+            width="88"
+            height="125"
+          />
+          <text x="284" y="168" class="room-label-text">Overflow 1</text>
+
+          <!-- Overflow 2: 22.5ft wide (57px) x 50ft tall (125px) -->
+          <!-- Right behind Overflow 1, starting at x=328 -->
+          <rect
+            class="room-outline"
+            data-room="overflow-2"
+            x="328"
+            y="100"
+            width="57"
+            height="125"
+          />
+          <text x="356" y="160" class="room-label-text-small">Overflow</text>
+          <text x="356" y="175" class="room-label-text-small">2</text>
+
+          <!-- Area behind Overflow 2: 22.5ft wide (57px) x 50ft tall (125px) -->
+          <!-- Split: top half = 2 classrooms side by side, bottom half = washroom -->
+
+          <!-- Room 107: top left -->
+          <rect
+            class="room-outline"
+            data-room="room-107"
+            x="385"
+            y="100"
+            width="29"
+            height="62"
+          />
+          <text x="399" y="135" class="room-label-text-small">107</text>
+
+          <!-- Room 108: top right -->
+          <rect
+            class="room-outline"
+            data-room="room-108"
+            x="414"
+            y="100"
+            width="28"
+            height="62"
+          />
+          <text x="428" y="135" class="room-label-text-small">108</text>
+
+          <!-- Bathroom: bottom half (full width) -->
+          <rect
+            class="room-outline"
+            data-room="bathroom"
+            x="385"
+            y="162"
+            width="57"
+            height="63"
+          />
+          <text x="413" y="190" class="room-label-text-small">Bath-</text>
+          <text x="413" y="205" class="room-label-text-small">room</text>
+
+          <!-- FOYERS -->
+          <!-- North Foyer: from top jut down to rooms -->
+          <rect
+            class="room-outline"
+            data-room="north-foyer"
+            x="140"
+            y="25"
+            width="100"
+            height="75"
+          />
+          <text x="190" y="55" class="room-label-text-small">North</text>
+          <text x="190" y="70" class="room-label-text-small">Foyer</text>
+
+          <!-- 8 Rooms between North Foyer and RS Room -->
+          <!-- Room 103 (top) -->
+          <rect
+            class="room-outline"
+            data-room="room-103"
+            x="240"
+            y="50"
+            width="27"
+            height="25"
+          />
+          <text x="253" y="67" class="room-label-text-small">103</text>
+
+          <!-- Bathroom (bottom) -->
+          <rect
+            class="room-outline"
+            data-room="bathroom-north"
+            x="240"
+            y="75"
+            width="27"
+            height="25"
+          />
+          <text x="253" y="92" class="room-label-text-small">BR</text>
+
+          <!-- Custodial Closet (smaller) -->
+          <rect
+            class="room-outline"
+            data-room="custodial"
+            x="267"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="277"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 277, 75)"
+          >
+            Custodial
+          </text>
+
+          <!-- Table Storage (smaller) -->
+          <rect
+            class="room-outline"
+            data-room="storage"
+            x="287"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="297"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 297, 75)"
+          >
+            Storage
+          </text>
+
+          <!-- Kitchen (slightly bigger) -->
+          <rect
+            class="room-outline"
+            data-room="kitchen"
+            x="307"
+            y="50"
+            width="34"
+            height="50"
+          />
+          <text
+            x="324"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 324, 75)"
+          >
+            Kitchen
+          </text>
+
+          <!-- Room 104 -->
+          <rect
+            class="room-outline"
+            data-room="room-104"
+            x="341"
+            y="50"
+            width="27"
+            height="50"
+          />
+          <text x="354" y="80" class="room-label-text-small">104</text>
+
+          <!-- Room 105 -->
+          <rect
+            class="room-outline"
+            data-room="room-105"
+            x="368"
+            y="50"
+            width="27"
+            height="50"
+          />
+          <text x="381" y="80" class="room-label-text-small">105</text>
+
+          <!-- Room 106 -->
+          <rect
+            class="room-outline"
+            data-room="room-106"
+            x="395"
+            y="50"
+            width="27"
+            height="50"
+          />
+          <text x="408" y="80" class="room-label-text-small">106</text>
+
+          <!-- Mothers (smaller) -->
+          <rect
+            class="room-outline"
+            data-room="mothers"
+            x="422"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="432"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 432, 75)"
+          >
+            Mothers
+          </text>
+
+          <!-- South Foyer: from rooms down to bottom jut -->
+          <rect
+            class="room-outline"
+            data-room="south-foyer"
+            x="140"
+            y="225"
+            width="100"
+            height="75"
+          />
+          <text x="190" y="260" class="room-label-text-small">South</text>
+          <text x="190" y="275" class="room-label-text-small">Foyer</text>
+
+          <!-- 7 Rooms between South Foyer and Primary Room -->
+          <!-- Library (slightly bigger) -->
+          <rect
+            class="room-outline"
+            data-room="library"
+            x="240"
+            y="225"
+            width="36"
+            height="50"
+          />
+          <text
+            x="258"
+            y="250"
+            class="room-label-text-small"
+            transform="rotate(-90, 258, 250)"
+          >
+            Library
+          </text>
+
+          <!-- Room 115 -->
+          <rect
+            class="room-outline"
+            data-room="room-115"
+            x="276"
+            y="225"
+            width="24"
+            height="50"
+          />
+          <text x="288" y="255" class="room-label-text-small">115</text>
+
+          <!-- Room 114 -->
+          <rect
+            class="room-outline"
+            data-room="room-114"
+            x="300"
+            y="225"
+            width="24"
+            height="50"
+          />
+          <text x="312" y="255" class="room-label-text-small">114</text>
+
+          <!-- Room 113 -->
+          <rect
+            class="room-outline"
+            data-room="room-113"
+            x="324"
+            y="225"
+            width="24"
+            height="50"
+          />
+          <text x="336" y="255" class="room-label-text-small">113</text>
+
+          <!-- Room 112 -->
+          <rect
+            class="room-outline"
+            data-room="room-112"
+            x="348"
+            y="225"
+            width="24"
+            height="50"
+          />
+          <text x="360" y="255" class="room-label-text-small">112</text>
+
+          <!-- Nursery (twice as big) -->
+          <rect
+            class="room-outline"
+            data-room="nursery"
+            x="372"
+            y="225"
+            width="48"
+            height="50"
+          />
+          <text x="396" y="255" class="room-label-text-small">Nursery</text>
+
+          <!-- Room 110 -->
+          <rect
+            class="room-outline"
+            data-room="room-110"
+            x="420"
+            y="225"
+            width="22"
+            height="50"
+          />
+          <text x="431" y="255" class="room-label-text-small">110</text>
+
+          <!-- Our Ward marker -->
+          <text x="70" y="35" class="room-label-text-small">★ Our Ward</text>
+
+          <!-- 5 Sections west of North Foyer -->
+          <rect
+            class="room-outline"
+            data-room="bishop-nw"
+            x="40"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="50"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 50, 75)"
+          >
+            ★Bishop
+          </text>
+
+          <rect
+            class="room-outline"
+            data-room="clerk-nw"
+            x="60"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="70"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 70, 75)"
+          >
+            ★Clerk
+          </text>
+
+          <rect
+            class="room-outline"
+            data-room="bishop-nw-2"
+            x="80"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="90"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 90, 75)"
+          >
+            Bishop
+          </text>
+
+          <rect
+            class="room-outline"
+            data-room="clerk-nw-2"
+            x="100"
+            y="50"
+            width="20"
+            height="50"
+          />
+          <text
+            x="110"
+            y="75"
+            class="room-label-text-small"
+            transform="rotate(-90, 110, 75)"
+          >
+            Clerk
+          </text>
+
+          <rect
+            class="room-outline"
+            data-room="room-101"
+            x="120"
+            y="50"
+            width="20"
+            height="25"
+          />
+          <text x="130" y="67" class="room-label-text-small">101</text>
+
+          <rect
+            class="room-outline"
+            data-room="room-102"
+            x="120"
+            y="75"
+            width="20"
+            height="25"
+          />
+          <text x="130" y="92" class="room-label-text-small">102</text>
+
+          <!-- 5 Sections west of South Foyer -->
+          <rect
+            class="room-outline"
+            data-room="bishop-sw"
+            x="40"
+            y="225"
+            width="20"
+            height="50"
+          />
+          <text
+            x="50"
+            y="250"
+            class="room-label-text-small"
+            transform="rotate(-90, 50, 250)"
+          >
+            Bishop
+          </text>
+
+          <rect
+            class="room-outline"
+            data-room="clerk-sw"
+            x="60"
+            y="225"
+            width="20"
+            height="50"
+          />
+          <text
+            x="70"
+            y="250"
+            class="room-label-text-small"
+            transform="rotate(-90, 70, 250)"
+          >
+            Clerk
+          </text>
+
+          <!-- Old HP Room (combined) -->
+          <rect
+            class="room-outline"
+            data-room="old-hp-room"
+            x="80"
+            y="225"
+            width="40"
+            height="50"
+          />
+          <text x="100" y="245" class="room-label-text-small">Old HP</text>
+          <text x="100" y="260" class="room-label-text-small">Room</text>
+
+          <!-- Room 116 (top) -->
+          <rect
+            class="room-outline"
+            data-room="room-116"
+            x="120"
+            y="225"
+            width="20"
+            height="25"
+          />
+          <text x="130" y="242" class="room-label-text-small">116</text>
+
+          <!-- Room 117 (bottom) -->
+          <rect
+            class="room-outline"
+            data-room="room-117"
+            x="120"
+            y="250"
+            width="20"
+            height="25"
+          />
+          <text x="130" y="267" class="room-label-text-small">117</text>
+
+          <!-- East Foyer: from rooms back to east jut -->
+          <rect
+            class="room-outline"
+            data-room="east-foyer"
+            x="442"
+            y="125"
+            width="81"
+            height="75"
+          />
+          <text x="482" y="160" class="room-label-text-small">East</text>
+          <text x="482" y="175" class="room-label-text-small">Foyer</text>
+
+          <!-- RS Room: above East Foyer -->
+          <rect
+            class="room-outline"
+            data-room="rs-room"
+            x="442"
+            y="50"
+            width="68"
+            height="75"
+          />
+          <text x="476" y="85" class="room-label-text-small">RS</text>
+          <text x="476" y="100" class="room-label-text-small">Room</text>
+
+          <!-- Primary Room: below East Foyer -->
+          <rect
+            class="room-outline"
+            data-room="primary-room"
+            x="442"
+            y="200"
+            width="68"
+            height="75"
+          />
+          <text x="476" y="235" class="room-label-text-small">Primary</text>
+          <text x="476" y="250" class="room-label-text-small">Room</text>
+        </svg>
+
+        <!-- Clickable room overlays (will update as we add rooms) -->
+        <div class="room-overlays">
+          <div
+            class="room"
+            data-room="main-hall"
+            style="top: 15.6%; left: 7.6%; width: 89.5%; height: 70.3%"
+          ></div>
+          <div
+            class="room"
+            data-room="left-wing"
+            style="top: 31.25%; left: 2.9%; width: 4.8%; height: 39%"
+          ></div>
+          <div
+            class="room"
+            data-room="top-jut"
+            style="top: 7.8%; left: 26.7%; width: 19%; height: 7.8%"
+          ></div>
+          <div
+            class="room"
+            data-room="bottom-jut"
+            style="top: 85.9%; left: 26.7%; width: 19%; height: 7.8%"
+          ></div>
+          <div
+            class="room"
+            data-room="back-jut"
+            style="top: 39%; left: 94.8%; width: 2.4%; height: 23.4%"
+          ></div>
+        </div>
+      </div>
+
+      <p class="instruction">Click on a room to view photos</p>
+    </main>
+
+    <!-- Modal for room images -->
+    <div class="modal" id="roomModal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 id="modalTitle">Room Name</h2>
+        <div class="modal-body">
+          <div class="modal-image-section">
+            <img id="modalImage" src="" alt="Room Image" />
+            <p class="no-image-text">No image available</p>
+          </div>
+          <div class="modal-info-section">
+            <div class="info-row">
+              <strong>Recommended Youth/Adults:</strong>
+              <span id="modalYouthAdult">Not specified</span>
+            </div>
+            <div class="info-row">
+              <strong>Recommended Primary Kids:</strong>
+              <span id="modalPrimaryKids">Not specified</span>
+            </div>
+            <div class="info-row">
+              <strong>Classes that meet here:</strong>
+              <span id="modalClasses">Not specified</span>
+            </div>
+            <div class="info-row">
+              <strong>Teacher's Name:</strong>
+              <span id="modalTeachers">Not specified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 DIY DeVin LLC</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
