@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Llamaholic</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <img src="images/logonew.png" alt="Llamaholic Logo" class="logo" />
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="meet-llamas.html">Llamas</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Title Section -->
+      <section class="page-title">
+        <h1>Get in Touch 📧</h1>
+        <p class="intro-text">Have questions about llamas? Want to share your own llama stories?</p>
+        <p class="intro-subtext">We'd love to hear from you and connect with fellow llama enthusiasts!</p>
+      </section>
+
+      <!-- Contact Form Section -->
+      <section class="contact-section">
+        <h2>Send Us a Message</h2>
+        <p class="section-description">Fill out the form below and we'll get back to you as soon as possible!</p>
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="your.email@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="">Select a topic...</option>
+              <option value="general">General Inquiry</option>
+              <option value="feature">Llama Feature Request</option>
+              <option value="feedback">Feedback</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message <span class="required">*</span></label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Tell us what's on your mind..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span>Send Message</span>
+            <span class="btn-icon">→</span>
+          </button>
+          
+          <div class="validation-message">✓ Validation messages will appear here</div>
+        </form>
+      </section>
+
+      <!-- Social Media & Contact Info -->
+      <section class="connect-section">
+        <h2>Connect With Us</h2>
+        <p class="section-description">Follow us on social media or reach out directly!</p>
+        <div class="connect-grid">
+          <div class="social-box">
+            <div class="box-icon">📱</div>
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#" class="social-icon youtube" title="YouTube">
+                <span>YT</span>
+              </a>
+              <a href="#" class="social-icon instagram" title="Instagram">
+                <span>IG</span>
+              </a>
+              <a href="#" class="social-icon facebook" title="Facebook">
+                <span>FB</span>
+              </a>
+            </div>
+            <p class="box-text">Stay updated with our latest llama adventures!</p>
+          </div>
+          <div class="email-box">
+            <div class="box-icon">✉️</div>
+            <h3>Email Us</h3>
+            <p class="email-address">llamaholic@example.com</p>
+            <p class="box-text">We typically respond within 24 hours</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Llamaholic - Devin Orton</p>
+      <p><a href="site-plan.html" class="site-plan-link">View Site Plan</a></p>
+    </footer>
+  </body>
+</html>

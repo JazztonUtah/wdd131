@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet Our Llama Stars - Llamaholic</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <img src="images/logonew.png" alt="Llamaholic Logo" class="logo" />
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="meet-llamas.html" class="active">Llamas</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Title Section -->
+      <section class="page-title">
+        <h1>Meet Our Llama Stars ⭐</h1>
+        <p class="intro-text">
+          Get to know the individual llamas featured on our YouTube channel!
+        </p>
+        <p class="intro-subtext">
+          Click on any llama to learn more about them and their unique
+          personalities.
+        </p>
+      </section>
+
+      <!-- Llama Cards Grid -->
+      <section class="llama-cards">
+        <div class="card-grid">
+          <!-- Cinnamon Card -->
+          <div class="llama-card" data-llama="cinnamon">
+            <div class="card-content-top">
+              <h3>Cinnamon</h3>
+            </div>
+            <div class="card-image-wrapper">
+              <img src="images/Cinnimon.JPG" alt="Cinnamon the llama" />
+              <div class="card-badge baby">Baby</div>
+            </div>
+            <div class="card-content">
+              <p class="card-description">
+                Sweet and spicy personality from Utah
+              </p>
+              <button class="expand-btn">Click to expand →</button>
+            </div>
+          </div>
+
+          <!-- Panda Card -->
+          <div class="llama-card" data-llama="panda">
+            <div class="card-content-top">
+              <h3>Panda</h3>
+            </div>
+            <div class="card-image-wrapper">
+              <img
+                src="images/panda.jpeg"
+                alt="Panda the llama"
+                class="panda-img"
+              />
+              <div class="card-badge baby">Baby</div>
+            </div>
+            <div class="card-content">
+              <p class="card-description">Black and white beauty from Idaho</p>
+              <button class="expand-btn">Click to expand →</button>
+            </div>
+          </div>
+
+          <!-- Michelle Ollama Card -->
+          <div class="llama-card" data-llama="michelle">
+            <div class="card-content-top">
+              <h3>Michelle Ollama</h3>
+            </div>
+            <div class="card-image-wrapper">
+              <img src="images/michelleollama.jpeg" alt="Michelle Ollama" />
+              <div class="card-badge wild">Wild</div>
+            </div>
+            <div class="card-content">
+              <p class="card-description">
+                Elegant and graceful leader from Utah
+              </p>
+              <button class="expand-btn">Click to expand →</button>
+            </div>
+          </div>
+
+          <!-- Shrek Card -->
+          <div class="llama-card" data-llama="shrek">
+            <div class="card-content-top">
+              <h3>Shrek</h3>
+            </div>
+            <div class="card-image-wrapper">
+              <img src="images/shrek.jpeg" alt="Shrek the llama" />
+              <div class="card-badge pack">Pack Llama</div>
+            </div>
+            <div class="card-content">
+              <p class="card-description">
+                Big, green (not really), and lovable from Idaho
+              </p>
+              <button class="expand-btn">Click to expand →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-content">
+          <div class="modal-image-wrapper">
+            <img id="modalImage" src="" alt="" />
+          </div>
+          <div class="modal-info">
+            <h3 id="modalName"></h3>
+            <p id="modalMeta" class="meta-info"></p>
+            <p id="modalPersonality"></p>
+            <p id="modalDescription"></p>
+            <p id="modalFact"></p>
+            <div class="modal-actions">
+              <a href="#" id="modalVideoLink" class="watch-button"
+                >Watch Video</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Llamaholic - Devin Orton</p>
+      <p><a href="site-plan.html" class="site-plan-link">View Site Plan</a></p>
+    </footer>
+
+    <script src="scripts/llamas.js"></script>
+  </body>
+</html>

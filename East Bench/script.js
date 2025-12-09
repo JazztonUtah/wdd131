@@ -2,7 +2,7 @@
 const roomData = {
     'chapel': {
         name: 'Chapel',
-        image: '',
+        image: 'images/chapel.png',
         youthAdult: 'Recommended: 200-300',
         primaryKids: 'N/A',
         classes: 'Sacrament Meeting',
