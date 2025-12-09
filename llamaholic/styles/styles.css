@@ -736,6 +736,9 @@ main {
   color: #666;
   font-size: 0.9rem;
   font-style: italic;
+  display: none;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
 /* Connect Section - Contact Page */
