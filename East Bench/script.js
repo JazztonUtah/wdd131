@@ -316,6 +316,13 @@ const modalPrimaryKids = document.getElementById('modalPrimaryKids');
 const modalClasses = document.getElementById('modalClasses');
 const modalTeachers = document.getElementById('modalTeachers');
 const closeBtn = document.querySelector('.close-btn');
+const viewToggleBtn = document.getElementById('viewToggleBtn');
+const floorPlanContainer = document.getElementById('floorPlanContainer');
+const tableViewContainer = document.getElementById('tableViewContainer');
+const roomsTableBody = document.getElementById('roomsTableBody');
+const imageModal = document.getElementById('imageModal');
+const imageModalImage = document.getElementById('imageModalImage');
+const imageModalNoImage = document.getElementById('imageModalNoImage');
 
 // Add click handlers to all SVG room elements
 document.addEventListener('DOMContentLoaded', () => {
@@ -335,6 +342,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Setup category click handlers
     setupCategoryClicks();
+    
+    // Setup view toggle
+    setupViewToggle();
+    
+    // Generate table view
+    generateTableView();
+    
+    // Setup table filters
+    setupTableFilters();
+    
+    // Setup image modal
+    setupImageModal();
 });
 
 // Open modal function
@@ -381,8 +400,13 @@ modal.addEventListener('click', (e) => {
 
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
+    if (e.key === 'Escape') {
+        if (modal.classList.contains('active')) {
+            closeModal();
+        }
+        if (imageModal && imageModal.classList.contains('active')) {
+            closeImageModal();
+        }
     }
 });
 
@@ -537,5 +561,167 @@ function setupCategoryClicks() {
         ymYwItem.setAttribute('data-category', 'ymYw');
         ymYwItem.addEventListener('click', handleClick('ymYw', ymYwItem));
     }
+}
+
+// View Toggle Functionality
+function setupViewToggle() {
+    let isTableView = false;
+    const instructionText = document.querySelector('.instruction');
+    
+    viewToggleBtn.addEventListener('click', () => {
+        isTableView = !isTableView;
+        
+        if (isTableView) {
+            // Switch to table view
+            floorPlanContainer.style.display = 'none';
+            tableViewContainer.style.display = 'block';
+            viewToggleBtn.textContent = 'Floor Plan View';
+            if (instructionText) {
+                instructionText.style.display = 'none';
+            }
+        } else {
+            // Switch to floor plan view
+            floorPlanContainer.style.display = 'block';
+            tableViewContainer.style.display = 'none';
+            viewToggleBtn.textContent = 'Table View';
+            if (instructionText) {
+                instructionText.style.display = 'block';
+            }
+        }
+    });
+}
+
+// Generate Table View from roomData
+function generateTableView(filter = 'all') {
+    // Clear existing rows
+    roomsTableBody.innerHTML = '';
+    
+    // Sort rooms by name for better organization
+    let sortedRooms = Object.entries(roomData).sort((a, b) => {
+        return a[1].name.localeCompare(b[1].name);
+    });
+    
+    // Apply filter
+    if (filter !== 'all') {
+        const filteredRoomIds = roomCategories[filter] || [];
+        sortedRooms = sortedRooms.filter(([roomId]) => filteredRoomIds.includes(roomId));
+    }
+    
+    // Generate table rows
+    sortedRooms.forEach(([roomId, room]) => {
+        const row = document.createElement('tr');
+        row.setAttribute('data-room-id', roomId);
+        
+        // Room Name (with note if available)
+        const nameCell = document.createElement('td');
+        if (room.note) {
+            nameCell.innerHTML = `${room.name} <span class="table-note">- ${room.note}</span>`;
+        } else {
+            nameCell.textContent = room.name;
+        }
+        row.appendChild(nameCell);
+        
+        // Youth/Adults
+        const youthAdultCell = document.createElement('td');
+        youthAdultCell.textContent = room.youthAdult || 'N/A';
+        row.appendChild(youthAdultCell);
+        
+        // Primary Kids
+        const primaryKidsCell = document.createElement('td');
+        primaryKidsCell.textContent = room.primaryKids || 'N/A';
+        row.appendChild(primaryKidsCell);
+        
+        // Classes
+        const classesCell = document.createElement('td');
+        classesCell.textContent = room.classes || 'N/A';
+        row.appendChild(classesCell);
+        
+        // Teachers
+        const teachersCell = document.createElement('td');
+        teachersCell.textContent = room.teachers || 'N/A';
+        row.appendChild(teachersCell);
+        
+        // View Picture button
+        const pictureCell = document.createElement('td');
+        if (room.image) {
+            const viewBtn = document.createElement('button');
+            viewBtn.className = 'view-picture-btn';
+            viewBtn.textContent = 'View Picture';
+            viewBtn.addEventListener('click', () => {
+                openImageModal(room);
+            });
+            pictureCell.appendChild(viewBtn);
+        } else {
+            pictureCell.textContent = 'No image';
+            pictureCell.style.color = 'var(--text-light)';
+            pictureCell.style.fontStyle = 'italic';
+        }
+        row.appendChild(pictureCell);
+        
+        roomsTableBody.appendChild(row);
+    });
+}
+
+// Open image-only modal
+function openImageModal(room) {
+    if (room.image) {
+        imageModalImage.src = room.image;
+        imageModalImage.alt = room.name;
+        imageModalImage.style.display = 'block';
+        imageModalNoImage.style.display = 'none';
+    } else {
+        imageModalImage.style.display = 'none';
+        imageModalNoImage.style.display = 'block';
+    }
+    
+    imageModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close image modal
+function closeImageModal() {
+    imageModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Setup image modal
+function setupImageModal() {
+    if (imageModal) {
+        const imageModalCloseBtn = imageModal.querySelector('.close-btn');
+        if (imageModalCloseBtn) {
+            imageModalCloseBtn.addEventListener('click', closeImageModal);
+        }
+        
+        // Close modal when clicking outside content
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                closeImageModal();
+            }
+        });
+    }
+    
+    // Close modal with Escape key (shared handler with main modal)
+    // The existing Escape handler will work for both modals
+}
+
+// Setup table filters
+function setupTableFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(b => b.classList.remove('active'));
+            
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            // Get filter value
+            const filter = btn.getAttribute('data-filter');
+            
+            // Regenerate table with filter
+            generateTableView(filter);
+        });
+    });
 }
 

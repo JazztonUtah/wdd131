@@ -58,6 +58,31 @@ header h1 {
     text-transform: uppercase;
 }
 
+.view-toggle-btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.view-toggle-btn:hover {
+    background: #5a6b3d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.view-toggle-btn:active {
+    transform: translateY(0);
+}
+
 /* Main Content */
 main {
     flex: 1;
@@ -431,6 +456,151 @@ footer {
     color: var(--accent);
 }
 
+/* Table View */
+.table-view-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.table-filters {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 0.6rem 1.25rem;
+    background: var(--white);
+    color: var(--text-dark);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: var(--background);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.filter-btn.active:hover {
+    background: #5a6b3d;
+}
+
+.rooms-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.rooms-table thead {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.rooms-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.rooms-table tbody tr {
+    border-bottom: 1px solid var(--background);
+    transition: background 0.2s ease;
+}
+
+.rooms-table tbody tr:hover {
+    background: var(--background);
+}
+
+.rooms-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.rooms-table td {
+    padding: 1rem;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.table-note {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.view-picture-btn {
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-picture-btn:hover {
+    background: #5a6b3d;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.view-picture-btn:active {
+    transform: translateY(0);
+}
+
+/* Image-Only Modal */
+.image-modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.image-modal-content .no-image-text {
+    padding: 3rem 2rem;
+    text-align: center;
+    background: var(--background);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-style: italic;
+    max-width: 400px;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .floor-plan-container {
@@ -456,6 +626,20 @@ footer {
     
     .room-totals {
         padding: 1rem;
+    }
+    
+    .rooms-table {
+        font-size: 0.8rem;
+    }
+    
+    .rooms-table th,
+    .rooms-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .view-picture-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
     }
 }
 

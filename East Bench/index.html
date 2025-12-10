@@ -17,10 +17,43 @@
       <h1>East Bench Chapel</h1>
       <p class="church-name">Church of Jesus Christ of Latter-day Saints</p>
       <p class="subtitle">Interactive Floor Plan</p>
+      <button id="viewToggleBtn" class="view-toggle-btn">Table View</button>
     </header>
 
     <main>
-      <div class="floor-plan-container">
+      <!-- Table View Container -->
+      <div
+        id="tableViewContainer"
+        class="table-view-container"
+        style="display: none"
+      >
+        <!-- Filter Buttons -->
+        <div class="table-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="primary">
+            Primary Rooms
+          </button>
+          <button class="filter-btn" data-filter="ss">SS Rooms</button>
+          <button class="filter-btn" data-filter="ymYw">YM & YW Rooms</button>
+        </div>
+        <table class="rooms-table">
+          <thead>
+            <tr>
+              <th>Room Name</th>
+              <th>Recommended Youth/Adults</th>
+              <th>Recommended Primary Kids</th>
+              <th>Classes</th>
+              <th>Teachers</th>
+              <th>View Picture</th>
+            </tr>
+          </thead>
+          <tbody id="roomsTableBody">
+            <!-- Table rows will be generated dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="floor-plan-container" id="floorPlanContainer">
         <!-- SVG Floor Plan - Scale: 1ft = 2.5px -->
         <!-- Main rectangle: 188ft wide = 470px, 90ft tall = 225px -->
         <svg
@@ -639,6 +672,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Simple Image-Only Modal for Table View -->
+    <div class="modal" id="imageModal">
+      <div class="modal-content image-modal-content">
+        <span class="close-btn">&times;</span>
+        <img id="imageModalImage" src="" alt="Room Image" />
+        <p class="no-image-text" id="imageModalNoImage">No image available</p>
       </div>
     </div>
 
