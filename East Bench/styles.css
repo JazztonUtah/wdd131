@@ -129,11 +129,34 @@ main {
     stroke: var(--text-dark);
     stroke-width: 2;
     cursor: pointer;
-    transition: fill 0.2s ease;
+    transition: fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
 }
 
 .room-outline:hover {
     fill: rgba(0, 0, 0, 0.1);
+}
+
+.room-outline.room-highlighted {
+    fill: rgba(107, 124, 76, 0.3);
+    stroke: var(--accent);
+    stroke-width: 3;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.room-label-text.room-label-highlighted,
+.room-label-text-small.room-label-highlighted {
+    fill: #ffffff !important;
+    font-weight: 700 !important;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
 }
 
 .room-label-text {
@@ -344,6 +367,70 @@ footer {
     font-size: 0.85rem;
 }
 
+.room-totals {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.room-totals h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.totals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    text-align: left;
+}
+
+.total-item {
+    padding: 0.75rem;
+    background: var(--background);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.total-item:hover {
+    background: #e8e7d0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.total-item-active {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.total-item-active strong,
+.total-item-active span {
+    color: var(--white);
+}
+
+.total-item strong {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.total-item span {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .floor-plan-container {
@@ -361,6 +448,14 @@ footer {
     .modal-image-section {
         flex: none;
         width: 100%;
+    }
+    
+    .totals-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .room-totals {
+        padding: 1rem;
     }
 }
 

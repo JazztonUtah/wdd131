@@ -13,7 +13,7 @@ const roomData = {
         image: 'images/overflow1.jpeg',
         youthAdult: 'Recommended: 100',
         primaryKids: 'N/A',
-        classes: '',
+        classes: 'N/A',
         teachers: ''
     },
     'overflow-2': {
@@ -21,24 +21,24 @@ const roomData = {
         image: 'images/overflow2.jpeg',
         youthAdult: 'Recommended: 50',
         primaryKids: 'N/A',
-        classes: '',
-        teachers: ''
+        classes: 'Teachers and Deacons Quorum',
+        teachers: 'Teachers and Deacons Leaders'
     },
     'room-107': {
         name: 'Room 107',
         image: 'images/107.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: '',
-        teachers: ''
+        classes: 'Older YW & 14-15 SS',
+        teachers: '15-18 YW Leaders, Brother & Sister Frank'
     },
     'room-108': {
         name: 'Room 108',
         image: 'images/108.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: '',
-        teachers: ''
+        classes: 'Younger YW & 12-14 SS',
+        teachers: '12-14 YW Leaders, Brother & Sister Dean'
     },
     'bathroom': {
         name: 'Bathroom',
@@ -53,32 +53,32 @@ const roomData = {
         image: 'images/northfoyer.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
-        classes: '',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'south-foyer': {
         name: 'South Foyer',
         image: 'images/southfoyer.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
-        classes: '',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'east-foyer': {
         name: 'East Foyer',
         image: '',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
-        classes: '',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'rs-room': {
         name: 'RS Room',
         image: 'images/RS.jpeg',
         youthAdult: '50 adults',
         primaryKids: '60 kids',
-        classes: 'Relief Society',
-        teachers: ''
+        classes: 'Relief Society & Adult SS',
+        teachers: 'Aubrey Haws & Michelle Ybarra, Eric Burton & John Coleman'
     },
     'primary-room': {
         name: 'Primary Room',
@@ -86,46 +86,46 @@ const roomData = {
         youthAdult: '50 adults',
         primaryKids: '60 kids',
         classes: 'Primary',
-        teachers: ''
+        teachers: 'Primary Presidency & Music Leaders'
     },
     'bishop-nw': {
         name: 'Bishop Office (Our Ward)',
         image: 'images/ourbishop.jpeg',
         youthAdult: '2-5',
         primaryKids: 'N/A',
-        classes: 'Bishop Meetings',
-        teachers: ''
+        classes: 'Priests & 16-18 SS',
+        teachers: 'Preist Quorum Leaders & Brother & Sister Facer'
     },
     'clerk-nw': {
         name: 'Clerk Office (Our Ward)',
         image: 'images/ourclerk.jpeg',
         youthAdult: '2-4',
         primaryKids: 'N/A',
-        classes: 'Clerk Duties',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'bishop-nw-2': {
         name: 'Bishop Office',
         image: 'images/bishopnorth.jpeg',
         youthAdult: '2-5',
         primaryKids: 'N/A',
-        classes: 'Bishop Meetings',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'clerk-nw-2': {
         name: 'Clerk Office',
         image: 'images/clerknorth.jpeg',
         youthAdult: '2-4',
         primaryKids: 'N/A',
-        classes: 'Clerk Duties',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'room-101': {
         name: 'Room 101',
         image: 'images/101.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Priamry Class',
         teachers: ''
     },
     'room-102': {
@@ -133,7 +133,7 @@ const roomData = {
         image: 'images/102.jpeg',
         youthAdult: '6 adults',
         primaryKids: '8 kids',
-        classes: '',
+        classes: 'Smaller Priamry Class',
         teachers: ''
     },
     'room-103': {
@@ -141,7 +141,7 @@ const roomData = {
         image: 'images/103.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Priamry Class',
         teachers: ''
     },
     'bathroom-north': {
@@ -174,14 +174,14 @@ const roomData = {
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
-        teachers: ''
+        teachers: 'N/A'
     },
     'room-104': {
         name: 'Room 104',
         image: 'images/104.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'room-105': {
@@ -189,7 +189,7 @@ const roomData = {
         image: 'images/105.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'room-106': {
@@ -197,7 +197,7 @@ const roomData = {
         image: 'images/106.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'mothers': {
@@ -221,7 +221,7 @@ const roomData = {
         image: 'images/115.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'room-114': {
@@ -229,7 +229,7 @@ const roomData = {
         image: 'images/114.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'room-113': {
@@ -237,7 +237,7 @@ const roomData = {
         image: 'images/113.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'room-112': {
@@ -245,7 +245,7 @@ const roomData = {
         image: 'images/112.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'nursery': {
@@ -254,14 +254,14 @@ const roomData = {
         youthAdult: 'N/A',
         primaryKids: '14 kids',
         classes: 'Nursery',
-        teachers: ''
+        teachers: 'Sister Chavez, Davis, Gossett & Manasco'
     },
     'room-109': {
         name: 'Room 109',
         image: 'images/109.jpeg',
         youthAdult: '6 adults',
         primaryKids: '8 kids',
-        classes: '',
+        classes: 'Primary Class',
         teachers: ''
     },
     'bishop-sw': {
@@ -269,24 +269,24 @@ const roomData = {
         image: 'images/bishopsouth.jpeg',
         youthAdult: '2-5',
         primaryKids: 'N/A',
-        classes: 'Bishop Meetings',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'clerk-sw': {
         name: 'Clerk Office',
         image: 'images/clerksouth.jpeg',
         youthAdult: '2-4',
         primaryKids: 'N/A',
-        classes: 'Clerk Duties',
-        teachers: ''
+        classes: 'N/A',
+        teachers: 'N/A'
     },
     'old-hp-room': {
         name: 'Room 116 & 117',
         image: 'images/116.jpeg',
         youthAdult: '16 adults',
         primaryKids: '20 kids',
-        classes: '',
-        teachers: '',
+        classes: 'Elders Quroum',
+        teachers: 'Chad Staleli & Jared Hawkins',
         note: 'are the same room and cannot be split.'
     },
     'room-116': {
@@ -329,6 +329,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // Calculate and display room totals
+    calculateRoomTotals();
+    
+    // Setup category click handlers
+    setupCategoryClicks();
 });
 
 // Open modal function
@@ -379,3 +385,157 @@ document.addEventListener('keydown', (e) => {
         closeModal();
     }
 });
+
+// Store room categories for highlighting
+let roomCategories = {
+    primary: [],
+    ss: [],
+    ymYw: []
+};
+
+// Calculate and display room totals
+function calculateRoomTotals() {
+    let primaryCount = 0;
+    let ssCount = 0;
+    let ymYwCount = 0;
+
+    // Reset categories
+    roomCategories.primary = [];
+    roomCategories.ss = [];
+    roomCategories.ymYw = [];
+
+    // Count rooms by their classes and store room IDs
+    Object.entries(roomData).forEach(([roomId, room]) => {
+        const classes = room.classes || '';
+        const classesLower = classes.toLowerCase();
+
+        // Count Primary rooms (including Nursery)
+        if (classesLower.includes('primary') || classesLower.includes('priamry') || classesLower.includes('nursery')) {
+            primaryCount++;
+            roomCategories.primary.push(roomId);
+        }
+
+        // Count SS (Sunday School) rooms - match "SS" as standalone word, not part of "classes"
+        if (/\bss\b/i.test(classes)) {
+            ssCount++;
+            roomCategories.ss.push(roomId);
+        }
+
+        // Count YM & YW rooms
+        if (classesLower.includes('yw') || classesLower.includes('quorum') || 
+            classesLower.includes('teachers') || classesLower.includes('deacons') || 
+            classesLower.includes('priests') || classesLower.includes('elders')) {
+            ymYwCount++;
+            roomCategories.ymYw.push(roomId);
+        }
+    });
+
+    // Update the display
+    document.getElementById('totalPrimary').textContent = primaryCount;
+    document.getElementById('totalSS').textContent = ssCount;
+    document.getElementById('totalYMYW').textContent = ymYwCount;
+}
+
+// Highlight rooms by category
+function highlightRooms(category, isActive) {
+    const roomIds = roomCategories[category] || [];
+    
+    roomIds.forEach(roomId => {
+        const roomElement = document.querySelector(`[data-room="${roomId}"]`);
+        if (roomElement) {
+            // Highlight the room rectangle
+            if (isActive) {
+                roomElement.classList.add('room-highlighted');
+            } else {
+                roomElement.classList.remove('room-highlighted');
+            }
+            
+            // Find and highlight all associated text labels
+            try {
+                const svg = roomElement.closest('svg');
+                if (svg) {
+                    const roomRect = roomElement.getBBox();
+                    const allTexts = svg.querySelectorAll('text');
+                    
+                    allTexts.forEach(text => {
+                        try {
+                            const textRect = text.getBBox();
+                            // Check if text center is within or near the room bounds
+                            const textCenterX = textRect.x + textRect.width / 2;
+                            const textCenterY = textRect.y + textRect.height / 2;
+                            
+                            // Check if text is within room bounds (with small margin for nearby text)
+                            const margin = 5;
+                            if (textCenterX >= roomRect.x - margin && 
+                                textCenterX <= roomRect.x + roomRect.width + margin &&
+                                textCenterY >= roomRect.y - margin && 
+                                textCenterY <= roomRect.y + roomRect.height + margin) {
+                                
+                                if (isActive) {
+                                    text.classList.add('room-label-highlighted');
+                                } else {
+                                    text.classList.remove('room-label-highlighted');
+                                }
+                            }
+                        } catch (e) {
+                            // Skip if getBBox fails for this text element
+                        }
+                    });
+                }
+            } catch (e) {
+                // Skip if getBBox fails for room element
+            }
+        }
+    });
+}
+
+// Handle category clicks
+function setupCategoryClicks() {
+    let activeCategory = null;
+    
+    const primaryItem = document.getElementById('totalPrimary').closest('.total-item');
+    const ssItem = document.getElementById('totalSS').closest('.total-item');
+    const ymYwItem = document.getElementById('totalYMYW').closest('.total-item');
+    
+    function handleClick(category, item) {
+        return () => {
+            // If clicking the same category, toggle it off
+            if (activeCategory === category) {
+                highlightRooms(category, false);
+                activeCategory = null;
+                item.classList.remove('total-item-active');
+            } else {
+                // Remove previous highlight
+                if (activeCategory) {
+                    highlightRooms(activeCategory, false);
+                    const prevItem = document.querySelector(`[data-category="${activeCategory}"]`);
+                    if (prevItem) prevItem.classList.remove('total-item-active');
+                }
+                
+                // Add new highlight
+                highlightRooms(category, true);
+                activeCategory = category;
+                item.classList.add('total-item-active');
+            }
+        };
+    }
+    
+    if (primaryItem) {
+        primaryItem.style.cursor = 'pointer';
+        primaryItem.setAttribute('data-category', 'primary');
+        primaryItem.addEventListener('click', handleClick('primary', primaryItem));
+    }
+    
+    if (ssItem) {
+        ssItem.style.cursor = 'pointer';
+        ssItem.setAttribute('data-category', 'ss');
+        ssItem.addEventListener('click', handleClick('ss', ssItem));
+    }
+    
+    if (ymYwItem) {
+        ymYwItem.style.cursor = 'pointer';
+        ymYwItem.setAttribute('data-category', 'ymYw');
+        ymYwItem.addEventListener('click', handleClick('ymYw', ymYwItem));
+    }
+}
+
