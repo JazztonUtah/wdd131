@@ -19,26 +19,19 @@ const roomData = {
     'overflow-2': {
         name: 'Overflow 2',
         image: 'images/overflow2.jpeg',
-        youthAdult: 'Recommended: 50',
+        youthAdult: '50 Adults',
         primaryKids: 'N/A',
-        classes: 'Teachers and Deacons Quorum',
-        teachers: 'Teachers and Deacons Leaders'
+        classes: 'Elders Quorum & Adult SS',
+        teachers: 'Chad Staleli & Jared Hawkins, Eric Burton & John Coleman'
     },
-    'room-107': {
-        name: 'Room 107',
+    'room-107-108': {
+        name: '2nd Nursery',
         image: 'images/107.jpeg',
-        youthAdult: '14 adults',
-        primaryKids: '16 kids',
-        classes: 'Older YW & 14-15 SS',
-        teachers: '15-18 YW Leaders, Brother & Sister Frank'
-    },
-    'room-108': {
-        name: 'Room 108',
-        image: 'images/108.jpeg',
-        youthAdult: '14 adults',
-        primaryKids: '16 kids',
-        classes: 'Younger YW & 12-14 SS',
-        teachers: '12-14 YW Leaders, Brother & Sister Dean'
+        youthAdult: 'N/A',
+        primaryKids: '20 kids',
+        classes: 'Nursery',
+        teachers: 'Sister Chavez, Davis, Gossett & Manasco',
+        note: '107 & 108 are 2 rooms and can be split.'
     },
     'bathroom': {
         name: 'Bathroom',
@@ -91,10 +84,10 @@ const roomData = {
     'bishop-nw': {
         name: 'Bishop Office (Our Ward)',
         image: 'images/ourbishop.jpeg',
-        youthAdult: '2-5',
-        primaryKids: 'N/A',
-        classes: 'Priests & 16-18 SS',
-        teachers: 'Preist Quorum Leaders & Brother & Sister Facer'
+        youthAdult: '10 Adults',
+        primaryKids: '12 Kids',
+        classes: 'Priests, 16-18 SS',
+        teachers: 'Preist Quorum Leaders, 16-18 SS Teachers'
     },
     'clerk-nw': {
         name: 'Clerk Office (Our Ward)',
@@ -181,24 +174,24 @@ const roomData = {
         image: 'images/104.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Primary Class',
-        teachers: ''
+        classes: 'Teachers and or Deacon Quorum',
+        teachers: 'Teachers and Deacons Leaders'
     },
     'room-105': {
         name: 'Room 105',
         image: 'images/105.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Primary Class',
-        teachers: ''
+        classes: 'Older YW & 14-15 SS',
+        teachers: '15-18 YW Leaders, Brother & Sister Frank'
     },
     'room-106': {
         name: 'Room 106',
         image: 'images/106.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Primary Class',
-        teachers: ''
+        classes: 'Younger YW & 12-14 SS',
+        teachers: '12-14 YW Leaders, Brother & Sister Dean'
     },
     'mothers': {
         name: "Mother's Room",
@@ -252,9 +245,10 @@ const roomData = {
         name: 'Nursery',
         image: 'images/nursery.jpeg',
         youthAdult: 'N/A',
-        primaryKids: '14 kids',
+        primaryKids: '20 kids',
         classes: 'Nursery',
-        teachers: 'Sister Chavez, Davis, Gossett & Manasco'
+        teachers: 'Sister Chavez, Davis, Gossett & Manasco',
+        note: '111 & 110 are the same room and can be split.'
     },
     'room-109': {
         name: 'Room 109',
@@ -283,10 +277,10 @@ const roomData = {
     'old-hp-room': {
         name: 'Room 116 & 117',
         image: 'images/116.jpeg',
-        youthAdult: '16 adults',
+        youthAdult: '18 Adults',
         primaryKids: '20 kids',
-        classes: 'Elders Quroum',
-        teachers: 'Chad Staleli & Jared Hawkins',
+        classes: 'Teachers and or Deacon Quorum & 11 SS',
+        teachers: 'Teachers and Deacons Leaders, 11 SS Teachers',
         note: 'are the same room and cannot be split.'
     },
     'room-116': {
@@ -414,7 +408,8 @@ document.addEventListener('keydown', (e) => {
 let roomCategories = {
     primary: [],
     ss: [],
-    ymYw: []
+    ymYw: [],
+    eqRs: []
 };
 
 // Calculate and display room totals
@@ -422,11 +417,13 @@ function calculateRoomTotals() {
     let primaryCount = 0;
     let ssCount = 0;
     let ymYwCount = 0;
+    let eqRsCount = 0;
 
     // Reset categories
     roomCategories.primary = [];
     roomCategories.ss = [];
     roomCategories.ymYw = [];
+    roomCategories.eqRs = [];
 
     // Count rooms by their classes and store room IDs
     Object.entries(roomData).forEach(([roomId, room]) => {
@@ -445,10 +442,19 @@ function calculateRoomTotals() {
             roomCategories.ss.push(roomId);
         }
 
-        // Count YM & YW rooms
-        if (classesLower.includes('yw') || classesLower.includes('quorum') || 
+        // Count EQ & RS rooms (Elders Quorum and Relief Society)
+        // Note: "Elders Quroum" is misspelled in the data, so we check for "elders" and "quroum"
+        if (classesLower.includes('elders') || classesLower.includes('quroum') || 
+            classesLower.includes('relief society') || roomId === 'rs-room') {
+            eqRsCount++;
+            roomCategories.eqRs.push(roomId);
+        }
+
+        // Count YM & YW rooms (excluding Elders Quorum)
+        if (classesLower.includes('yw') || 
+            (classesLower.includes('quorum') && !classesLower.includes('elders')) || 
             classesLower.includes('teachers') || classesLower.includes('deacons') || 
-            classesLower.includes('priests') || classesLower.includes('elders')) {
+            classesLower.includes('priests')) {
             ymYwCount++;
             roomCategories.ymYw.push(roomId);
         }
@@ -458,6 +464,7 @@ function calculateRoomTotals() {
     document.getElementById('totalPrimary').textContent = primaryCount;
     document.getElementById('totalSS').textContent = ssCount;
     document.getElementById('totalYMYW').textContent = ymYwCount;
+    document.getElementById('totalEQRS').textContent = eqRsCount;
 }
 
 // Highlight rooms by category
@@ -560,6 +567,13 @@ function setupCategoryClicks() {
         ymYwItem.style.cursor = 'pointer';
         ymYwItem.setAttribute('data-category', 'ymYw');
         ymYwItem.addEventListener('click', handleClick('ymYw', ymYwItem));
+    }
+    
+    const eqRsItem = document.getElementById('totalEQRS').closest('.total-item');
+    if (eqRsItem) {
+        eqRsItem.style.cursor = 'pointer';
+        eqRsItem.setAttribute('data-category', 'eqRs');
+        eqRsItem.addEventListener('click', handleClick('eqRs', eqRsItem));
     }
 }
 

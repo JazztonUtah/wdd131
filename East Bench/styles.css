@@ -131,7 +131,7 @@ main {
 
 .direction-label {
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     fill: var(--text-light);
     text-anchor: middle;
@@ -141,7 +141,7 @@ main {
 
 .direction-sublabel {
     font-family: 'Outfit', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 400;
     fill: var(--text-light);
     text-anchor: middle;
@@ -186,7 +186,7 @@ main {
 
 .room-label-text {
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     fill: var(--text-dark);
     text-anchor: middle;
@@ -195,7 +195,7 @@ main {
 
 .room-label-text-small {
     font-family: 'Outfit', sans-serif;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 500;
     fill: var(--text-dark);
     text-anchor: middle;
@@ -228,7 +228,7 @@ main {
 /* Instruction Text */
 .instruction {
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-light);
     font-weight: 300;
     letter-spacing: 0.05em;
@@ -413,13 +413,13 @@ footer {
 
 .totals-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
     text-align: left;
 }
 
 .total-item {
-    padding: 0.75rem;
+    padding: 0.6rem 0.5rem;
     background: var(--background);
     border-radius: 6px;
     display: flex;
@@ -427,6 +427,7 @@ footer {
     align-items: center;
     transition: all 0.3s ease;
     user-select: none;
+    font-size: 0.9rem;
 }
 
 .total-item:hover {
@@ -448,10 +449,11 @@ footer {
 .total-item strong {
     color: var(--text-dark);
     font-weight: 500;
+    font-size: 0.85rem;
 }
 
 .total-item span {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--accent);
 }
@@ -520,7 +522,7 @@ footer {
     padding: 1rem;
     text-align: left;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 0.05em;
 }
 
@@ -540,7 +542,7 @@ footer {
 .rooms-table td {
     padding: 1rem;
     color: var(--text-dark);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .table-note {
@@ -621,15 +623,40 @@ footer {
     }
     
     .totals-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .room-totals {
         padding: 1rem;
     }
     
+    .total-item {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    .total-item strong {
+        font-size: 0.8rem;
+    }
+    
+    .total-item span {
+        font-size: 1rem;
+    }
+    
     .rooms-table {
         font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .totals-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .totals-grid {
+        grid-template-columns: 1fr;
     }
     
     .rooms-table th,

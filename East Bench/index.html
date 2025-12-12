@@ -35,6 +35,7 @@
           </button>
           <button class="filter-btn" data-filter="ss">SS Rooms</button>
           <button class="filter-btn" data-filter="ymYw">YM & YW Rooms</button>
+          <button class="filter-btn" data-filter="eqRs">EQ & RS Rooms</button>
         </div>
         <table class="rooms-table">
           <thead>
@@ -140,27 +141,33 @@
           <!-- Area behind Overflow 2: 22.5ft wide (57px) x 50ft tall (125px) -->
           <!-- Split: top half = 2 classrooms side by side, bottom half = washroom -->
 
-          <!-- Room 107: top left -->
+          <!-- Room 107 & 108: Combined (2 rooms that can be split) -->
           <rect
             class="room-outline"
-            data-room="room-107"
+            data-room="room-107-108"
             x="385"
             y="100"
-            width="29"
+            width="57"
             height="62"
           />
-          <text x="399" y="135" class="room-label-text-small">107</text>
 
-          <!-- Room 108: top right -->
-          <rect
-            class="room-outline"
-            data-room="room-108"
-            x="414"
-            y="100"
-            width="28"
-            height="62"
-          />
-          <text x="428" y="135" class="room-label-text-small">108</text>
+          <!-- Combined label for rooms 107 & 108 (centered across both) -->
+          <text
+            x="413"
+            y="130"
+            class="room-label-text-small"
+            text-anchor="middle"
+          >
+            2nd
+          </text>
+          <text
+            x="413"
+            y="142"
+            class="room-label-text-small"
+            text-anchor="middle"
+          >
+            Nursery
+          </text>
 
           <!-- Bathroom: bottom half (full width) -->
           <rect
@@ -699,6 +706,10 @@
           <div class="total-item">
             <strong>Total YM & YW Rooms:</strong>
             <span id="totalYMYW">0</span>
+          </div>
+          <div class="total-item">
+            <strong>Total EQ & RS Rooms:</strong>
+            <span id="totalEQRS">0</span>
           </div>
         </div>
       </div>
