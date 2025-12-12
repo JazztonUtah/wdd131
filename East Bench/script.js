@@ -318,8 +318,43 @@ const imageModal = document.getElementById('imageModal');
 const imageModalImage = document.getElementById('imageModalImage');
 const imageModalNoImage = document.getElementById('imageModalNoImage');
 
+// Mobile popup functionality
+function checkMobileAndShowPopup() {
+    // Check if device is mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     (window.innerWidth <= 768 && window.innerHeight <= 1024);
+    
+    if (isMobile) {
+        const mobilePopup = document.getElementById('mobilePopup');
+        const mobilePopupBtn = document.getElementById('mobilePopupBtn');
+        
+        if (mobilePopup && mobilePopupBtn) {
+            // Show popup
+            mobilePopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Close popup on button click
+            mobilePopupBtn.addEventListener('click', () => {
+                mobilePopup.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close popup when clicking outside
+            mobilePopup.addEventListener('click', (e) => {
+                if (e.target === mobilePopup) {
+                    mobilePopup.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    }
+}
+
 // Add click handlers to all SVG room elements
 document.addEventListener('DOMContentLoaded', () => {
+    // Check and show mobile popup
+    checkMobileAndShowPopup();
+    
     const rooms = document.querySelectorAll('.room-outline');
     rooms.forEach(room => {
         room.style.cursor = 'pointer';
