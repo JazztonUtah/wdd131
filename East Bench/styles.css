@@ -212,6 +212,12 @@ main {
         visibility: hidden;
         opacity: 0;
     }
+    
+    /* Move North label down on mobile */
+    .floor-plan-svg text.direction-label[x="275"][y="-5"],
+    .floor-plan-svg text.direction-sublabel[x="275"][y="10"] {
+        transform: translateY(25px);
+    }
 }
 
 .direction-sublabel {

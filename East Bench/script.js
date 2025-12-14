@@ -214,7 +214,7 @@ const roomData = {
         image: 'images/115.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Primary Class',
+        classes: 'CTR 6 & Valiant 10',
         teachers: ''
     },
     'room-114': {
@@ -222,7 +222,7 @@ const roomData = {
         image: 'images/114.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Primary Class',
+        classes: 'CTR 5B & Valiant 9',
         teachers: ''
     },
     'room-113': {
@@ -230,7 +230,7 @@ const roomData = {
         image: 'images/113.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Primary Class',
+        classes: 'CTR 5A & Valiant 8',
         teachers: ''
     },
     'room-112': {
@@ -238,7 +238,7 @@ const roomData = {
         image: 'images/112.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Primary Class',
+        classes: 'CTR 4 & 7',
         teachers: ''
     },
     'nursery': {
@@ -255,7 +255,7 @@ const roomData = {
         image: 'images/109.jpeg',
         youthAdult: '6 adults',
         primaryKids: '8 kids',
-        classes: 'Primary Class',
+        classes: 'Sunbeams',
         teachers: ''
     },
     'bishop-sw': {
@@ -430,8 +430,10 @@ function calculateRoomTotals() {
         const classes = room.classes || '';
         const classesLower = classes.toLowerCase();
 
-        // Count Primary rooms (including Nursery)
-        if (classesLower.includes('primary') || classesLower.includes('priamry') || classesLower.includes('nursery')) {
+        // Count Primary rooms (including Nursery, CTR, Valiant, and Sunbeams)
+        if (classesLower.includes('primary') || classesLower.includes('priamry') || 
+            classesLower.includes('nursery') || classesLower.includes('ctr') || 
+            classesLower.includes('valiant') || classesLower.includes('sunbeams')) {
             primaryCount++;
             roomCategories.primary.push(roomId);
         }
