@@ -26,7 +26,7 @@ const roomData = {
     },
     'room-107-108': {
         name: '2nd Nursery',
-        image: 'images/107.jpeg',
+        image: 'images/2ndNursery.jpeg',
         youthAdult: 'N/A',
         primaryKids: '20 kids',
         classes: 'Nursery',
@@ -35,7 +35,7 @@ const roomData = {
     },
     'bathroom': {
         name: 'Bathroom',
-        image: 'images/washroom.jpeg',
+        image: 'images/bathroom.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
@@ -59,7 +59,7 @@ const roomData = {
     },
     'east-foyer': {
         name: 'East Foyer',
-        image: '',
+        image: 'images/east foyer.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
@@ -86,8 +86,8 @@ const roomData = {
         image: 'images/ourbishop.jpeg',
         youthAdult: '10 Adults',
         primaryKids: '12 Kids',
-        classes: 'Priests, 16-18 SS',
-        teachers: 'Preist Quorum Leaders, 16-18 SS Teachers'
+        classes: 'Priests',
+        teachers: 'Preist Quorum Leaders'
     },
     'clerk-nw': {
         name: 'Clerk Office (Our Ward)',
@@ -118,7 +118,7 @@ const roomData = {
         image: 'images/101.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Priamry Class',
+        classes: 'CTR 5B & Valiant 9',
         teachers: ''
     },
     'room-102': {
@@ -134,12 +134,12 @@ const roomData = {
         image: 'images/103.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Priamry Class',
+        classes: 'CTR 6 & Valiant 10',
         teachers: ''
     },
     'bathroom-north': {
         name: 'Bathroom',
-        image: 'images/washroom.jpeg',
+        image: 'images/BR.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
@@ -174,24 +174,24 @@ const roomData = {
         image: 'images/104.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Teachers and or Deacon Quorum',
-        teachers: 'Teachers and Deacons Leaders'
+        classes: 'YW &11 SS',
+        teachers: 'YW Leaders,11 SS Teachers'
     },
     'room-105': {
         name: 'Room 105',
         image: 'images/105.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Older YW & 14-15 SS',
-        teachers: '15-18 YW Leaders, Brother & Sister Frank'
+        classes: 'YW & 14-15 SS',
+        teachers: 'YW Leaders, Brother & Sister Frank'
     },
     'room-106': {
         name: 'Room 106',
         image: 'images/106.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'Younger YW & 12-14 SS',
-        teachers: '12-14 YW Leaders, Brother & Sister Dean'
+        classes: 'YW & 12-14 SS',
+        teachers: 'YW Leaders, Brother & Sister Dean'
     },
     'mothers': {
         name: "Mother's Room",
@@ -214,16 +214,16 @@ const roomData = {
         image: 'images/115.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 6 & Valiant 10',
-        teachers: ''
+        classes: 'Deacons Quorum',
+        teachers: 'Deacons Quorum Leaders'
     },
     'room-114': {
         name: 'Room 114',
         image: 'images/114.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 5B & Valiant 9',
-        teachers: ''
+        classes: 'Teachers Quorum',
+        teachers: 'Teachers Quorum Leaders'
     },
     'room-113': {
         name: 'Room 113',
@@ -279,8 +279,8 @@ const roomData = {
         image: 'images/116.jpeg',
         youthAdult: '18 Adults',
         primaryKids: '20 kids',
-        classes: 'Teachers and or Deacon Quorum & 11 SS',
-        teachers: 'Teachers and Deacons Leaders, 11 SS Teachers',
+        classes: '16-18 SS',
+        teachers: '16-18 SS Teachers',
         note: 'are the same room and cannot be split.'
     },
     'room-116': {
@@ -612,8 +612,18 @@ function generateTableView(filter = 'all') {
     // Clear existing rows
     roomsTableBody.innerHTML = '';
     
-    // Sort rooms by name for better organization
+    // Sort rooms by name, but put "N/A" classes at the bottom
     let sortedRooms = Object.entries(roomData).sort((a, b) => {
+        const aClasses = (a[1].classes || '').trim().toUpperCase();
+        const bClasses = (b[1].classes || '').trim().toUpperCase();
+        const aIsNA = aClasses === 'N/A' || aClasses === '';
+        const bIsNA = bClasses === 'N/A' || bClasses === '';
+        
+        // If one is N/A and the other isn't, N/A goes to bottom
+        if (aIsNA && !bIsNA) return 1;
+        if (!aIsNA && bIsNA) return -1;
+        
+        // Otherwise sort alphabetically by name
         return a[1].name.localeCompare(b[1].name);
     });
     
