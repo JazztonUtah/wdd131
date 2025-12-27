@@ -359,17 +359,33 @@ function getZoomLevel() {
     if (window.visualViewport) {
         const visualWidth = window.visualViewport.width;
         const layoutWidth = window.innerWidth;
-        if (layoutWidth > 0) {
-            return layoutWidth / visualWidth;
+        if (layoutWidth > 0 && visualWidth > 0) {
+            const zoom = layoutWidth / visualWidth;
+            // Only return zoom if it's significantly different from 1
+            if (Math.abs(zoom - 1) > 0.05) {
+                return zoom;
+            }
+        }
+    }
+    
+    // Alternative method: Compare outerWidth to innerWidth
+    // This detects browser zoom
+    if (window.outerWidth && window.innerWidth) {
+        const zoom = window.outerWidth / window.innerWidth;
+        if (Math.abs(zoom - 1) > 0.05) {
+            return zoom;
         }
     }
     
     // Fallback: Calculate zoom level based on screen and window dimensions
     // This works by comparing the expected viewport width to actual width
-    const expectedWidth = screen.width / window.devicePixelRatio;
+    const expectedWidth = screen.width / (window.devicePixelRatio || 1);
     const actualWidth = window.innerWidth;
-    if (actualWidth > 0) {
-        return expectedWidth / actualWidth;
+    if (actualWidth > 0 && expectedWidth > 0) {
+        const zoom = expectedWidth / actualWidth;
+        if (Math.abs(zoom - 1) > 0.05) {
+            return zoom;
+        }
     }
     
     return 1; // Default to no zoom if detection fails
@@ -402,22 +418,22 @@ function openModal(data) {
     document.body.style.overflow = 'hidden';
     
     // Get current zoom level and apply inverse scale to modal content
-    // Apply after a short delay to allow animation to start
+    // Apply after a short delay to allow animation to start and ensure viewport is ready
     setTimeout(() => {
         const zoom = getZoomLevel();
         const modalContent = modal.querySelector('.modal-content');
-        if (modalContent && zoom !== 1) {
-            // Apply inverse scale to counteract zoom, preserving any existing transform
-            const currentTransform = modalContent.style.transform || '';
-            // If there's an existing transform from animation, we need to combine them
-            // For now, just apply scale (animation will complete first)
-            modalContent.style.transform = `scale(${1 / zoom})`;
-            modalContent.style.transformOrigin = 'center center';
-        } else if (modalContent) {
-            // Reset transform if zoom is 1 (but keep animation transform)
-            modalContent.style.transform = '';
+        if (modalContent) {
+            if (zoom !== 1 && Math.abs(zoom - 1) > 0.05) {
+                // Apply inverse scale to counteract zoom
+                const scale = 1 / zoom;
+                modalContent.style.transform = `scale(${scale})`;
+                modalContent.style.transformOrigin = 'center center';
+            } else {
+                // Reset transform if zoom is 1
+                modalContent.style.transform = '';
+            }
         }
-    }, 50);
+    }, 100);
 }
 
 // Close modal
@@ -688,6 +704,7 @@ function generateTableView(filter = 'all') {
         
         // Room Name (with note if available)
         const nameCell = document.createElement('td');
+        nameCell.setAttribute('data-label', 'Room Name');
         if (room.note) {
             nameCell.innerHTML = `${room.name} <span class="table-note">- ${room.note}</span>`;
         } else {
@@ -695,28 +712,33 @@ function generateTableView(filter = 'all') {
         }
         row.appendChild(nameCell);
         
-        // Youth/Adults
-        const youthAdultCell = document.createElement('td');
-        youthAdultCell.textContent = room.youthAdult || 'N/A';
-        row.appendChild(youthAdultCell);
-        
-        // Primary Kids
-        const primaryKidsCell = document.createElement('td');
-        primaryKidsCell.textContent = room.primaryKids || 'N/A';
-        row.appendChild(primaryKidsCell);
-        
         // Classes
         const classesCell = document.createElement('td');
+        classesCell.setAttribute('data-label', 'Classes');
         classesCell.textContent = room.classes || 'N/A';
         row.appendChild(classesCell);
         
         // Teachers
         const teachersCell = document.createElement('td');
+        teachersCell.setAttribute('data-label', 'Teachers');
         teachersCell.textContent = room.teachers || 'N/A';
         row.appendChild(teachersCell);
         
+        // Youth/Adults
+        const youthAdultCell = document.createElement('td');
+        youthAdultCell.setAttribute('data-label', 'Youth/Adults');
+        youthAdultCell.textContent = room.youthAdult || 'N/A';
+        row.appendChild(youthAdultCell);
+        
+        // Primary Kids
+        const primaryKidsCell = document.createElement('td');
+        primaryKidsCell.setAttribute('data-label', 'Primary Kids');
+        primaryKidsCell.textContent = room.primaryKids || 'N/A';
+        row.appendChild(primaryKidsCell);
+        
         // View Picture button
         const pictureCell = document.createElement('td');
+        pictureCell.setAttribute('data-label', 'Picture');
         if (room.image) {
             const viewBtn = document.createElement('button');
             viewBtn.className = 'view-picture-btn';
@@ -752,19 +774,22 @@ function openImageModal(room) {
     document.body.style.overflow = 'hidden';
     
     // Get current zoom level and apply inverse scale to image modal content
-    // Apply after a short delay to allow any animations
+    // Apply after a short delay to allow any animations and ensure viewport is ready
     setTimeout(() => {
         const zoom = getZoomLevel();
         const imageModalContent = imageModal.querySelector('.image-modal-content');
-        if (imageModalContent && zoom !== 1) {
-            // Apply inverse scale to counteract zoom
-            imageModalContent.style.transform = `scale(${1 / zoom})`;
-            imageModalContent.style.transformOrigin = 'center center';
-        } else if (imageModalContent) {
-            // Reset transform if zoom is 1
-            imageModalContent.style.transform = '';
+        if (imageModalContent) {
+            if (zoom !== 1 && Math.abs(zoom - 1) > 0.05) {
+                // Apply inverse scale to counteract zoom
+                const scale = 1 / zoom;
+                imageModalContent.style.transform = `scale(${scale})`;
+                imageModalContent.style.transformOrigin = 'center center';
+            } else {
+                // Reset transform if zoom is 1
+                imageModalContent.style.transform = '';
+            }
         }
-    }, 50);
+    }, 100);
 }
 
 // Close image modal

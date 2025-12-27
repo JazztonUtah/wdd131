@@ -118,7 +118,7 @@ main {
         padding: 0;
         margin: 0;
         overflow: visible;
-        touch-action: pan-x pan-y;
+        touch-action: auto;
         position: relative;
         display: flex;
         justify-content: center;
@@ -128,7 +128,7 @@ main {
         width: 130vw;
         height: auto;
         max-height: none;
-        touch-action: pan-x pan-y;
+        touch-action: auto;
         user-select: none;
         -webkit-user-select: none;
         -webkit-touch-callout: none;
@@ -141,6 +141,7 @@ main {
     main {
         padding: 0.25rem 0 0;
         overflow-x: auto;
+        touch-action: auto;
     }
     
     .instruction {
@@ -159,10 +160,45 @@ main {
     }
     
     body {
-        touch-action: pan-x pan-y;
+        touch-action: auto;
         -webkit-user-select: none;
         user-select: none;
         overflow-x: auto;
+    }
+    
+    /* Hide PDF download button on mobile */
+    .pdf-download-container {
+        display: none;
+    }
+    
+    /* Improve table view on mobile */
+    .table-view-container {
+        padding: 0.5rem;
+    }
+    
+    .rooms-table {
+        font-size: 0.75rem;
+    }
+    
+    .rooms-table th,
+    .rooms-table td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.7rem;
+    }
+    
+    .rooms-table th {
+        font-size: 0.7rem;
+        padding: 0.6rem 0.25rem;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .view-picture-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -672,6 +708,12 @@ footer {
     padding: 1rem 0;
 }
 
+@media (min-width: 769px) {
+    .pdf-download-container {
+        display: flex;
+    }
+}
+
 .download-pdf-btn {
     padding: 0.75rem 2rem;
     background: var(--accent);
@@ -775,7 +817,72 @@ footer {
     }
     
     .rooms-table {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .rooms-table thead {
+        display: none;
+    }
+    
+    .rooms-table tbody {
+        display: block;
+    }
+    
+    .rooms-table tr {
+        display: block;
+        border: 1px solid var(--background);
+        margin-bottom: 0.75rem;
+        border-radius: 6px;
+        padding: 0.75rem;
+        background: var(--white);
+        box-shadow: 0 1px 3px var(--shadow);
+    }
+    
+    .rooms-table td {
+        display: flex;
+        flex-direction: column;
+        padding: 0.75rem;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid var(--background);
+        gap: 0.25rem;
+    }
+    
+    .rooms-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .rooms-table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+        line-height: 1.2;
+    }
+    
+    .rooms-table td:first-child {
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--accent);
+        margin-bottom: 0.5rem;
+        flex-direction: row;
+    }
+    
+    .rooms-table td:first-child:before {
+        display: none;
+    }
+    
+    .rooms-table td .view-picture-btn {
+        width: 100%;
+        margin-top: 0.25rem;
     }
 }
 
