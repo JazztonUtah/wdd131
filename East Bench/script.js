@@ -348,7 +348,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Setup image modal
     setupImageModal();
+    
+    // Setup PDF download button
+    setupPdfDownload();
 });
+
+// Function to get current zoom level
+function getZoomLevel() {
+    // Try to use visual viewport API (more accurate on mobile)
+    if (window.visualViewport) {
+        const visualWidth = window.visualViewport.width;
+        const layoutWidth = window.innerWidth;
+        if (layoutWidth > 0) {
+            return layoutWidth / visualWidth;
+        }
+    }
+    
+    // Fallback: Calculate zoom level based on screen and window dimensions
+    // This works by comparing the expected viewport width to actual width
+    const expectedWidth = screen.width / window.devicePixelRatio;
+    const actualWidth = window.innerWidth;
+    if (actualWidth > 0) {
+        return expectedWidth / actualWidth;
+    }
+    
+    return 1; // Default to no zoom if detection fails
+}
 
 // Open modal function
 function openModal(data) {
@@ -375,10 +400,33 @@ function openModal(data) {
     
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Get current zoom level and apply inverse scale to modal content
+    // Apply after a short delay to allow animation to start
+    setTimeout(() => {
+        const zoom = getZoomLevel();
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent && zoom !== 1) {
+            // Apply inverse scale to counteract zoom, preserving any existing transform
+            const currentTransform = modalContent.style.transform || '';
+            // If there's an existing transform from animation, we need to combine them
+            // For now, just apply scale (animation will complete first)
+            modalContent.style.transform = `scale(${1 / zoom})`;
+            modalContent.style.transformOrigin = 'center center';
+        } else if (modalContent) {
+            // Reset transform if zoom is 1 (but keep animation transform)
+            modalContent.style.transform = '';
+        }
+    }, 50);
 }
 
 // Close modal
 function closeModal() {
+    // Reset transform when closing
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.style.transform = '';
+    }
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -702,10 +750,30 @@ function openImageModal(room) {
     
     imageModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Get current zoom level and apply inverse scale to image modal content
+    // Apply after a short delay to allow any animations
+    setTimeout(() => {
+        const zoom = getZoomLevel();
+        const imageModalContent = imageModal.querySelector('.image-modal-content');
+        if (imageModalContent && zoom !== 1) {
+            // Apply inverse scale to counteract zoom
+            imageModalContent.style.transform = `scale(${1 / zoom})`;
+            imageModalContent.style.transformOrigin = 'center center';
+        } else if (imageModalContent) {
+            // Reset transform if zoom is 1
+            imageModalContent.style.transform = '';
+        }
+    }, 50);
 }
 
 // Close image modal
 function closeImageModal() {
+    // Reset transform when closing
+    const imageModalContent = imageModal.querySelector('.image-modal-content');
+    if (imageModalContent) {
+        imageModalContent.style.transform = '';
+    }
     imageModal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -749,5 +817,94 @@ function setupTableFilters() {
             generateTableView(filter);
         });
     });
+}
+
+// Setup PDF Download functionality
+function setupPdfDownload() {
+    const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+    
+    if (downloadPdfBtn) {
+        downloadPdfBtn.addEventListener('click', async () => {
+            try {
+                // Show loading state
+                downloadPdfBtn.textContent = 'Generating PDF...';
+                downloadPdfBtn.disabled = true;
+                
+                // Get the table element
+                const table = document.querySelector('.rooms-table');
+                const tableContainer = document.querySelector('.table-view-container');
+                
+                if (!table) {
+                    alert('Table not found');
+                    return;
+                }
+                
+                // Get the active filter to include in filename
+                const activeFilter = document.querySelector('.filter-btn.active');
+                const filterName = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+                const filterLabel = activeFilter ? activeFilter.textContent.trim() : 'All Rooms';
+                
+                // Temporarily modify table styling for PDF (remove shadows/borders)
+                const originalBoxShadow = table.style.boxShadow;
+                const originalBorderRadius = table.style.borderRadius;
+                const originalBorder = table.style.border;
+                table.style.boxShadow = 'none';
+                table.style.borderRadius = '0';
+                table.style.border = 'none';
+                
+                // Use html2canvas to capture the table
+                const canvas = await html2canvas(table, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    removeContainer: false,
+                    windowWidth: table.scrollWidth,
+                    windowHeight: table.scrollHeight,
+                    x: 0,
+                    y: 0
+                });
+                
+                // Restore original styling
+                table.style.boxShadow = originalBoxShadow;
+                table.style.borderRadius = originalBorderRadius;
+                table.style.border = originalBorder;
+                
+                // Use the canvas directly
+                const croppedCanvas = canvas;
+                
+                // Create PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                // Calculate dimensions
+                const imgWidth = 297; // A4 width in mm (landscape)
+                const imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width;
+                
+                // Add image to PDF - start at top with no margin
+                const imgData = croppedCanvas.toDataURL('image/png');
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                
+                // Generate filename
+                const filename = `East_Bench_Chapel_${filterLabel.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                
+                // Save PDF
+                pdf.save(filename);
+                
+                // Reset button
+                downloadPdfBtn.textContent = 'Download PDF';
+                downloadPdfBtn.disabled = false;
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                downloadPdfBtn.textContent = 'Download PDF';
+                downloadPdfBtn.disabled = false;
+            }
+        });
+    }
 }
 

@@ -364,6 +364,15 @@ main {
     }
 }
 
+/* Ensure modal content can handle transform for zoom counteraction */
+.modal-content {
+    transition: transform 0.1s ease;
+}
+
+.image-modal-content {
+    transition: transform 0.1s ease;
+}
+
 .close-btn {
     position: absolute;
     top: 1rem;
@@ -653,6 +662,47 @@ footer {
 
 .view-picture-btn:active {
     transform: translateY(0);
+}
+
+/* PDF Download Button */
+.pdf-download-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+.download-pdf-btn {
+    padding: 0.75rem 2rem;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-pdf-btn:hover {
+    background: #5a6b3d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.download-pdf-btn:active {
+    transform: translateY(0);
+}
+
+.download-pdf-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Image-Only Modal */
