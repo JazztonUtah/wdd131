@@ -360,19 +360,18 @@ function getZoomLevel() {
     if (window.visualViewport) {
         const visualWidth = window.visualViewport.width;
         const layoutWidth = window.innerWidth;
-        if (layoutWidth > 0 && visualWidth > 0 && visualWidth !== layoutWidth) {
+        if (layoutWidth > 0 && visualWidth > 0) {
             // When zoomed in, visualWidth is smaller than layoutWidth
             // Zoom level = layoutWidth / visualWidth
             const zoom = layoutWidth / visualWidth;
-            // Only return zoom if it's significantly different (more than 10% difference)
-            // This prevents false positives from minor browser rendering differences
-            if (zoom > 1.1 || zoom < 0.9) {
+            // Return zoom if it's different from 1 (even slightly)
+            // This ensures we catch all zoom levels
+            if (Math.abs(zoom - 1) > 0.001) {
                 return zoom;
             }
         }
     }
     
-    // Don't use other methods as they give false positives
     // Return 1 (no zoom) if visualViewport isn't available or shows no zoom
     return 1;
 }
@@ -403,13 +402,13 @@ function openModal(data) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Function to apply zoom counteraction - only if actually zoomed
+    // Function to apply zoom counteraction - always check and apply if zoomed
     const applyZoomCounteraction = () => {
         const zoom = getZoomLevel();
         const modalContent = modal.querySelector('.modal-content');
         if (modalContent) {
-            // Only apply if zoom is significantly different from 1 (more than 10%)
-            if (zoom > 1.1 || zoom < 0.9) {
+            // Apply counteraction if zoom is different from 1
+            if (zoom !== 1 && Math.abs(zoom - 1) > 0.001) {
                 // Apply inverse scale to counteract zoom
                 const scale = 1 / zoom;
                 modalContent.style.transform = `scale(${scale})`;
@@ -421,8 +420,11 @@ function openModal(data) {
         }
     };
     
-    // Apply after a short delay to ensure viewport is ready (for mobile)
-    setTimeout(applyZoomCounteraction, 100);
+    // Apply immediately and multiple times to ensure it works
+    applyZoomCounteraction();
+    setTimeout(applyZoomCounteraction, 50);
+    setTimeout(applyZoomCounteraction, 150);
+    setTimeout(applyZoomCounteraction, 300);
     
     // Listen for viewport changes (mobile zoom changes)
     if (window.visualViewport) {
@@ -784,13 +786,13 @@ function openImageModal(room) {
     imageModal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Function to apply zoom counteraction for image modal - only if actually zoomed
+    // Function to apply zoom counteraction for image modal - always check and apply if zoomed
     const applyImageZoomCounteraction = () => {
         const zoom = getZoomLevel();
         const imageModalContent = imageModal.querySelector('.image-modal-content');
         if (imageModalContent) {
-            // Only apply if zoom is significantly different from 1 (more than 10%)
-            if (zoom > 1.1 || zoom < 0.9) {
+            // Apply counteraction if zoom is different from 1
+            if (zoom !== 1 && Math.abs(zoom - 1) > 0.001) {
                 // Apply inverse scale to counteract zoom
                 const scale = 1 / zoom;
                 imageModalContent.style.transform = `scale(${scale})`;
@@ -802,8 +804,11 @@ function openImageModal(room) {
         }
     };
     
-    // Apply after a short delay to ensure viewport is ready (for mobile)
-    setTimeout(applyImageZoomCounteraction, 100);
+    // Apply immediately and multiple times to ensure it works
+    applyImageZoomCounteraction();
+    setTimeout(applyImageZoomCounteraction, 50);
+    setTimeout(applyImageZoomCounteraction, 150);
+    setTimeout(applyImageZoomCounteraction, 300);
     
     // Listen for viewport changes (mobile zoom changes)
     if (window.visualViewport) {
