@@ -355,40 +355,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to get current zoom level
 function getZoomLevel() {
-    // Try to use visual viewport API (more accurate on mobile)
+    // Only use visual viewport API for mobile pinch-to-zoom detection
+    // This is the most reliable method for detecting actual user zoom
     if (window.visualViewport) {
         const visualWidth = window.visualViewport.width;
         const layoutWidth = window.innerWidth;
-        if (layoutWidth > 0 && visualWidth > 0) {
+        if (layoutWidth > 0 && visualWidth > 0 && visualWidth !== layoutWidth) {
+            // When zoomed in, visualWidth is smaller than layoutWidth
+            // Zoom level = layoutWidth / visualWidth
             const zoom = layoutWidth / visualWidth;
-            // Only return zoom if it's significantly different from 1
-            if (Math.abs(zoom - 1) > 0.05) {
+            // Only return zoom if it's significantly different (more than 10% difference)
+            // This prevents false positives from minor browser rendering differences
+            if (zoom > 1.1 || zoom < 0.9) {
                 return zoom;
             }
         }
     }
     
-    // Alternative method: Compare outerWidth to innerWidth
-    // This detects browser zoom
-    if (window.outerWidth && window.innerWidth) {
-        const zoom = window.outerWidth / window.innerWidth;
-        if (Math.abs(zoom - 1) > 0.05) {
-            return zoom;
-        }
-    }
-    
-    // Fallback: Calculate zoom level based on screen and window dimensions
-    // This works by comparing the expected viewport width to actual width
-    const expectedWidth = screen.width / (window.devicePixelRatio || 1);
-    const actualWidth = window.innerWidth;
-    if (actualWidth > 0 && expectedWidth > 0) {
-        const zoom = expectedWidth / actualWidth;
-        if (Math.abs(zoom - 1) > 0.05) {
-            return zoom;
-        }
-    }
-    
-    return 1; // Default to no zoom if detection fails
+    // Don't use other methods as they give false positives
+    // Return 1 (no zoom) if visualViewport isn't available or shows no zoom
+    return 1;
 }
 
 // Open modal function
@@ -417,23 +403,40 @@ function openModal(data) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Get current zoom level and apply inverse scale to modal content
-    // Apply after a short delay to allow animation to start and ensure viewport is ready
-    setTimeout(() => {
+    // Function to apply zoom counteraction - only if actually zoomed
+    const applyZoomCounteraction = () => {
         const zoom = getZoomLevel();
         const modalContent = modal.querySelector('.modal-content');
         if (modalContent) {
-            if (zoom !== 1 && Math.abs(zoom - 1) > 0.05) {
+            // Only apply if zoom is significantly different from 1 (more than 10%)
+            if (zoom > 1.1 || zoom < 0.9) {
                 // Apply inverse scale to counteract zoom
                 const scale = 1 / zoom;
                 modalContent.style.transform = `scale(${scale})`;
                 modalContent.style.transformOrigin = 'center center';
             } else {
-                // Reset transform if zoom is 1
+                // Reset transform if no zoom detected
                 modalContent.style.transform = '';
             }
         }
-    }, 100);
+    };
+    
+    // Apply after a short delay to ensure viewport is ready (for mobile)
+    setTimeout(applyZoomCounteraction, 100);
+    
+    // Listen for viewport changes (mobile zoom changes)
+    if (window.visualViewport) {
+        const handleViewportChange = () => {
+            if (modal.classList.contains('active')) {
+                applyZoomCounteraction();
+            }
+        };
+        window.visualViewport.addEventListener('resize', handleViewportChange);
+        window.visualViewport.addEventListener('scroll', handleViewportChange);
+        
+        // Store handler to remove later
+        modal._viewportHandler = handleViewportChange;
+    }
 }
 
 // Close modal
@@ -443,6 +446,14 @@ function closeModal() {
     if (modalContent) {
         modalContent.style.transform = '';
     }
+    
+    // Remove viewport event listeners if they exist
+    if (window.visualViewport && modal._viewportHandler) {
+        window.visualViewport.removeEventListener('resize', modal._viewportHandler);
+        window.visualViewport.removeEventListener('scroll', modal._viewportHandler);
+        delete modal._viewportHandler;
+    }
+    
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -773,23 +784,40 @@ function openImageModal(room) {
     imageModal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Get current zoom level and apply inverse scale to image modal content
-    // Apply after a short delay to allow any animations and ensure viewport is ready
-    setTimeout(() => {
+    // Function to apply zoom counteraction for image modal - only if actually zoomed
+    const applyImageZoomCounteraction = () => {
         const zoom = getZoomLevel();
         const imageModalContent = imageModal.querySelector('.image-modal-content');
         if (imageModalContent) {
-            if (zoom !== 1 && Math.abs(zoom - 1) > 0.05) {
+            // Only apply if zoom is significantly different from 1 (more than 10%)
+            if (zoom > 1.1 || zoom < 0.9) {
                 // Apply inverse scale to counteract zoom
                 const scale = 1 / zoom;
                 imageModalContent.style.transform = `scale(${scale})`;
                 imageModalContent.style.transformOrigin = 'center center';
             } else {
-                // Reset transform if zoom is 1
+                // Reset transform if no zoom detected
                 imageModalContent.style.transform = '';
             }
         }
-    }, 100);
+    };
+    
+    // Apply after a short delay to ensure viewport is ready (for mobile)
+    setTimeout(applyImageZoomCounteraction, 100);
+    
+    // Listen for viewport changes (mobile zoom changes)
+    if (window.visualViewport) {
+        const handleImageViewportChange = () => {
+            if (imageModal.classList.contains('active')) {
+                applyImageZoomCounteraction();
+            }
+        };
+        window.visualViewport.addEventListener('resize', handleImageViewportChange);
+        window.visualViewport.addEventListener('scroll', handleImageViewportChange);
+        
+        // Store handler to remove later
+        imageModal._viewportHandler = handleImageViewportChange;
+    }
 }
 
 // Close image modal
@@ -799,6 +827,14 @@ function closeImageModal() {
     if (imageModalContent) {
         imageModalContent.style.transform = '';
     }
+    
+    // Remove viewport event listeners if they exist
+    if (window.visualViewport && imageModal._viewportHandler) {
+        window.visualViewport.removeEventListener('resize', imageModal._viewportHandler);
+        window.visualViewport.removeEventListener('scroll', imageModal._viewportHandler);
+        delete imageModal._viewportHandler;
+    }
+    
     imageModal.classList.remove('active');
     document.body.style.overflow = '';
 }
