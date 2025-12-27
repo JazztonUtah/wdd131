@@ -353,26 +353,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPdfDownload();
 });
 
-// Function to get current zoom level
+// Function to get current zoom level - simple and direct
 function getZoomLevel() {
-    // Only use visual viewport API for mobile pinch-to-zoom detection
-    // This is the most reliable method for detecting actual user zoom
-    if (window.visualViewport) {
+    if (window.visualViewport && window.innerWidth) {
         const visualWidth = window.visualViewport.width;
         const layoutWidth = window.innerWidth;
-        if (layoutWidth > 0 && visualWidth > 0) {
-            // When zoomed in, visualWidth is smaller than layoutWidth
-            // Zoom level = layoutWidth / visualWidth
-            const zoom = layoutWidth / visualWidth;
-            // Return zoom if it's different from 1 (even slightly)
-            // This ensures we catch all zoom levels
-            if (Math.abs(zoom - 1) > 0.001) {
-                return zoom;
-            }
+        if (visualWidth > 0 && layoutWidth > 0) {
+            return layoutWidth / visualWidth;
         }
     }
-    
-    // Return 1 (no zoom) if visualViewport isn't available or shows no zoom
     return 1;
 }
 
@@ -402,42 +391,32 @@ function openModal(data) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Function to apply zoom counteraction - always check and apply if zoomed
-    const applyZoomCounteraction = () => {
-        const zoom = getZoomLevel();
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-            // Apply counteraction if zoom is different from 1
-            if (zoom !== 1 && Math.abs(zoom - 1) > 0.001) {
-                // Apply inverse scale to counteract zoom
+    // Immediately apply zoom counteraction to make modal appear normal size
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+            const zoom = getZoomLevel();
+            if (zoom !== 1) {
                 const scale = 1 / zoom;
                 modalContent.style.transform = `scale(${scale})`;
                 modalContent.style.transformOrigin = 'center center';
             } else {
-                // Reset transform if no zoom detected
                 modalContent.style.transform = '';
             }
-        }
-    };
-    
-    // Apply immediately and multiple times to ensure it works
-    applyZoomCounteraction();
-    setTimeout(applyZoomCounteraction, 50);
-    setTimeout(applyZoomCounteraction, 150);
-    setTimeout(applyZoomCounteraction, 300);
-    
-    // Listen for viewport changes (mobile zoom changes)
-    if (window.visualViewport) {
-        const handleViewportChange = () => {
-            if (modal.classList.contains('active')) {
-                applyZoomCounteraction();
-            }
-        };
-        window.visualViewport.addEventListener('resize', handleViewportChange);
-        window.visualViewport.addEventListener('scroll', handleViewportChange);
+        });
         
-        // Store handler to remove later
-        modal._viewportHandler = handleViewportChange;
+        // Also apply after a brief delay as backup
+        setTimeout(() => {
+            const zoom = getZoomLevel();
+            if (zoom !== 1) {
+                const scale = 1 / zoom;
+                modalContent.style.transform = `scale(${scale})`;
+                modalContent.style.transformOrigin = 'center center';
+            } else {
+                modalContent.style.transform = '';
+            }
+        }, 10);
     }
 }
 
@@ -448,14 +427,6 @@ function closeModal() {
     if (modalContent) {
         modalContent.style.transform = '';
     }
-    
-    // Remove viewport event listeners if they exist
-    if (window.visualViewport && modal._viewportHandler) {
-        window.visualViewport.removeEventListener('resize', modal._viewportHandler);
-        window.visualViewport.removeEventListener('scroll', modal._viewportHandler);
-        delete modal._viewportHandler;
-    }
-    
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -786,42 +757,32 @@ function openImageModal(room) {
     imageModal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Function to apply zoom counteraction for image modal - always check and apply if zoomed
-    const applyImageZoomCounteraction = () => {
-        const zoom = getZoomLevel();
-        const imageModalContent = imageModal.querySelector('.image-modal-content');
-        if (imageModalContent) {
-            // Apply counteraction if zoom is different from 1
-            if (zoom !== 1 && Math.abs(zoom - 1) > 0.001) {
-                // Apply inverse scale to counteract zoom
+    // Immediately apply zoom counteraction to make modal appear normal size
+    const imageModalContent = imageModal.querySelector('.image-modal-content');
+    if (imageModalContent) {
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+            const zoom = getZoomLevel();
+            if (zoom !== 1) {
                 const scale = 1 / zoom;
                 imageModalContent.style.transform = `scale(${scale})`;
                 imageModalContent.style.transformOrigin = 'center center';
             } else {
-                // Reset transform if no zoom detected
                 imageModalContent.style.transform = '';
             }
-        }
-    };
-    
-    // Apply immediately and multiple times to ensure it works
-    applyImageZoomCounteraction();
-    setTimeout(applyImageZoomCounteraction, 50);
-    setTimeout(applyImageZoomCounteraction, 150);
-    setTimeout(applyImageZoomCounteraction, 300);
-    
-    // Listen for viewport changes (mobile zoom changes)
-    if (window.visualViewport) {
-        const handleImageViewportChange = () => {
-            if (imageModal.classList.contains('active')) {
-                applyImageZoomCounteraction();
-            }
-        };
-        window.visualViewport.addEventListener('resize', handleImageViewportChange);
-        window.visualViewport.addEventListener('scroll', handleImageViewportChange);
+        });
         
-        // Store handler to remove later
-        imageModal._viewportHandler = handleImageViewportChange;
+        // Also apply after a brief delay as backup
+        setTimeout(() => {
+            const zoom = getZoomLevel();
+            if (zoom !== 1) {
+                const scale = 1 / zoom;
+                imageModalContent.style.transform = `scale(${scale})`;
+                imageModalContent.style.transformOrigin = 'center center';
+            } else {
+                imageModalContent.style.transform = '';
+            }
+        }, 10);
     }
 }
 
@@ -832,14 +793,6 @@ function closeImageModal() {
     if (imageModalContent) {
         imageModalContent.style.transform = '';
     }
-    
-    // Remove viewport event listeners if they exist
-    if (window.visualViewport && imageModal._viewportHandler) {
-        window.visualViewport.removeEventListener('resize', imageModal._viewportHandler);
-        window.visualViewport.removeEventListener('scroll', imageModal._viewportHandler);
-        delete imageModal._viewportHandler;
-    }
-    
     imageModal.classList.remove('active');
     document.body.style.overflow = '';
 }
