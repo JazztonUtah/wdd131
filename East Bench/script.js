@@ -353,16 +353,20 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPdfDownload();
 });
 
-// Function to get current zoom level - simple and direct
-function getZoomLevel() {
-    if (window.visualViewport && window.innerWidth) {
-        const visualWidth = window.visualViewport.width;
-        const layoutWidth = window.innerWidth;
-        if (visualWidth > 0 && layoutWidth > 0) {
-            return layoutWidth / visualWidth;
-        }
+// Check if device is mobile
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Reset zoom on mobile by resetting viewport
+function resetMobileZoom() {
+    if (isMobile() && window.visualViewport) {
+        // Scroll to top-left to reset viewport position
+        window.scrollTo(0, 0);
+        // Reset any transforms
+        document.body.style.transform = '';
+        document.body.style.zoom = '';
     }
-    return 1;
 }
 
 // Open modal function
@@ -388,45 +392,17 @@ function openModal(data) {
     modalClasses.textContent = data.classes || 'Not specified';
     modalTeachers.textContent = data.teachers || 'Not specified';
     
+    // On mobile, reset zoom before opening modal
+    if (isMobile()) {
+        resetMobileZoom();
+    }
+    
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // Immediately apply zoom counteraction to make modal appear normal size
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) {
-        // Use requestAnimationFrame to ensure DOM is ready
-        requestAnimationFrame(() => {
-            const zoom = getZoomLevel();
-            if (zoom !== 1) {
-                const scale = 1 / zoom;
-                modalContent.style.transform = `scale(${scale})`;
-                modalContent.style.transformOrigin = 'center center';
-            } else {
-                modalContent.style.transform = '';
-            }
-        });
-        
-        // Also apply after a brief delay as backup
-        setTimeout(() => {
-            const zoom = getZoomLevel();
-            if (zoom !== 1) {
-                const scale = 1 / zoom;
-                modalContent.style.transform = `scale(${scale})`;
-                modalContent.style.transformOrigin = 'center center';
-            } else {
-                modalContent.style.transform = '';
-            }
-        }, 10);
-    }
 }
 
 // Close modal
 function closeModal() {
-    // Reset transform when closing
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) {
-        modalContent.style.transform = '';
-    }
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -754,45 +730,17 @@ function openImageModal(room) {
         imageModalNoImage.style.display = 'block';
     }
     
+    // On mobile, reset zoom before opening modal
+    if (isMobile()) {
+        resetMobileZoom();
+    }
+    
     imageModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // Immediately apply zoom counteraction to make modal appear normal size
-    const imageModalContent = imageModal.querySelector('.image-modal-content');
-    if (imageModalContent) {
-        // Use requestAnimationFrame to ensure DOM is ready
-        requestAnimationFrame(() => {
-            const zoom = getZoomLevel();
-            if (zoom !== 1) {
-                const scale = 1 / zoom;
-                imageModalContent.style.transform = `scale(${scale})`;
-                imageModalContent.style.transformOrigin = 'center center';
-            } else {
-                imageModalContent.style.transform = '';
-            }
-        });
-        
-        // Also apply after a brief delay as backup
-        setTimeout(() => {
-            const zoom = getZoomLevel();
-            if (zoom !== 1) {
-                const scale = 1 / zoom;
-                imageModalContent.style.transform = `scale(${scale})`;
-                imageModalContent.style.transformOrigin = 'center center';
-            } else {
-                imageModalContent.style.transform = '';
-            }
-        }, 10);
-    }
 }
 
 // Close image modal
 function closeImageModal() {
-    // Reset transform when closing
-    const imageModalContent = imageModal.querySelector('.image-modal-content');
-    if (imageModalContent) {
-        imageModalContent.style.transform = '';
-    }
     imageModal.classList.remove('active');
     document.body.style.overflow = '';
 }
