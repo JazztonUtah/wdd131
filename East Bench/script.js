@@ -114,15 +114,15 @@ const roomData = {
         teachers: 'N/A'
     },
     'room-101': {
-        name: 'Room 101',
+        name: 'Room 102',
         image: 'images/101.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 5B & Valiant 9',
-        teachers: ''
+        classes: 'CTR 4 & Valiant 8',
+        teachers: 'Sister Sponseller & Stevens, Brother Lundell & Muhlestein'
     },
     'room-102': {
-        name: 'Room 102',
+        name: 'Room 101',
         image: 'images/102.jpeg',
         youthAdult: '6 adults',
         primaryKids: '8 kids',
@@ -134,12 +134,20 @@ const roomData = {
         image: 'images/103.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 6 & Valiant 10',
-        teachers: ''
+        classes: 'CTR 6 & Valiant 9',
+        teachers: 'Brother & Sister Dowland, Brother Carter & Baker'
     },
     'bathroom-north': {
         name: 'Bathroom',
         image: 'images/BR.jpeg',
+        youthAdult: 'N/A',
+        primaryKids: 'N/A',
+        classes: 'N/A',
+        teachers: 'N/A'
+    },
+    'nursery-bathroom': {
+        name: 'Nursery Bathroom',
+        image: 'images/nurserybathroom.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
@@ -174,28 +182,28 @@ const roomData = {
         image: 'images/104.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW &11 SS',
-        teachers: 'YW Leaders,11 SS Teachers'
+        classes: 'YW, Course 11 SS',
+        teachers: 'YW Leaders, Campbells'
     },
     'room-105': {
         name: 'Room 105',
         image: 'images/105.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW & 14-15 SS',
-        teachers: 'YW Leaders, Brother & Sister Frank'
+        classes: 'YW, Course 12 SS',
+        teachers: 'YW Leaders, Deans'
     },
     'room-106': {
         name: 'Room 106',
         image: 'images/106.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW & 12-14 SS',
-        teachers: 'YW Leaders, Brother & Sister Dean'
+        classes: 'YW, Course 13 SS',
+        teachers: 'YW Leaders, NEW CALLING'
     },
     'mothers': {
         name: "Mother's Room",
-        image: 'images/mothers.jpeg',
+        image: 'images/mothersroom.jpeg',
         youthAdult: 'N/A',
         primaryKids: 'N/A',
         classes: 'N/A',
@@ -214,32 +222,32 @@ const roomData = {
         image: 'images/115.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Deacons Quorum',
-        teachers: 'Deacons Quorum Leaders'
+        classes: 'Deacons Quorum, Course 14/15 SS',
+        teachers: 'Deacons Quorum Leaders, Franks'
     },
     'room-114': {
         name: 'Room 114',
         image: 'images/114.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'Teachers Quorum',
-        teachers: 'Teachers Quorum Leaders'
+        classes: 'Teachers Quorum, Course 14/15 SS',
+        teachers: 'Teachers Quorum Leaders, Franks'
     },
     'room-113': {
         name: 'Room 113',
         image: 'images/113.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 5A & Valiant 8',
-        teachers: ''
+        classes: 'CTR 5B & Valiant 10',
+        teachers: 'Brother and Sister Riding, Brother and Sister Bradley'
     },
     'room-112': {
         name: 'Room 112',
         image: 'images/112.jpeg',
         youthAdult: '10 adults',
         primaryKids: '12 kids',
-        classes: 'CTR 4 & 7',
-        teachers: ''
+        classes: 'CTR 5A & CTR7',
+        teachers: 'Sister Capell & Dennis, Brother Richarson & Reimschussel & Lovell'
     },
     'nursery': {
         name: 'Nursery',
@@ -256,7 +264,7 @@ const roomData = {
         youthAdult: '6 adults',
         primaryKids: '8 kids',
         classes: 'Sunbeams',
-        teachers: ''
+        teachers: 'Brother and Sister Revecco'
     },
     'bishop-sw': {
         name: 'Bishop Office',
@@ -279,8 +287,8 @@ const roomData = {
         image: 'images/116.jpeg',
         youthAdult: '18 Adults',
         primaryKids: '20 kids',
-        classes: '16-18 SS',
-        teachers: '16-18 SS Teachers',
+        classes: 'YM Opening Exercises, Course 16/17 SS',
+        teachers: 'Hughes',
         note: 'are the same room and cannot be split.'
     },
     'room-116': {
@@ -480,7 +488,7 @@ function calculateRoomTotals() {
         if (classesLower.includes('yw') || 
             (classesLower.includes('quorum') && !classesLower.includes('elders')) || 
             classesLower.includes('teachers') || classesLower.includes('deacons') || 
-            classesLower.includes('priests')) {
+            classesLower.includes('priests') || classesLower.includes('ym opening exercises')) {
             ymYwCount++;
             roomCategories.ymYw.push(roomId);
         }
