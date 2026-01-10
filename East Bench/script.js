@@ -21,17 +21,24 @@ const roomData = {
         image: 'images/overflow2.jpeg',
         youthAdult: '50 Adults',
         primaryKids: 'N/A',
-        classes: 'Elders Quorum & Adult SS',
-        teachers: 'Chad Staleli & Jared Hawkins, Eric Burton & John Coleman'
+        classes: 'N/A',
+        teachers: 'N/A'
     },
-    'room-107-108': {
-        name: '2nd Nursery',
+    'room-107': {
+        name: 'Room 107',
         image: 'images/2ndNursery.jpeg',
-        youthAdult: 'N/A',
-        primaryKids: '20 kids',
-        classes: 'Nursery',
-        teachers: 'Sister Chavez, Davis, Gossett & Manasco',
-        note: '107 & 108 are 2 rooms and can be split.'
+        youthAdult: '12 adults',
+        primaryKids: '14 kids',
+        classes: 'Adult SS & YW',
+        teachers: 'Brother Coleman, YW Leaders'
+    },
+    'room-108': {
+        name: 'Room 108',
+        image: 'images/2ndNursery.jpeg',
+        youthAdult: '12 adults',
+        primaryKids: '14 kids',
+        classes: 'Adult SS & YW',
+        teachers: 'Brother Coleman, YW Leaders'
     },
     'bathroom': {
         name: 'Bathroom',
@@ -182,24 +189,24 @@ const roomData = {
         image: 'images/104.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW, Course 11 SS',
-        teachers: 'YW Leaders, Campbells'
+        classes: 'Course 11 SS, Elders Quorum',
+        teachers: 'Campbells, Chad Staleli & Jared Hawkins'
     },
     'room-105': {
         name: 'Room 105',
         image: 'images/105.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW, Course 12 SS',
-        teachers: 'YW Leaders, Deans'
+        classes: 'Course 12 SS, Elders Quorum',
+        teachers: 'Deans, Chad Staleli & Jared Hawkins'
     },
     'room-106': {
         name: 'Room 106',
         image: 'images/106.jpeg',
         youthAdult: '14 adults',
         primaryKids: '16 kids',
-        classes: 'YW, Course 13 SS',
-        teachers: 'YW Leaders, NEW CALLING'
+        classes: 'Course 13 SS, Elders Quorum',
+        teachers: 'NEW CALLING, Chad Staleli & Jared Hawkins'
     },
     'mothers': {
         name: "Mother's Room",
