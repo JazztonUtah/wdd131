@@ -94,7 +94,7 @@ const roomData = {
         youthAdult: '10 Adults',
         primaryKids: '12 Kids',
         classes: 'Priests',
-        teachers: 'Preist Quorum Leaders'
+        teachers: 'Priest Quorum Leaders'
     },
     'clerk-nw': {
         name: 'Clerk Office (Our Ward)',
@@ -133,7 +133,7 @@ const roomData = {
         image: 'images/102.jpeg',
         youthAdult: '6 adults',
         primaryKids: '8 kids',
-        classes: 'Smaller Priamry Class',
+        classes: 'Smaller Primary Class',
         teachers: ''
     },
     'room-103': {
