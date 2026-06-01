@@ -292,7 +292,21 @@ function downloadPdfBlob(blob, filename) {
   URL.revokeObjectURL(url);
 }
 
+function assertPdfLibraries() {
+  if (typeof html2canvas === "undefined") {
+    throw new Error(
+      "PDF tools did not load. Check your internet connection and refresh the page."
+    );
+  }
+  if (!window.jspdf?.jsPDF) {
+    throw new Error(
+      "PDF library did not load. Check your internet connection and refresh the page."
+    );
+  }
+}
+
 async function createOfficialPdfFile(data) {
+  assertPdfLibraries();
   const { jsPDF } = window.jspdf;
   const formContainer = renderOfficialForm(data);
   const conductContainer = renderConductPage();

@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
     <script src="events-storage.js"></script>
     <script src="events.js" defer></script>
   </head>
@@ -26,7 +26,7 @@
       <nav class="form-nav">
         <a href="index.html">← Permission slip form</a>
         &nbsp;·&nbsp;
-        <a href="../East Bench/index.html">East Bench Chapel</a>
+        <a href="../East%20Bench/index.html">East Bench Chapel</a>
       </nav>
     </header>
 
@@ -151,6 +151,20 @@
           </button>
         </div>
       </form>
+
+      <section id="publishNotice" class="publish-notice hide">
+        <h3>Publish events for the live website</h3>
+        <p>
+          Events are saved in this browser. For parents on phones and other devices to
+          see them on your <strong>live</strong> site, upload the
+          <code>events.json</code> file that was just downloaded into your
+          <code>permission-slip</code> folder on the server (replace the old file), then
+          redeploy.
+        </p>
+        <button type="button" class="btn btn-secondary" id="exportEventsBtn">
+          Download events.json again
+        </button>
+      </section>
 
       <section class="saved-events-section">
         <h2>Saved events</h2>

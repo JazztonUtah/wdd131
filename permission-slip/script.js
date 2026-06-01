@@ -364,6 +364,30 @@ function applySavedEvent(event) {
   }
 }
 
+function pageUrl(filename, params = "") {
+  const url = new URL(filename, window.location.href);
+  if (params) {
+    const search = new URLSearchParams(params);
+    search.forEach((value, key) => url.searchParams.set(key, value));
+  }
+  return url.href;
+}
+
+function checkRequiredLibraries() {
+  const missing = [];
+  if (typeof flatpickr === "undefined") missing.push("calendar");
+  if (!window.jspdf?.jsPDF) missing.push("PDF library");
+  if (typeof html2canvas === "undefined") missing.push("PDF export");
+
+  if (missing.length) {
+    showErrors([
+      `Some tools did not load (${missing.join(", ")}). Refresh the page or try a different network.`,
+    ]);
+    return false;
+  }
+  return true;
+}
+
 function populateSavedEventsDropdown() {
   const select = document.getElementById("savedEventSelect");
   if (!select) return;
@@ -371,7 +395,7 @@ function populateSavedEventsDropdown() {
   const currentValue = select.value;
   select.innerHTML = '<option value="">— Enter event details manually —</option>';
 
-  getStoredEvents().forEach((event) => {
+  getAllEvents().forEach((event) => {
     const option = document.createElement("option");
     option.value = event.id;
     option.textContent = event.eventName;
@@ -642,13 +666,13 @@ form.addEventListener("submit", async (e) => {
 
     if (deliveryMethod === "download") {
       downloadPdfBlob(blob, filename);
-      window.location.href = "completed.html?method=download";
+      window.location.href = pageUrl("completed.html", "method=download");
     } else {
       const result = await sharePdfByText(blob, filename, data);
       if (result === "cancelled") {
-        window.location.href = "completed.html?method=text&cancelled=1";
+        window.location.href = pageUrl("completed.html", "method=text&cancelled=1");
       } else {
-        window.location.href = "completed.html?method=text";
+        window.location.href = pageUrl("completed.html", "method=text");
       }
     }
   } catch (err) {
@@ -666,15 +690,23 @@ document.querySelectorAll('input[name="deliveryMethod"]').forEach((radio) => {
 dobInput.addEventListener("change", updateAgeAndParentFields);
 dobInput.addEventListener("input", updateAgeAndParentFields);
 
-setDefaultSignDate();
-setupEventDateFields();
-setupSavedEventSelect();
-setupConditionalFields();
-prefillFromUrl();
-updateAgeAndParentFields();
-updateTextShareAvailability();
+async function initApp() {
+  if (!checkRequiredLibraries()) return;
 
-requestAnimationFrame(() => {
-  participantPad.resize();
-  parentPad.resize();
-});
+  await loadPublishedEvents();
+
+  setDefaultSignDate();
+  setupEventDateFields();
+  setupSavedEventSelect();
+  setupConditionalFields();
+  prefillFromUrl();
+  updateAgeAndParentFields();
+  updateTextShareAvailability();
+
+  requestAnimationFrame(() => {
+    participantPad.resize();
+    parentPad.resize();
+  });
+}
+
+initApp();

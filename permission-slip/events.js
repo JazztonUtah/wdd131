@@ -1,5 +1,5 @@
 const LEADER_PIN = "1820";
-const PIN_SESSION_KEY = "eventsPinVerified";
+let eventsPageInitialized = false;
 
 const eventForm = document.getElementById("eventForm");
 const eventErrors = document.getElementById("eventErrors");
@@ -142,8 +142,13 @@ function formatEventDates(event) {
   return `${start.toLocaleDateString("en-US", opts)} – ${end.toLocaleDateString("en-US", opts)}`;
 }
 
+function showPublishNotice() {
+  const notice = document.getElementById("publishNotice");
+  if (notice) notice.hidden = false;
+}
+
 function renderSavedEvents() {
-  const events = getStoredEvents();
+  const events = getAllEvents();
   savedEventsList.innerHTML = "";
   noEventsMsg.hidden = events.length > 0;
 
@@ -161,7 +166,10 @@ function renderSavedEvents() {
     actions.className = "saved-event-actions";
 
     const useLink = document.createElement("a");
-    useLink.href = `index.html?event=${encodeURIComponent(event.id)}`;
+    useLink.href = new URL(
+      `index.html?event=${encodeURIComponent(event.id)}`,
+      window.location.href
+    ).href;
     useLink.className = "btn-link";
     useLink.textContent = "Open form";
 
@@ -211,20 +219,16 @@ function initPinGate() {
   const pinInput = document.getElementById("pinInput");
   const pinError = document.getElementById("pinError");
 
-  if (sessionStorage.getItem(PIN_SESSION_KEY) === "true") {
-    unlockEventsPage();
-    initEventsPage();
-    return;
-  }
-
   pinForm.addEventListener("submit", (e) => {
     e.preventDefault();
     pinError.classList.add("hide");
 
     if (pinInput.value === LEADER_PIN) {
-      sessionStorage.setItem(PIN_SESSION_KEY, "true");
       unlockEventsPage();
-      initEventsPage();
+      if (!eventsPageInitialized) {
+        initEventsPage();
+        eventsPageInitialized = true;
+      }
       return;
     }
 
@@ -260,11 +264,24 @@ function initEventsPage() {
     upsertEvent(eventData);
     resetEventForm();
     renderSavedEvents();
+    downloadEventsJsonForDeploy();
+    showPublishNotice();
   });
 
   cancelEditBtn.addEventListener("click", resetEventForm);
+
+  document.getElementById("exportEventsBtn")?.addEventListener("click", () => {
+    downloadEventsJsonForDeploy();
+    showPublishNotice();
+  });
+
   setupEventDateFields();
   renderSavedEvents();
 }
 
-initPinGate();
+async function startEventsApp() {
+  await loadPublishedEvents();
+  initPinGate();
+}
+
+startEventsApp();
