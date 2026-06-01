@@ -30,37 +30,11 @@
 
       .confirmation p {
         color: var(--text-light);
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
       }
 
       .confirmation a {
         color: var(--accent);
-      }
-
-      .email-steps {
-        text-align: left;
-        font-size: 0.95rem;
-        margin: 1rem 0 1.25rem;
-        padding-left: 1.25rem;
-      }
-
-      .email-steps li {
-        margin-bottom: 0.35rem;
-      }
-
-      .btn-open-email {
-        display: inline-block;
-        margin-bottom: 1.25rem;
-        padding: 0.7rem 1.25rem;
-        background: var(--accent);
-        color: var(--white);
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 500;
-      }
-
-      .btn-open-email:hover {
-        background: #5a6b3d;
       }
     </style>
   </head>
@@ -68,14 +42,6 @@
     <main class="confirmation">
       <h1>Thank you</h1>
       <p id="confirmationMessage"></p>
-      <ol id="emailSteps" class="email-steps" hidden>
-        <li>Find the PDF in your Downloads folder.</li>
-        <li>Attach it to the email to <strong>santaquin10thward@gmail.com</strong>.</li>
-        <li>Click Send in your email app.</li>
-      </ol>
-      <a id="openEmailBtn" class="btn-open-email" href="#" hidden>
-        Open email to ward
-      </a>
       <p>
         <a href="index.html">Submit another form</a>
         &nbsp;·&nbsp;
@@ -85,30 +51,14 @@
     <script>
       const params = new URLSearchParams(window.location.search);
       const message = document.getElementById("confirmationMessage");
-      const emailSteps = document.getElementById("emailSteps");
-      const openEmailBtn = document.getElementById("openEmailBtn");
 
       if (params.get("method") === "text") {
         if (params.get("cancelled") === "1") {
           message.textContent =
-            "Sharing was cancelled. You can submit again and choose Text, or use Download or Email.";
+            "Sharing was cancelled. You can submit again to text the PDF, or choose Download PDF.";
         } else {
           message.textContent =
             "Your permission slip was shared. If you picked Messages, choose your contact and send the PDF.";
-        }
-      } else if (params.get("method") === "email") {
-        message.textContent =
-          "Your permission slip PDF has been downloaded. Open your email app, attach the PDF, and send it to the ward.";
-        emailSteps.hidden = false;
-        openEmailBtn.hidden = false;
-
-        const raw = sessionStorage.getItem("pendingMailto");
-        if (raw) {
-          const { to, subject, body } = JSON.parse(raw);
-          sessionStorage.removeItem("pendingMailto");
-          const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-          openEmailBtn.href = mailto;
-          window.location.href = mailto;
         }
       } else {
         message.textContent =

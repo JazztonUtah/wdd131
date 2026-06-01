@@ -389,12 +389,15 @@
             </div>
           </div>
 
-          <div id="parentSignatureBlock" class="parent-signature-block hide">
+          <div id="parentSignatureBlock" class="parent-signature-block">
             <div class="signature-block">
               <div class="form-group">
                 <label id="parentSignatureLabel"
                   >Parent or guardian's signature (if participant is a minor)</label
                 >
+                <p id="parentSignatureNote" class="signature-hint">
+                  Required if the participant is under 18.
+                </p>
                 <p class="signature-hint">Sign in the box below using your finger or mouse.</p>
                 <div class="signature-pad-wrap">
                   <canvas
@@ -432,23 +435,18 @@
         <fieldset class="form-section delivery-section">
           <legend>How would you like to submit?</legend>
           <div class="delivery-options">
-            <label class="delivery-option">
+            <label class="delivery-option" id="textShareOption">
               <input
                 type="radio"
                 name="deliveryMethod"
-                value="email"
+                value="text"
                 checked
               />
-              Email to ward — downloads PDF and opens your email app to
-              santaquin10thward@gmail.com (you attach the file and send)
+              Text / share PDF — choose who to send it to in Messages
             </label>
             <label class="delivery-option">
               <input type="radio" name="deliveryMethod" value="download" />
               Download PDF only (official form layout)
-            </label>
-            <label class="delivery-option" id="textShareOption">
-              <input type="radio" name="deliveryMethod" value="text" />
-              Text / share PDF — choose who to send it to in Messages
             </label>
             <p id="textShareNote" class="delivery-note"></p>
           </div>
@@ -466,8 +464,8 @@
 
     <footer>
       <p class="footer-note">
-        Based on the official Permission and Medical Release Form. Download, email, or
-        text the PDF to your leader.
+        Based on the official Permission and Medical Release Form. Text or download the
+        PDF to send to your leader.
       </p>
       <p>&copy; 2025 DIY DeVin LLC</p>
     </footer>

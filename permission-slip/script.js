@@ -1,5 +1,4 @@
 const MINOR_AGE = 18;
-const WARD_EMAIL = "santaquin10thward@gmail.com";
 
 const form = document.getElementById("permissionForm");
 const submitBtn = document.getElementById("submitBtn");
@@ -23,7 +22,7 @@ const flatpickrOptions = {
 const errorsEl = document.getElementById("formErrors");
 const dobInput = document.getElementById("dateOfBirth");
 const ageInput = document.getElementById("age");
-const parentBlock = document.getElementById("parentSignatureBlock");
+const parentSignatureNote = document.getElementById("parentSignatureNote");
 const parentSignDate = document.getElementById("parentSignDate");
 const participantSignDate = document.getElementById("participantSignDate");
 
@@ -179,11 +178,29 @@ function calculateAge(birthDate) {
   return age;
 }
 
+function updateParentSignatureNote(age) {
+  if (!parentSignatureNote) return;
+
+  if (age == null || age === "") {
+    parentSignatureNote.textContent =
+      "Required if the participant is under 18. Enter date of birth above to confirm.";
+    return;
+  }
+
+  if (age < MINOR_AGE) {
+    parentSignatureNote.textContent =
+      "Required — participant is under 18. Parent or guardian must sign below.";
+  } else {
+    parentSignatureNote.textContent =
+      "Not required — participant is 18 or older. Leave blank unless a parent is signing on their behalf.";
+  }
+}
+
 function updateAgeAndParentFields() {
   if (!dobInput.value) {
     ageInput.value = "";
-    parentBlock.classList.add("hide");
     parentSignDate.removeAttribute("required");
+    updateParentSignatureNote(null);
     return;
   }
 
@@ -192,9 +209,9 @@ function updateAgeAndParentFields() {
 
   const age = calculateAge(birthDate);
   ageInput.value = age;
+  updateParentSignatureNote(age);
 
   const isMinor = age < MINOR_AGE;
-  parentBlock.classList.toggle("hide", !isMinor);
 
   if (isMinor) {
     parentSignDate.setAttribute("required", "");
@@ -203,8 +220,6 @@ function updateAgeAndParentFields() {
     }
   } else {
     parentSignDate.removeAttribute("required");
-    parentSignDate.value = "";
-    parentPad.clear();
   }
 }
 
@@ -360,39 +375,15 @@ function collectFormData() {
   return Object.fromEntries(data.entries());
 }
 
-function buildEmailSubject(data) {
+function buildShareTitle(data) {
   const participant = data.participantName?.trim() || "Participant";
   const event = data.eventName?.trim() || "Unnamed event";
   return `Permission slip for ${participant} - ${event}`;
 }
 
-function buildEmailBody(data, filename) {
-  return [
-    "Please attach the permission slip PDF that was just downloaded to this email before you send it.",
-    "",
-    `PDF file name: ${filename}`,
-    `Participant: ${data.participantName || ""}`,
-    `Event: ${data.eventName || ""}`,
-    `Date(s): ${data.eventDates || ""}`,
-    "",
-    "Thank you.",
-  ].join("\n");
-}
-
-function queueEmailComposer(data, filename) {
-  sessionStorage.setItem(
-    "pendingMailto",
-    JSON.stringify({
-      to: WARD_EMAIL,
-      subject: buildEmailSubject(data),
-      body: buildEmailBody(data, filename),
-    })
-  );
-}
-
 function getDeliveryMethod() {
   return (
-    form.querySelector('input[name="deliveryMethod"]:checked')?.value || "email"
+    form.querySelector('input[name="deliveryMethod"]:checked')?.value || "text"
   );
 }
 
@@ -403,7 +394,7 @@ function canSharePdf() {
 async function sharePdfByText(blob, filename, data) {
   const file = new File([blob], filename, { type: "application/pdf" });
   const shareData = {
-    title: buildEmailSubject(data),
+    title: buildShareTitle(data),
     text: `Permission slip for ${data.participantName || "participant"} — ${data.eventName || "event"}`,
     files: [file],
   };
@@ -444,7 +435,6 @@ function setSubmitting(isSubmitting) {
 
   const labels = {
     download: "Creating PDF…",
-    email: "Creating PDF & opening email…",
     text: "Creating PDF & opening share…",
   };
   submitBtn.textContent = labels[method] || "Submitting…";
@@ -460,7 +450,7 @@ function updateTextShareAvailability() {
       "Opens your phone’s share menu so you can pick a contact in Messages or another app.";
   } else {
     textNote.textContent =
-      "Best on iPhone or Android. On a computer, use Download or Email instead.";
+      "Best on iPhone or Android. On a computer, choose Download PDF instead.";
   }
 }
 
@@ -564,9 +554,7 @@ form.addEventListener("submit", async (e) => {
   showErrors([]);
 
   participantPad.syncHiddenInput();
-  if (!parentBlock.classList.contains("hide")) {
-    parentPad.syncHiddenInput();
-  }
+  parentPad.syncHiddenInput();
 
   if (!validateForm()) {
     form.reportValidity();
@@ -586,11 +574,7 @@ form.addEventListener("submit", async (e) => {
     if (deliveryMethod === "download") {
       downloadPdfBlob(blob, filename);
       window.location.href = "completed.html?method=download";
-    } else if (deliveryMethod === "email") {
-      downloadPdfBlob(blob, filename);
-      queueEmailComposer(data, filename);
-      window.location.href = "completed.html?method=email";
-    } else if (deliveryMethod === "text") {
+    } else {
       const result = await sharePdfByText(blob, filename, data);
       if (result === "cancelled") {
         window.location.href = "completed.html?method=text&cancelled=1";
@@ -619,3 +603,8 @@ setupConditionalFields();
 prefillFromUrl();
 updateAgeAndParentFields();
 updateTextShareAvailability();
+
+requestAnimationFrame(() => {
+  participantPad.resize();
+  parentPad.resize();
+});

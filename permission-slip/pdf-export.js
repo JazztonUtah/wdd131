@@ -46,9 +46,6 @@ function signatureRow(label, signatureData, dateValue) {
 }
 
 function buildOfficialFormHtml(data) {
-  const showParent =
-    data.parentSignature?.startsWith("data:image") || data.parentSignDate;
-
   return `<div class="off-pdf-header">
       <div class="off-church-name">The Church of Jesus Christ<br>of Latter-day Saints</div>
       <h1 class="off-title">Permission and Medical Release Form</h1>
@@ -176,15 +173,11 @@ function buildOfficialFormHtml(data) {
     </div>
 
     ${signatureRow("Participant's signature", data.participantSignature, data.participantSignDate)}
-    ${
-      showParent
-        ? signatureRow(
-            "Parent or guardian's signature (if participant is a minor)",
-            data.parentSignature,
-            data.parentSignDate
-          )
-        : ""
-    }
+    ${signatureRow(
+      "Parent or guardian's signature (if participant is a minor)",
+      data.parentSignature,
+      data.parentSignDate
+    )}
 
     <div class="off-footer">
       <span></span>
