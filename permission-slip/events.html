@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Events | Permission Slip</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="events-storage.js"></script>
+    <script src="events.js" defer></script>
+  </head>
+  <body>
+    <header class="form-header">
+      <p class="org-name">The Church of Jesus Christ of Latter-day Saints</p>
+      <h1>Manage Events</h1>
+      <nav class="form-nav">
+        <a href="index.html">← Permission slip form</a>
+        &nbsp;·&nbsp;
+        <a href="../East Bench/index.html">East Bench Chapel</a>
+      </nav>
+    </header>
+
+    <section id="pinGate" class="pin-gate">
+      <div class="pin-gate-card form-section">
+        <h2>Leader access</h2>
+        <p class="section-note">Enter the ward PIN to add or edit events.</p>
+        <form id="pinForm">
+          <div class="form-group">
+            <label for="pinInput">PIN</label>
+            <input
+              type="password"
+              id="pinInput"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="4"
+              autocomplete="off"
+              required
+              placeholder="••••"
+            />
+          </div>
+          <p id="pinError" class="pin-error hide" role="alert">Incorrect PIN. Try again.</p>
+          <button type="submit" class="btn btn-primary">Enter</button>
+        </form>
+      </div>
+    </section>
+
+    <main id="eventsContent" class="events-main hide">
+      <p class="intro">
+        Add events here once. Parents can then pick an event from the dropdown on the
+        permission slip form and the details will fill in automatically.
+      </p>
+
+      <section class="errors" id="eventErrors" aria-live="polite"></section>
+
+      <form id="eventForm" class="form-section event-form-card">
+        <h2 id="eventFormTitle">Add new event</h2>
+        <input type="hidden" id="eventId" name="eventId" />
+
+        <div class="form-group">
+          <label for="eventName">Event name</label>
+          <input type="text" id="eventName" name="eventName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="eventDateType">Date(s) of event</label>
+          <select id="eventDateType" name="eventDateType" required>
+            <option value="">Select one or multiple days</option>
+            <option value="single">One day</option>
+            <option value="multiple">Multiple days</option>
+          </select>
+        </div>
+
+        <div id="singleDayDates" class="event-date-fields conditional hide">
+          <div class="form-group">
+            <label for="eventDateSingle">Event date</label>
+            <input
+              type="text"
+              id="eventDateSingle"
+              class="date-picker-input"
+              placeholder="Select a date"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div id="multipleDayDates" class="event-date-fields conditional hide">
+          <div class="form-group">
+            <label for="eventDateRange">Event dates</label>
+            <input
+              type="text"
+              id="eventDateRange"
+              class="date-picker-input"
+              placeholder="Select first and last day"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDescription"
+            >Describe event and activities (please be specific)</label
+          >
+          <textarea id="eventDescription" name="eventDescription" rows="3" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ward">Ward</label>
+            <select id="ward" name="ward" required>
+              <option value="Santaquin 10th Ward" selected>Santaquin 10th Ward</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="stake">Stake</label>
+            <select id="stake" name="stake" required>
+              <option value="Santaquin East Stake" selected>Santaquin East Stake</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="leaderName">Event or activity leader</label>
+          <input type="text" id="leaderName" name="leaderName" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="leaderPhone">Event or activity leader’s phone number</label>
+            <input type="tel" id="leaderPhone" name="leaderPhone" required />
+          </div>
+          <div class="form-group">
+            <label for="leaderEmail">Event or activity leader’s email</label>
+            <input type="email" id="leaderEmail" name="leaderEmail" required />
+          </div>
+        </div>
+
+        <div class="form-actions form-actions--left">
+          <button type="submit" class="btn btn-primary" id="saveEventBtn">Save event</button>
+          <button type="button" class="btn btn-secondary hide" id="cancelEditBtn">
+            Cancel edit
+          </button>
+        </div>
+      </form>
+
+      <section class="saved-events-section">
+        <h2>Saved events</h2>
+        <p id="noEventsMsg" class="section-note">No events saved yet. Add one above.</p>
+        <ul id="savedEventsList" class="saved-events-list"></ul>
+      </section>
+    </main>
+
+    <footer id="eventsFooter" class="hide">
+      <p>&copy; 2025 DIY DeVin LLC</p>
+    </footer>
+  </body>
+</html>

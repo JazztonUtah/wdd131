@@ -340,8 +340,77 @@ function setupConditionalFields() {
   });
 }
 
+function applySavedEvent(event) {
+  if (!event) return;
+
+  document.getElementById("eventName").value = event.eventName || "";
+  document.getElementById("eventDescription").value = event.eventDescription || "";
+  document.getElementById("ward").value = event.ward || "Santaquin 10th Ward";
+  document.getElementById("stake").value = event.stake || "Santaquin East Stake";
+  document.getElementById("leaderName").value = event.leaderName || "";
+  document.getElementById("leaderPhone").value = event.leaderPhone || "";
+  document.getElementById("leaderEmail").value = event.leaderEmail || "";
+
+  if (event.eventDateType && event.dateStart) {
+    eventDateType.value = event.eventDateType;
+    eventDateType.dispatchEvent(new Event("change"));
+
+    if (event.eventDateType === "single") {
+      singleDatePicker?.setDate(event.dateStart, true);
+    } else if (event.eventDateType === "multiple") {
+      rangeDatePicker?.setDate([event.dateStart, event.dateEnd || event.dateStart], true);
+    }
+    syncEventDatesField();
+  }
+}
+
+function populateSavedEventsDropdown() {
+  const select = document.getElementById("savedEventSelect");
+  if (!select) return;
+
+  const currentValue = select.value;
+  select.innerHTML = '<option value="">— Enter event details manually —</option>';
+
+  getStoredEvents().forEach((event) => {
+    const option = document.createElement("option");
+    option.value = event.id;
+    option.textContent = event.eventName;
+    select.appendChild(option);
+  });
+
+  if (currentValue && getEventById(currentValue)) {
+    select.value = currentValue;
+  }
+}
+
+function setupSavedEventSelect() {
+  const select = document.getElementById("savedEventSelect");
+  if (!select) return;
+
+  populateSavedEventsDropdown();
+
+  select.addEventListener("change", () => {
+    const event = getEventById(select.value);
+    if (event) {
+      applySavedEvent(event);
+    }
+  });
+}
+
 function prefillFromUrl() {
   const params = new URLSearchParams(window.location.search);
+  const savedEventId = params.get("event");
+
+  if (savedEventId) {
+    const stored = getEventById(savedEventId);
+    if (stored) {
+      const select = document.getElementById("savedEventSelect");
+      if (select) select.value = savedEventId;
+      applySavedEvent(stored);
+      return;
+    }
+  }
+
   const map = {
     event: "eventName",
     dates: "eventDates",
@@ -599,6 +668,7 @@ dobInput.addEventListener("input", updateAgeAndParentFields);
 
 setDefaultSignDate();
 setupEventDateFields();
+setupSavedEventSelect();
 setupConditionalFields();
 prefillFromUrl();
 updateAgeAndParentFields();

@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="events-storage.js"></script>
     <script src="pdf-export.js"></script>
     <script src="script.js" defer></script>
   </head>
@@ -27,26 +28,38 @@
       <p class="org-name">The Church of Jesus Christ of Latter-day Saints</p>
       <h1>Permission and Medical Release Form</h1>
       <nav class="form-nav">
-        <a href="../East Bench/index.html">← East Bench Chapel</a>
+        <a href="events.html">Manage events</a>
+        &nbsp;·&nbsp;
+        <a href="../East Bench/index.html">East Bench Chapel</a>
       </nav>
     </header>
 
     <main>
       <p class="intro">
         Children and youth need permission from a parent or guardian to participate
-        in Church activities, especially those involving overnight stays, travel,
-        or activities with inherent risks. This form helps leaders plan for safety
-        and appropriate accommodations.
+        in Church activities. This permission and medical release form must be
+        completed and signed by a parent or guardian for activities that extend beyond
+        regularly scheduled meetings or classes, including activities that involve
+        overnight stays, travel beyond the local area, or any activity with additional
+        risks that may require leaders to plan and prepare differently to help
+        participants be safe.
       </p>
 
       <section class="errors" id="formErrors" aria-live="polite"></section>
 
       <form id="permissionForm" novalidate>
         <fieldset class="form-section">
-          <legend>Event details</legend>
+          <legend>Event details (to be filled out by event planner)</legend>
           <p class="section-note">
-            Event leaders: complete this section before sharing the form with parents.
+            Select a saved event below, or
+            <a href="events.html">add events on the manage events page</a>.
           </p>
+          <div class="form-group">
+            <label for="savedEventSelect">Select saved event</label>
+            <select id="savedEventSelect">
+              <option value="">— Enter event details manually —</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="eventName">Event</label>
             <input type="text" id="eventName" name="eventName" required />
@@ -132,11 +145,11 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="leaderPhone">Leader's phone number</label>
+              <label for="leaderPhone">Event or activity leader’s phone number</label>
               <input type="tel" id="leaderPhone" name="leaderPhone" required />
             </div>
             <div class="form-group">
-              <label for="leaderEmail">Leader's email</label>
+              <label for="leaderEmail">Event or activity leader’s email</label>
               <input type="email" id="leaderEmail" name="leaderEmail" required />
             </div>
           </div>
@@ -233,22 +246,22 @@
           <legend>Medical information</legend>
 
           <div class="yes-no-group">
-            <span class="yes-no-label">Special diet?</span>
+            <span class="yes-no-label">Does the participant require a special diet?</span>
             <label><input type="radio" name="specialDiet" value="yes" required /> Yes</label>
             <label><input type="radio" name="specialDiet" value="no" /> No</label>
           </div>
           <div class="form-group conditional hide" data-show-when="specialDiet:yes">
-            <label for="dietExplain">If yes, explain dietary restrictions</label>
+            <label for="dietExplain">If yes, please explain the dietary restrictions</label>
             <textarea id="dietExplain" name="dietExplain" rows="2"></textarea>
           </div>
 
           <div class="yes-no-group">
-            <span class="yes-no-label">Allergies?</span>
+            <span class="yes-no-label">Does the participant have any allergies?</span>
             <label><input type="radio" name="allergies" value="yes" required /> Yes</label>
             <label><input type="radio" name="allergies" value="no" /> No</label>
           </div>
           <div class="form-group conditional hide" data-show-when="allergies:yes">
-            <label for="allergiesList">If yes, list allergies</label>
+            <label for="allergiesList">If yes, please list the allergies</label>
             <textarea id="allergiesList" name="allergiesList" rows="2"></textarea>
           </div>
 
@@ -281,7 +294,7 @@
           <legend>Conditions that limit activity</legend>
 
           <div class="yes-no-group">
-            <span class="yes-no-label">Chronic or recurring illness?</span>
+            <span class="yes-no-label">Does the participant have a chronic or recurring illness?</span>
             <label
               ><input type="radio" name="chronicIllness" value="yes" required />
               Yes</label
@@ -294,13 +307,13 @@
             class="form-group conditional hide"
             data-show-when="chronicIllness:yes"
           >
-            <label for="chronicExplain">If yes, explain</label>
+            <label for="chronicExplain">If yes, please explain</label>
             <textarea id="chronicExplain" name="chronicExplain" rows="2"></textarea>
           </div>
 
           <div class="yes-no-group">
             <span class="yes-no-label"
-              >Surgery or serious illness in the past year?</span
+              >Has the participant had surgery or a serious illness in the past year?</span
             >
             <label
               ><input type="radio" name="recentIllness" value="yes" required />
@@ -314,7 +327,7 @@
             class="form-group conditional hide"
             data-show-when="recentIllness:yes"
           >
-            <label for="recentExplain">If yes, explain</label>
+            <label for="recentExplain">If yes, please explain</label>
             <textarea id="recentExplain" name="recentExplain" rows="2"></textarea>
           </div>
 
@@ -342,21 +355,37 @@
 
         <fieldset class="form-section permission-section">
           <legend>Permission</legend>
-          <div class="legal-text">
+          <div class="legal-text legal-text--cols">
             <p>
-              I give permission for the participant named above to participate in
-              the event or activity described in this form. I authorize adult
-              leaders to seek emergency medical treatment for the participant if I
-              cannot be reached. I understand that Church units may not be able to
-              accommodate every need or restriction and that participation is a
-              privilege. The participant agrees to abide by Church standards and
-              Christlike behavior during the activity.
+              I give permission for my child or youth (or if signing on my own behalf,
+              as a leader attending this activity, I personally consent) to participate
+              in the event and activities listed above (unless noted) and authorize the
+              adult leaders supervising this event to administer emergency treatment to
+              the above-named participant for any accident or illness and to act in my
+              stead in approving necessary medical care. This authorization shall cover
+              this event and travel to and from this event. Please note: Units may not
+              have the ability to meet all medical, physical, and other accommodations
+              and are asked to counsel with parents or guardians on what is possible.
+              The participant is responsible for his or her own conduct and is aware of
+              and
+            </p>
+            <p>
+              agrees to abide by Church standards, camp or event safety rules, and other
+              pertinent instructions. The participant’s conduct and interactions should
+              abide by Church standards and exemplify Christlike behavior, including those
+              listed on “Conduct at Church Activities” below. Parents and participants
+              should understand that participation in an activity is not a right but a
+              privilege that can be revoked if participants behave inappropriately or if
+              they pose a risk to themselves or others. This information is collected to
+              help event and activity leaders or medical personnel so they can be prepared
+              and appropriately respond to health concerns or an emergency. It will be
+              kept confidential and shared only as needed.
             </p>
           </div>
 
           <div class="signature-block">
             <div class="form-group">
-              <label id="participantSignatureLabel">Participant's signature</label>
+              <label id="participantSignatureLabel">Participant’s signature</label>
               <p class="signature-hint">Sign in the box below using your finger or mouse.</p>
               <div class="signature-pad-wrap">
                 <canvas
@@ -393,7 +422,7 @@
             <div class="signature-block">
               <div class="form-group">
                 <label id="parentSignatureLabel"
-                  >Parent or guardian's signature (if participant is a minor)</label
+                  >Parent or guardian’s signature (if participant is a minor)</label
                 >
                 <p id="parentSignatureNote" class="signature-hint">
                   Required if the participant is under 18.
@@ -432,6 +461,86 @@
           </label>
         </fieldset>
 
+        <fieldset class="form-section conduct-section">
+          <legend>Please read and take note</legend>
+          <article class="conduct-content">
+            <h2 class="conduct-title">Conduct at Church Activities</h2>
+            <p class="conduct-intro">
+              The Savior Jesus Christ invites us to live as He did (see 3 Nephi 27:21),
+              including at events and activities. The goal for every activity is to have
+              fun, build faith, love and serve each other, and grow spiritually. Everyone
+              benefits when we follow these guidelines.
+            </p>
+            <div class="conduct-columns">
+              <div class="conduct-col">
+                <h3>These things can make the activity fun and uplifting:</h3>
+                <ul>
+                  <li>
+                    <strong>Remembering Who You Are:</strong> Trust in the Lord and follow
+                    gospel principles.
+                  </li>
+                  <li>
+                    <strong>Respecting Privacy:</strong> Be smart about using media and
+                    social media. Ask permission before taking or posting pictures or
+                    videos of others.
+                  </li>
+                  <li>
+                    <strong>Being Safe:</strong> Create an environment where others feel
+                    safe, welcomed, and able to feel God’s love.
+                  </li>
+                  <li>
+                    <strong>Keeping It Friendly and Fun:</strong> Be a friend; reach out and
+                    be kind to everyone. Remember, these events are about making friends,
+                    not about romantic behavior or drama.
+                  </li>
+                  <li>
+                    <strong>Being Engaged:</strong> Participate in and contribute as an
+                    influence for good by being a light to others.
+                  </li>
+                </ul>
+              </div>
+              <div class="conduct-col">
+                <h3>
+                  These things distract from and are not allowed during the event or
+                  activity:
+                </h3>
+                <ul>
+                  <li>
+                    <strong>No Immorality:</strong> No talking about, encouraging, or
+                    engaging in any sexual activity. No immoral behavior, including making
+                    sexual advances. No sharing or viewing pornography.
+                  </li>
+                  <li>
+                    <strong>No Harm:</strong> No bullying, threatening, or harming yourself
+                    or others in any way—physically, spiritually, or emotionally.
+                  </li>
+                  <li>
+                    <strong>No Weapons or Harmful Substances:</strong> Do not bring
+                    dangerous or illegal items. Stay clean. Follow the Word of Wisdom.
+                  </li>
+                  <li>
+                    <strong>No Stealing or Vandalism:</strong> Respect other people’s
+                    property.
+                  </li>
+                  <li>
+                    <strong>No Disruptions:</strong> Cooperate. For minors, do not skip
+                    activities, miss curfew, or leave without notifying leaders.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <p class="conduct-closing">
+              These guidelines keep everyone safe. If you do not follow them, you may have
+              to go home, and for minors, your parents will be notified. Leaders will also
+              report crimes and other harmful or destructive incidents (including pranks) to
+              local authorities as required by law.
+            </p>
+            <p class="conduct-closing conduct-closing--emphasis">
+              Remember the Savior’s example, keep it fun, and build faith!
+            </p>
+          </article>
+        </fieldset>
+
         <fieldset class="form-section delivery-section">
           <legend>How would you like to submit?</legend>
           <div class="delivery-options">
@@ -461,6 +570,7 @@
     </main>
 
     <div id="officialFormPdf" class="official-form-pdf" aria-hidden="true"></div>
+    <div id="officialConductPdf" class="official-form-pdf conduct-pdf-page" aria-hidden="true"></div>
 
     <footer>
       <p class="footer-note">

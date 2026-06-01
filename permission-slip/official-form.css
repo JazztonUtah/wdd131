@@ -6,10 +6,10 @@
   width: 8.5in;
   background: #fff;
   color: #000;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 9pt;
-  line-height: 1.25;
-  padding: 0.45in 0.5in 0.35in;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  line-height: 1.2;
+  padding: 0.4in 0.45in 0.3in;
   box-sizing: border-box;
 }
 
@@ -19,55 +19,68 @@
 
 .off-pdf-header {
   display: grid;
-  grid-template-columns: 2.1in 1fr;
-  gap: 0.15in;
+  grid-template-columns: 2.15in 1fr;
+  gap: 0.1in;
   align-items: start;
-  margin-bottom: 0.12in;
+  margin-bottom: 0.08in;
+}
+
+.off-logo-area {
+  padding-top: 0.02in;
 }
 
 .off-church-name {
-  font-size: 7.5pt;
+  font-size: 7pt;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
   text-transform: uppercase;
+  margin: 0;
+  color: #1a1a1a;
 }
 
 .off-title {
   text-align: center;
-  font-size: 13pt;
+  font-size: 12pt;
   font-weight: 700;
   margin: 0;
-  padding-top: 0.05in;
+  padding-top: 0.08in;
+  letter-spacing: 0.01em;
 }
 
 .off-intro {
-  font-size: 8.5pt;
-  margin: 0 0 0.1in;
+  font-size: 7.5pt;
+  margin: 0 0 0.08in;
   text-align: justify;
+  line-height: 1.25;
 }
 
 .off-rule {
   border: none;
-  border-top: 2px solid #000;
-  margin: 0.08in 0;
+  border-top: 2.5px solid #000;
+  margin: 0.06in 0;
 }
 
 .off-section-title {
   font-weight: 700;
-  font-size: 9pt;
-  margin: 0.06in 0 0.05in;
+  font-size: 8.5pt;
+  margin: 0.05in 0 0.04in;
+}
+
+.off-section-sub {
+  font-weight: 400;
+  font-size: 7.5pt;
 }
 
 .off-row {
   display: flex;
-  gap: 0.12in;
-  margin-bottom: 0.07in;
+  gap: 0.1in;
+  margin-bottom: 0.055in;
   align-items: flex-end;
 }
 
 .off-row--tight {
-  margin-bottom: 0.05in;
+  margin-bottom: 0.04in;
 }
 
 .off-field {
@@ -75,85 +88,140 @@
   min-width: 0;
 }
 
-.off-field--sm {
-  flex: 0 0 1.1in;
+.off-field--event {
+  flex: 2.2;
 }
 
-.off-field--md {
-  flex: 0 0 1.45in;
+.off-field--dates {
+  flex: 1;
 }
 
-.off-field--lg {
+.off-field--half {
+  flex: 1;
+}
+
+.off-field--third {
+  flex: 1;
+}
+
+.off-field--participant {
+  flex: 2.5;
+}
+
+.off-field--dob {
+  flex: 1;
+}
+
+.off-field--age {
+  flex: 0.55;
+}
+
+.off-field--addr {
   flex: 2;
 }
 
+.off-field--city {
+  flex: 1;
+}
+
+.off-field--state {
+  flex: 1;
+}
+
 .off-label {
-  font-size: 8pt;
+  font-size: 7pt;
   display: block;
   margin-bottom: 1px;
+  line-height: 1.15;
 }
 
 .off-value {
   display: block;
   border-bottom: 1px solid #000;
-  min-height: 0.16in;
-  font-size: 9pt;
+  min-height: 0.14in;
+  font-size: 8pt;
   padding: 0 2px 1px;
   word-break: break-word;
+  line-height: 1.2;
 }
 
 .off-value--multi {
-  min-height: 0.28in;
+  min-height: 0.22in;
 }
 
-.off-yn-row {
+.off-yn-inline-row {
   display: flex;
-  align-items: center;
-  gap: 0.08in;
-  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.06in;
   margin-bottom: 0.05in;
+  flex-wrap: nowrap;
+}
+
+.off-yn-inline-row--compact {
+  margin-bottom: 0.03in;
+}
+
+.off-yn-stacked {
+  margin-bottom: 0.04in;
 }
 
 .off-yn-question {
   flex: 0 0 auto;
-  font-size: 8.5pt;
-  margin-right: 0.05in;
+  font-size: 7.5pt;
+  max-width: 1.65in;
+  line-height: 1.15;
+  padding-bottom: 2px;
 }
 
 .off-yn {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 8.5pt;
-  margin-right: 0.1in;
+  gap: 2px;
+  font-size: 7.5pt;
+  margin-right: 0.06in;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+}
+
+.off-field--explain {
+  flex: 1;
+  min-width: 0;
 }
 
 .off-box {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border: 1px solid #000;
   vertical-align: middle;
   position: relative;
+  background: #fff;
 }
 
 .off-box.on::after {
   content: "✓";
   position: absolute;
-  left: 0;
-  top: -3px;
-  font-size: 11px;
+  left: -1px;
+  top: -4px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
+}
+
+.off-note {
+  font-size: 7pt;
+  margin: 0 0 0.05in;
+  font-style: italic;
 }
 
 .off-permission-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.15in;
-  font-size: 7.5pt;
+  gap: 0.12in;
+  font-size: 6.5pt;
   text-align: justify;
-  margin: 0.08in 0;
+  line-height: 1.22;
+  margin: 0.05in 0 0.06in;
 }
 
 .off-permission-cols p {
@@ -162,8 +230,8 @@
 
 .off-sig-row {
   display: flex;
-  gap: 0.2in;
-  margin-top: 0.1in;
+  gap: 0.15in;
+  margin-top: 0.06in;
   align-items: flex-end;
 }
 
@@ -172,7 +240,7 @@
 }
 
 .off-sig-img {
-  height: 0.45in;
+  height: 0.4in;
   border-bottom: 1px solid #000;
   display: flex;
   align-items: flex-end;
@@ -180,31 +248,88 @@
 }
 
 .off-sig-img img {
-  max-height: 0.42in;
+  max-height: 0.38in;
   max-width: 100%;
   object-fit: contain;
   object-position: left bottom;
 }
 
 .off-sig-label {
-  font-size: 7.5pt;
+  font-size: 7pt;
   margin-top: 2px;
 }
 
 .off-sig-date {
-  flex: 0 0 1.2in;
+  flex: 0 0 1.15in;
 }
 
 .off-footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 0.12in;
-  font-size: 7pt;
+  margin-top: 0.08in;
+  font-size: 6.5pt;
   color: #333;
 }
 
 .off-page-num {
   flex: 1;
   text-align: center;
+  font-size: 7pt;
+}
+
+/* Conduct page (PDF page 2) */
+.conduct-pdf-page {
+  padding-top: 0.45in;
+}
+
+.off-conduct-title {
+  text-align: center;
+  font-size: 13pt;
+  font-weight: 700;
+  margin: 0 0 0.1in;
+}
+
+.off-conduct-intro {
+  font-size: 8pt;
+  text-align: justify;
+  margin: 0 0 0.1in;
+  line-height: 1.25;
+}
+
+.off-conduct-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.14in;
+  margin-bottom: 0.08in;
+}
+
+.off-conduct-col h3 {
+  font-size: 7.5pt;
+  font-weight: 700;
+  margin: 0 0 0.05in;
+}
+
+.off-conduct-col ul {
+  margin: 0;
+  padding-left: 0.13in;
+  font-size: 7pt;
+  line-height: 1.2;
+}
+
+.off-conduct-col li {
+  margin-bottom: 0.045in;
+}
+
+.off-conduct-closing {
+  font-size: 7pt;
+  text-align: justify;
+  margin: 0 0 0.05in;
+  line-height: 1.22;
+}
+
+.off-conduct-emphasis {
+  font-weight: 700;
+  text-align: center;
+  margin-top: 0.06in;
 }
