@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Permission and Medical Release Form</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="official-form.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="pdf-export.js"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="form-header">
+      <p class="org-name">The Church of Jesus Christ of Latter-day Saints</p>
+      <h1>Permission and Medical Release Form</h1>
+      <nav class="form-nav">
+        <a href="../East Bench/index.html">← East Bench Chapel</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="intro">
+        Children and youth need permission from a parent or guardian to participate
+        in Church activities, especially those involving overnight stays, travel,
+        or activities with inherent risks. This form helps leaders plan for safety
+        and appropriate accommodations.
+      </p>
+
+      <section class="errors" id="formErrors" aria-live="polite"></section>
+
+      <form id="permissionForm" novalidate>
+        <fieldset class="form-section">
+          <legend>Event details</legend>
+          <p class="section-note">
+            Event leaders: complete this section before sharing the form with parents.
+          </p>
+          <div class="form-group">
+            <label for="eventName">Event</label>
+            <input type="text" id="eventName" name="eventName" required />
+          </div>
+          <div class="form-group">
+            <label for="eventDateType">Date(s) of event</label>
+            <select id="eventDateType" name="eventDateType" required>
+              <option value="">Select one or multiple days</option>
+              <option value="single">One day</option>
+              <option value="multiple">Multiple days</option>
+            </select>
+          </div>
+          <div
+            id="singleDayDates"
+            class="event-date-fields conditional hide"
+            data-date-mode="single"
+          >
+            <div class="form-group">
+              <label for="eventDateSingle">Event date</label>
+              <p class="signature-hint">Click the field to open the calendar.</p>
+              <input
+                type="text"
+                id="eventDateSingle"
+                class="date-picker-input"
+                placeholder="Select a date"
+                readonly
+              />
+            </div>
+          </div>
+          <div
+            id="multipleDayDates"
+            class="event-date-fields conditional hide"
+            data-date-mode="multiple"
+          >
+            <div class="form-group">
+              <label for="eventDateRange">Event dates</label>
+              <p class="signature-hint">
+                Click the field to open the calendar, then choose the first and last
+                day.
+              </p>
+              <input
+                type="text"
+                id="eventDateRange"
+                class="date-picker-input"
+                placeholder="Select first and last day"
+                readonly
+              />
+            </div>
+          </div>
+          <input type="hidden" id="eventDates" name="eventDates" required />
+          <div class="form-group">
+            <label for="eventDescription"
+              >Describe event and activities (please be specific)</label
+            >
+            <textarea
+              id="eventDescription"
+              name="eventDescription"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ward">Ward</label>
+              <select id="ward" name="ward" required>
+                <option value="Santaquin 10th Ward" selected>
+                  Santaquin 10th Ward
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="stake">Stake</label>
+              <select id="stake" name="stake" required>
+                <option value="Santaquin East Stake" selected>
+                  Santaquin East Stake
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="leaderName">Event or activity leader</label>
+            <input type="text" id="leaderName" name="leaderName" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="leaderPhone">Leader's phone number</label>
+              <input type="tel" id="leaderPhone" name="leaderPhone" required />
+            </div>
+            <div class="form-group">
+              <label for="leaderEmail">Leader's email</label>
+              <input type="email" id="leaderEmail" name="leaderEmail" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Contact information</legend>
+          <div class="form-group">
+            <label for="participantName">Participant</label>
+            <input
+              type="text"
+              id="participantName"
+              name="participantName"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div class="form-row form-row--three">
+            <div class="form-group">
+              <label for="dateOfBirth">Date of birth</label>
+              <input
+                type="date"
+                id="dateOfBirth"
+                name="dateOfBirth"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                min="0"
+                max="120"
+                readonly
+                aria-readonly="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="participantPhone">Telephone number</label>
+              <input
+                type="tel"
+                id="participantPhone"
+                name="participantPhone"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State or province</label>
+              <input
+                type="text"
+                id="state"
+                name="state"
+                autocomplete="address-level1"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="emergencyContact"
+              >Emergency contact (parent or guardian)</label
+            >
+            <input type="text" id="emergencyContact" name="emergencyContact" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="primaryPhone">Primary telephone number</label>
+              <input type="tel" id="primaryPhone" name="primaryPhone" required />
+            </div>
+            <div class="form-group">
+              <label for="secondaryPhone">Secondary telephone number</label>
+              <input type="tel" id="secondaryPhone" name="secondaryPhone" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Medical information</legend>
+
+          <div class="yes-no-group">
+            <span class="yes-no-label">Special diet?</span>
+            <label><input type="radio" name="specialDiet" value="yes" required /> Yes</label>
+            <label><input type="radio" name="specialDiet" value="no" /> No</label>
+          </div>
+          <div class="form-group conditional hide" data-show-when="specialDiet:yes">
+            <label for="dietExplain">If yes, explain dietary restrictions</label>
+            <textarea id="dietExplain" name="dietExplain" rows="2"></textarea>
+          </div>
+
+          <div class="yes-no-group">
+            <span class="yes-no-label">Allergies?</span>
+            <label><input type="radio" name="allergies" value="yes" required /> Yes</label>
+            <label><input type="radio" name="allergies" value="no" /> No</label>
+          </div>
+          <div class="form-group conditional hide" data-show-when="allergies:yes">
+            <label for="allergiesList">If yes, list allergies</label>
+            <textarea id="allergiesList" name="allergiesList" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="medications"
+              >List all prescription or over-the-counter (OTC) medications the
+              participant is taking. Leave blank if none.</label
+            >
+            <textarea id="medications" name="medications" rows="3"></textarea>
+          </div>
+
+          <div class="yes-no-group">
+            <span class="yes-no-label"
+              >Can the participant self-administer his or her medication?</span
+            >
+            <label
+              ><input type="radio" name="selfAdminister" value="yes" required />
+              Yes</label
+            >
+            <label
+              ><input type="radio" name="selfAdminister" value="no" /> No</label
+            >
+          </div>
+          <p class="field-note">
+            If no, please contact the event or activity leader directly.
+          </p>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Conditions that limit activity</legend>
+
+          <div class="yes-no-group">
+            <span class="yes-no-label">Chronic or recurring illness?</span>
+            <label
+              ><input type="radio" name="chronicIllness" value="yes" required />
+              Yes</label
+            >
+            <label
+              ><input type="radio" name="chronicIllness" value="no" /> No</label
+            >
+          </div>
+          <div
+            class="form-group conditional hide"
+            data-show-when="chronicIllness:yes"
+          >
+            <label for="chronicExplain">If yes, explain</label>
+            <textarea id="chronicExplain" name="chronicExplain" rows="2"></textarea>
+          </div>
+
+          <div class="yes-no-group">
+            <span class="yes-no-label"
+              >Surgery or serious illness in the past year?</span
+            >
+            <label
+              ><input type="radio" name="recentIllness" value="yes" required />
+              Yes</label
+            >
+            <label
+              ><input type="radio" name="recentIllness" value="no" /> No</label
+            >
+          </div>
+          <div
+            class="form-group conditional hide"
+            data-show-when="recentIllness:yes"
+          >
+            <label for="recentExplain">If yes, explain</label>
+            <textarea id="recentExplain" name="recentExplain" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="otherLimits"
+              >Identify any other limits, restrictions, or disabilities that could
+              prevent the participant from fully participating in the event or
+              activity.</label
+            >
+            <textarea id="otherLimits" name="otherLimits" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Other accommodations or special needs</legend>
+          <div class="form-group">
+            <label for="specialNeeds"
+              >Identify any other needs or considerations the participant has that
+              the event or activity planner should be aware of (attach additional
+              pages if needed).</label
+            >
+            <textarea id="specialNeeds" name="specialNeeds" rows="4"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section permission-section">
+          <legend>Permission</legend>
+          <div class="legal-text">
+            <p>
+              I give permission for the participant named above to participate in
+              the event or activity described in this form. I authorize adult
+              leaders to seek emergency medical treatment for the participant if I
+              cannot be reached. I understand that Church units may not be able to
+              accommodate every need or restriction and that participation is a
+              privilege. The participant agrees to abide by Church standards and
+              Christlike behavior during the activity.
+            </p>
+          </div>
+
+          <div class="signature-block">
+            <div class="form-group">
+              <label id="participantSignatureLabel">Participant's signature</label>
+              <p class="signature-hint">Sign in the box below using your finger or mouse.</p>
+              <div class="signature-pad-wrap">
+                <canvas
+                  id="participantSignaturePad"
+                  class="signature-canvas"
+                  aria-labelledby="participantSignatureLabel"
+                ></canvas>
+              </div>
+              <input
+                type="hidden"
+                id="participantSignatureData"
+                name="participantSignature"
+              />
+              <button
+                type="button"
+                class="btn-clear-signature"
+                data-clear="participantSignaturePad"
+              >
+                Clear signature
+              </button>
+            </div>
+            <div class="form-group signature-date">
+              <label for="participantSignDate">Date</label>
+              <input
+                type="date"
+                id="participantSignDate"
+                name="participantSignDate"
+                required
+              />
+            </div>
+          </div>
+
+          <div id="parentSignatureBlock" class="parent-signature-block hide">
+            <div class="signature-block">
+              <div class="form-group">
+                <label id="parentSignatureLabel"
+                  >Parent or guardian's signature (if participant is a minor)</label
+                >
+                <p class="signature-hint">Sign in the box below using your finger or mouse.</p>
+                <div class="signature-pad-wrap">
+                  <canvas
+                    id="parentSignaturePad"
+                    class="signature-canvas"
+                    aria-labelledby="parentSignatureLabel"
+                  ></canvas>
+                </div>
+                <input
+                  type="hidden"
+                  id="parentSignatureData"
+                  name="parentSignature"
+                />
+                <button
+                  type="button"
+                  class="btn-clear-signature"
+                  data-clear="parentSignaturePad"
+                >
+                  Clear signature
+                </button>
+              </div>
+              <div class="form-group signature-date">
+                <label for="parentSignDate">Date</label>
+                <input type="date" id="parentSignDate" name="parentSignDate" />
+              </div>
+            </div>
+          </div>
+
+          <label class="consent-checkbox">
+            <input type="checkbox" id="electronicConsent" name="electronicConsent" required />
+            I agree that my signature above constitutes my electronic signature.
+          </label>
+        </fieldset>
+
+        <fieldset class="form-section delivery-section">
+          <legend>How would you like to submit?</legend>
+          <div class="delivery-options">
+            <label class="delivery-option">
+              <input
+                type="radio"
+                name="deliveryMethod"
+                value="email"
+                checked
+              />
+              Email to ward — downloads PDF and opens your email app to
+              santaquin10thward@gmail.com (you attach the file and send)
+            </label>
+            <label class="delivery-option">
+              <input type="radio" name="deliveryMethod" value="download" />
+              Download PDF only (official form layout)
+            </label>
+            <label class="delivery-option" id="textShareOption">
+              <input type="radio" name="deliveryMethod" value="text" />
+              Text / share PDF — choose who to send it to in Messages
+            </label>
+            <p id="textShareNote" class="delivery-note"></p>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn btn-primary">
+            Submit permission slip
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <div id="officialFormPdf" class="official-form-pdf" aria-hidden="true"></div>
+
+    <footer>
+      <p class="footer-note">
+        Based on the official Permission and Medical Release Form. Download, email, or
+        text the PDF to your leader.
+      </p>
+      <p>&copy; 2025 DIY DeVin LLC</p>
+    </footer>
+  </body>
+</html>

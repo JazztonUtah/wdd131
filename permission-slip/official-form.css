@@ -1,0 +1,210 @@
+/* Official Permission and Medical Release Form — print/PDF layout */
+.official-form-pdf {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 8.5in;
+  background: #fff;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  line-height: 1.25;
+  padding: 0.45in 0.5in 0.35in;
+  box-sizing: border-box;
+}
+
+.official-form-pdf * {
+  box-sizing: border-box;
+}
+
+.off-pdf-header {
+  display: grid;
+  grid-template-columns: 2.1in 1fr;
+  gap: 0.15in;
+  align-items: start;
+  margin-bottom: 0.12in;
+}
+
+.off-church-name {
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.off-title {
+  text-align: center;
+  font-size: 13pt;
+  font-weight: 700;
+  margin: 0;
+  padding-top: 0.05in;
+}
+
+.off-intro {
+  font-size: 8.5pt;
+  margin: 0 0 0.1in;
+  text-align: justify;
+}
+
+.off-rule {
+  border: none;
+  border-top: 2px solid #000;
+  margin: 0.08in 0;
+}
+
+.off-section-title {
+  font-weight: 700;
+  font-size: 9pt;
+  margin: 0.06in 0 0.05in;
+}
+
+.off-row {
+  display: flex;
+  gap: 0.12in;
+  margin-bottom: 0.07in;
+  align-items: flex-end;
+}
+
+.off-row--tight {
+  margin-bottom: 0.05in;
+}
+
+.off-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.off-field--sm {
+  flex: 0 0 1.1in;
+}
+
+.off-field--md {
+  flex: 0 0 1.45in;
+}
+
+.off-field--lg {
+  flex: 2;
+}
+
+.off-label {
+  font-size: 8pt;
+  display: block;
+  margin-bottom: 1px;
+}
+
+.off-value {
+  display: block;
+  border-bottom: 1px solid #000;
+  min-height: 0.16in;
+  font-size: 9pt;
+  padding: 0 2px 1px;
+  word-break: break-word;
+}
+
+.off-value--multi {
+  min-height: 0.28in;
+}
+
+.off-yn-row {
+  display: flex;
+  align-items: center;
+  gap: 0.08in;
+  flex-wrap: wrap;
+  margin-bottom: 0.05in;
+}
+
+.off-yn-question {
+  flex: 0 0 auto;
+  font-size: 8.5pt;
+  margin-right: 0.05in;
+}
+
+.off-yn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 8.5pt;
+  margin-right: 0.1in;
+}
+
+.off-box {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #000;
+  vertical-align: middle;
+  position: relative;
+}
+
+.off-box.on::after {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.off-permission-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.15in;
+  font-size: 7.5pt;
+  text-align: justify;
+  margin: 0.08in 0;
+}
+
+.off-permission-cols p {
+  margin: 0;
+}
+
+.off-sig-row {
+  display: flex;
+  gap: 0.2in;
+  margin-top: 0.1in;
+  align-items: flex-end;
+}
+
+.off-sig-block {
+  flex: 1;
+}
+
+.off-sig-img {
+  height: 0.45in;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.off-sig-img img {
+  max-height: 0.42in;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+.off-sig-label {
+  font-size: 7.5pt;
+  margin-top: 2px;
+}
+
+.off-sig-date {
+  flex: 0 0 1.2in;
+}
+
+.off-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 0.12in;
+  font-size: 7pt;
+  color: #333;
+}
+
+.off-page-num {
+  flex: 1;
+  text-align: center;
+}
