@@ -518,6 +518,49 @@ textarea {
   display: none;
 }
 
+.publish-notice--top {
+  display: block;
+  background: #eef3e4;
+  border-color: var(--accent);
+}
+
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.download-status {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  min-height: 1.25rem;
+}
+
+.json-fallback {
+  margin-top: 0.5rem;
+}
+
+.json-fallback summary {
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  margin-bottom: 0.35rem;
+}
+
+#eventsJsonPreview {
+  width: 100%;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  resize: vertical;
+}
+
 .publish-notice h3 {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.15rem;

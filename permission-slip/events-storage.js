@@ -73,13 +73,37 @@ function deleteStoredEvent(id) {
   publishedEvents = publishedEvents.filter((e) => e.id !== id);
 }
 
+function getEventsJsonString() {
+  return JSON.stringify(getAllEvents(), null, 2);
+}
+
 function downloadEventsJsonForDeploy() {
-  const json = JSON.stringify(getAllEvents(), null, 2);
-  const blob = new Blob([json], { type: "application/json" });
+  const events = getAllEvents();
+  const json = getEventsJsonString();
+  const blob = new Blob([json], { type: "application/json;charset=utf-8" });
   const url = URL.createObjectURL(blob);
+
   const link = document.createElement("a");
   link.href = url;
   link.download = "events.json";
+  link.rel = "noopener";
+  link.style.display = "none";
+  document.body.appendChild(link);
   link.click();
-  URL.revokeObjectURL(url);
+
+  setTimeout(() => {
+    link.remove();
+    URL.revokeObjectURL(url);
+  }, 500);
+
+  return events.length;
+}
+
+async function copyEventsJsonToClipboard() {
+  const json = getEventsJsonString();
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(json);
+    return true;
+  }
+  return false;
 }

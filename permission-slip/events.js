@@ -142,9 +142,67 @@ function formatEventDates(event) {
   return `${start.toLocaleDateString("en-US", opts)} – ${end.toLocaleDateString("en-US", opts)}`;
 }
 
-function showPublishNotice() {
-  const notice = document.getElementById("publishNotice");
-  if (notice) notice.hidden = false;
+function updateEventsJsonPreview() {
+  const preview = document.getElementById("eventsJsonPreview");
+  if (preview) preview.value = getEventsJsonString();
+}
+
+function setDownloadStatus(message, isError = false) {
+  const status = document.getElementById("downloadStatus");
+  if (!status) return;
+  status.textContent = message;
+  status.style.color = isError ? "#8b3a3a" : "";
+}
+
+function triggerEventsDownload() {
+  const count = getAllEvents().length;
+  if (count === 0) {
+    setDownloadStatus("Save at least one event first, then download.", true);
+    return;
+  }
+
+  updateEventsJsonPreview();
+
+  try {
+    downloadEventsJsonForDeploy();
+    setDownloadStatus(
+      `Download started (${count} event${count === 1 ? "" : "s"}). Upload events.json to your permission-slip folder on the server.`
+    );
+  } catch {
+    setDownloadStatus(
+      "Download blocked. Use “Copy JSON to clipboard” or copy from the box below.",
+      true
+    );
+  }
+}
+
+async function triggerEventsCopy() {
+  const count = getAllEvents().length;
+  if (count === 0) {
+    setDownloadStatus("Save at least one event first.", true);
+    return;
+  }
+
+  updateEventsJsonPreview();
+
+  try {
+    const copied = await copyEventsJsonToClipboard();
+    if (copied) {
+      setDownloadStatus(
+        `Copied ${count} event${count === 1 ? "" : "s"} to clipboard. Paste into events.json on your computer and upload to the server.`
+      );
+      return;
+    }
+  } catch {
+    /* fall through */
+  }
+
+  const preview = document.getElementById("eventsJsonPreview");
+  if (preview) {
+    preview.focus();
+    preview.select();
+    setDownloadStatus("Select all in the box below (Cmd/Ctrl+A) and copy, then save as events.json.", true);
+  }
 }
 
 function renderSavedEvents() {
@@ -190,6 +248,7 @@ function renderSavedEvents() {
       if (confirm(`Delete "${event.eventName}"?`)) {
         deleteStoredEvent(event.id);
         renderSavedEvents();
+        updateEventsJsonPreview();
         if (eventIdInput.value === event.id) resetEventForm();
       }
     });
@@ -264,19 +323,18 @@ function initEventsPage() {
     upsertEvent(eventData);
     resetEventForm();
     renderSavedEvents();
-    downloadEventsJsonForDeploy();
-    showPublishNotice();
+    updateEventsJsonPreview();
+    setDownloadStatus("Event saved. Click “Download events.json” when you are ready to upload it.");
   });
 
   cancelEditBtn.addEventListener("click", resetEventForm);
 
-  document.getElementById("exportEventsBtn")?.addEventListener("click", () => {
-    downloadEventsJsonForDeploy();
-    showPublishNotice();
-  });
+  document.getElementById("exportEventsBtn")?.addEventListener("click", triggerEventsDownload);
+  document.getElementById("copyEventsBtn")?.addEventListener("click", triggerEventsCopy);
 
   setupEventDateFields();
   renderSavedEvents();
+  updateEventsJsonPreview();
 }
 
 async function startEventsApp() {
