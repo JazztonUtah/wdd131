@@ -24,5 +24,18 @@
     "eventDateType": "multiple",
     "dateStart": "2026-06-22",
     "dateEnd": "2026-06-26"
+  },
+    {
+    "id": "girlscamp2026",
+    "eventName": "YW Girls Camp",
+    "eventDescription": "Staying 4 days and 3 nights at cabin in Timber Lakes above Heber, Utah. We will be spending time at the cabin doing crafts, playing games, having devotional, and other similar activities. We will be watching David for our movie night. We will be going on a hike near the cabin. We will also be spending time at Deer Creek Reservoir playing in the water and spending time on the beach.",
+    "ward": "Santaquin 10th Ward",
+    "stake": "Santaquin East Stake",
+    "leaderName": "Sister Richardson",
+    "leaderPhone": "801 851 0641",
+    "leaderEmail": "beccasue.rich@gmail.com",
+    "eventDateType": "multiple",
+    "dateStart": "2026-07-14",
+    "dateEnd": "2026-07-17"
   }
 ]
