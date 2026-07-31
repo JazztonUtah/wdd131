@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trailgrade — Baby Llama Conformation Calculator</title>
+    <meta
+      name="description"
+      content="Estimate mature height and score baby llama conformation against 22 elite US pack llamas."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Trailgrade</a>
+      <nav>
+        <a href="#evaluate">Evaluate</a>
+        <a href="#panel">Elite Panel</a>
+        <a href="#how">How it judges</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="brand-mark">Trailgrade</p>
+          <h1>Baby llama conformation, measured like a pack stock buyer.</h1>
+          <p class="lede">
+            Enter cria measurements and a photo. We project mature wither height
+            and score structure against 22 of the best pack llamas in the United
+            States — picky on purpose.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#evaluate">Start evaluation</a>
+            <a class="btn ghost" href="#panel">See the reference herd</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="ridge ridge-1"></div>
+          <div class="ridge ridge-2"></div>
+          <div class="ridge ridge-3"></div>
+          <div class="pack-silhouette"></div>
+        </div>
+      </section>
+
+      <section id="evaluate" class="evaluate">
+        <div class="section-head">
+          <h2>Evaluate a cria</h2>
+          <p>
+            Measure in inches. Use a measuring stick at the withers; keep the
+            cria standing square on level ground. Ratings should be honest —
+            soft scoring helps no one on the trail.
+          </p>
+        </div>
+
+        <form id="eval-form" class="eval-form" novalidate>
+          <div class="form-layout">
+            <div class="photo-block">
+              <label class="photo-drop" for="photo">
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  accept="image/*"
+                  hidden
+                />
+                <div class="photo-preview" id="photo-preview">
+                  <span class="photo-hint">Drop a side or three-quarter photo</span>
+                  <span class="photo-sub">or click to upload</span>
+                </div>
+              </label>
+              <p class="field-note">
+                Photo is for your record and visual review — scoring uses the
+                measurements and ratings below.
+              </p>
+            </div>
+
+            <div class="fields">
+              <fieldset>
+                <legend>Identity</legend>
+                <div class="grid-2">
+                  <label>
+                    Name (optional)
+                    <input type="text" name="name" placeholder="e.g. Summit" />
+                  </label>
+                  <label>
+                    Sex
+                    <select name="sex" required>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </label>
+                  <label>
+                    Age (months)
+                    <input
+                      type="number"
+                      name="ageMonths"
+                      min="0"
+                      max="36"
+                      step="0.5"
+                      required
+                      placeholder="6"
+                    />
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Core structure</legend>
+                <div class="grid-2">
+                  <label>
+                    Wither height (in)
+                    <input
+                      type="number"
+                      name="witherHeight"
+                      min="18"
+                      max="52"
+                      step="0.25"
+                      required
+                      placeholder="34"
+                    />
+                  </label>
+                  <label>
+                    Hip height (in)
+                    <input
+                      type="number"
+                      name="hipHeight"
+                      min="18"
+                      max="52"
+                      step="0.25"
+                      required
+                      placeholder="34"
+                    />
+                  </label>
+                  <label>
+                    Current weight (lb)
+                    <input
+                      type="number"
+                      name="weight"
+                      min="20"
+                      max="450"
+                      step="1"
+                      required
+                      placeholder="140"
+                    />
+                  </label>
+                  <label>
+                    Front leg length (in)
+                    <input
+                      type="number"
+                      name="legLength"
+                      min="10"
+                      max="40"
+                      step="0.25"
+                      required
+                      placeholder="20"
+                      title="Elbow / armpit to ground"
+                    />
+                  </label>
+                  <label>
+                    Girth depth (in)
+                    <input
+                      type="number"
+                      name="girthDepth"
+                      min="8"
+                      max="30"
+                      step="0.25"
+                      required
+                      placeholder="16"
+                      title="Withers to brisket / bottom of chest"
+                    />
+                  </label>
+                  <label>
+                    Width between forelegs (in)
+                    <input
+                      type="number"
+                      name="chestWidth"
+                      min="2"
+                      max="12"
+                      step="0.25"
+                      required
+                      placeholder="4.5"
+                    />
+                  </label>
+                  <label>
+                    Cannon circumference (in)
+                    <input
+                      type="number"
+                      name="cannon"
+                      min="3.5"
+                      max="8"
+                      step="0.125"
+                      required
+                      placeholder="4.5"
+                      title="Tape just below the knee on a front leg"
+                    />
+                  </label>
+                  <label>
+                    Neck length (in)
+                    <input
+                      type="number"
+                      name="neckLength"
+                      min="8"
+                      max="35"
+                      step="0.25"
+                      required
+                      placeholder="14"
+                    />
+                  </label>
+                  <label>
+                    Back length (in)
+                    <input
+                      type="number"
+                      name="backLength"
+                      min="10"
+                      max="40"
+                      step="0.25"
+                      required
+                      placeholder="21"
+                      title="Withers to point of hip"
+                    />
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Visual ratings (be harsh)</legend>
+                <div class="grid-2">
+                  <label>
+                    Pasterns
+                    <select name="pastern" required>
+                      <option value="upright">Upright & strong</option>
+                      <option value="springy">Springy but sound</option>
+                      <option value="soft">Soft / sagging</option>
+                      <option value="dropped">Dropped (fetlock low)</option>
+                    </select>
+                  </label>
+                  <label>
+                    Stance / alignment
+                    <select name="stance" required>
+                      <option value="narrow">Narrow athletic</option>
+                      <option value="medium">Medium</option>
+                      <option value="wide">Wide / base-wide</option>
+                      <option value="cow-hock">Cow-hocked</option>
+                      <option value="sickle">Sickle-hocked</option>
+                    </select>
+                  </label>
+                  <label>
+                    Topline
+                    <select name="topline" required>
+                      <option value="level">Level</option>
+                      <option value="slight-hip">Slightly high in hip</option>
+                      <option value="high-hip">Clearly higher in hip</option>
+                      <option value="sway">Sway back</option>
+                      <option value="roach">Roach back</option>
+                    </select>
+                  </label>
+                  <label>
+                    Chest & thigh muscling
+                    <select name="muscling" required>
+                      <option value="excellent">Excellent definition</option>
+                      <option value="good">Good</option>
+                      <option value="fair">Fair</option>
+                      <option value="poor">Poor / smooth</option>
+                    </select>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="form-actions">
+                <button type="button" class="btn ghost" id="fill-sample">
+                  Fill sample cria
+                </button>
+                <button type="submit" class="btn primary submit-btn">
+                  Run elite comparison
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div id="results" class="results" hidden>
+          <div class="results-hero">
+            <div class="score-ring-wrap">
+              <svg class="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="ring-bg" cx="60" cy="60" r="52" />
+                <circle class="ring-fg" id="score-ring-fg" cx="60" cy="60" r="52" />
+              </svg>
+              <div class="score-number">
+                <span id="score-value">—</span>
+                <small>/ 100</small>
+              </div>
+            </div>
+            <div class="results-summary">
+              <p class="animal-label" id="result-name">Untitled cria</p>
+              <h3 id="result-grade">—</h3>
+              <p id="result-panel-summary" class="panel-summary"></p>
+              <div class="height-callout">
+                <span class="height-label">Estimated mature height</span>
+                <span class="height-value" id="height-estimate">—</span>
+                <span class="height-range" id="height-range"></span>
+                <span class="height-note" id="height-note"></span>
+              </div>
+              <div class="height-callout weight-callout">
+                <span class="height-label">Estimated mature weight</span>
+                <span class="height-value" id="weight-estimate">—</span>
+                <span class="height-range" id="weight-range"></span>
+                <span class="height-note" id="weight-note"></span>
+              </div>
+            </div>
+            <div class="result-photo" id="result-photo" hidden></div>
+          </div>
+
+          <div id="penalties" class="penalties" hidden></div>
+
+          <div class="category-list" id="category-list"></div>
+
+          <div class="matches">
+            <h4>Closest elite matches</h4>
+            <ul id="match-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel" class="panel-section">
+        <div class="section-head">
+          <h2>Elite US pack reference panel</h2>
+          <p>
+            Every evaluation is compared against these
+            <strong id="panel-count">22</strong> animals and composites drawn
+            from documented Ccara, PLTA Master Packer, and classic pack breeding
+            programs across the country.
+          </p>
+        </div>
+        <div class="panel-grid" id="panel-grid"></div>
+      </section>
+
+      <section id="how" class="how-section">
+        <div class="section-head">
+          <h2>How Trailgrade judges</h2>
+          <p>Standards lean hard toward athletic pack structure — not show wool or pet types.</p>
+        </div>
+        <ul class="standards">
+          <li>
+            <strong>Sex-specific height bands</strong>
+            Males target about 43.5–47″; females 42–45.5″. A shorter female is judged against elite females — not docked for failing male size.
+          </li>
+          <li>
+            <strong>Lean weight for the frame</strong>
+            Males ideally ~6.5–7.7 lb per inch of height; females ~7.0–8.0. Extra bulk is a disadvantage on the trail — panel targets stay under ~360–400 lb.
+          </li>
+          <li>
+            <strong>Legs 2″+ longer than girth depth</strong>
+            A Ccara screening disqualifier below 2″. Elite mean sits closer to 3″+ (slightly less for females).
+          </li>
+          <li>
+            <strong>Chest under 6″ between forelegs</strong>
+            Narrow stance = less wasted energy pacing under pack.
+          </li>
+          <li>
+            <strong>Neck ≈ ⅔ of back</strong>
+            Balance for counterweight on uneven trail — same for both sexes.
+          </li>
+          <li>
+            <strong>Short strong back, level topline</strong>
+            Long loins leak hindquarter thrust; high hips shove loads forward.
+          </li>
+          <li>
+            <strong>Upright pasterns, sex-appropriate bone, real muscle</strong>
+            Females ideal cannon ~5.2–5.9″; males ~5.6–6.25″. Dropped pasterns end packing careers.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Trailgrade · Baby llama conformation vs elite US pack stock · Educational
+        estimate only — trail performance still rules.
+      </p>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
