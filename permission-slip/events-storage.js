@@ -23,13 +23,21 @@ async function loadPublishedEvents() {
     const url = resolveAssetUrl("events.json");
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
+      console.error(`Could not load events.json (${response.status})`);
       publishedEvents = [];
       return publishedEvents;
     }
-    const data = await response.json();
-    publishedEvents = Array.isArray(data) ? data : [];
+    const text = await response.text();
+    const data = JSON.parse(text);
+    if (!Array.isArray(data)) {
+      console.error("events.json must be a JSON array of events");
+      publishedEvents = [];
+      return publishedEvents;
+    }
+    publishedEvents = data;
     return publishedEvents;
-  } catch {
+  } catch (error) {
+    console.error("Failed to parse events.json — check for trailing commas or other invalid JSON.", error);
     publishedEvents = [];
     return publishedEvents;
   }

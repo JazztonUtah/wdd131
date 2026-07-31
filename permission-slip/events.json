@@ -25,7 +25,7 @@
     "dateStart": "2026-06-22",
     "dateEnd": "2026-06-26"
   },
-    {
+  {
     "id": "evt_jul30_2026",
     "eventName": "Activity Days Pool Party",
     "eventDescription": "Activity Days Pool Party consists of swimming and games at the pool.",
@@ -34,11 +34,11 @@
     "leaderName": "Kristen Jolie",
     "leaderPhone": "503 888 5053",
     "leaderEmail": "krystenjolie@yahoo.com",
-    "eventDateType": "multiple",
-    "dateStart": "2026-06-22",
-    "dateEnd": "2026-06-26"
+    "eventDateType": "single",
+    "dateStart": "2026-08-13",
+    "dateEnd": "2026-08-13"
   },
-      {
+  {
     "id": "evt_Aug04_2026",
     "eventName": "YW Pool Party",
     "eventDescription": "YW Pool Party consists of swimming and games at the pool.",
@@ -47,8 +47,8 @@
     "leaderName": "Sister Richardson",
     "leaderPhone": "801 851 0641",
     "leaderEmail": "beccasue.rich@gmail.com",
-    "eventDateType": "multiple",
+    "eventDateType": "single",
     "dateStart": "2026-08-04",
     "dateEnd": "2026-08-04"
-  },
+  }
 ]
